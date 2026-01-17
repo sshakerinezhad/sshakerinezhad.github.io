@@ -10,6 +10,10 @@ Always ask yourself, is this the simplest solution? Will this cause problems dow
 
 Personal portfolio website for Shayan Shakeri. GitHub Pages site with a Windows 95 aesthetic.
 
+## Tech Stack
+
+This is a static GitHub Pages site using plain HTML/CSS/JS with CDN-hosted libraries (98.css, WinBox.js, Font Awesome). No build step — just push and deploy.
+
 ## Session Management
 
 - `.claude/masterplan.md` - Long-term multi-step plans spanning multiple sessions

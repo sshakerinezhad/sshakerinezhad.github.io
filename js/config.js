@@ -74,10 +74,10 @@ const CONFIG = {
   },
 
   socials: {
-    github: { url: 'https://github.com/sshakerinezhad', icon: '💻', title: 'GitHub' },
-    twitter: { url: 'https://twitter.com/TheSigilliteX', icon: '🐦', title: 'Twitter' },
-    linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: '💼', title: 'LinkedIn' },
-    email: { url: 'mailto:sshakerinezhad@gmail.com', icon: '✉️', title: 'Email' }
+    github: { url: 'https://github.com/sshakerinezhad', icon: 'fa-brands fa-github', title: 'GitHub' },
+    twitter: { url: 'https://twitter.com/TheSigilliteX', icon: 'fa-brands fa-x-twitter', title: 'Twitter' },
+    linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: 'fa-brands fa-linkedin', title: 'LinkedIn' },
+    email: { url: 'mailto:sshakerinezhad@gmail.com', icon: 'fa-solid fa-envelope', title: 'Email' }
   },
 
   isMobile: () => window.innerWidth <= CONFIG.mobile.breakpoint

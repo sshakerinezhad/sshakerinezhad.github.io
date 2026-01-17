@@ -42,7 +42,7 @@ class DesktopIcons {
       link.href = config.url;
       link.target = config.url.startsWith('mailto:') ? '_self' : '_blank';
       link.title = config.title;
-      link.textContent = config.icon;
+      link.innerHTML = `<i class="${config.icon}"></i>`;
       container.appendChild(link);
     });
   }

@@ -14,6 +14,7 @@ Personal portfolio for Shayan Shakeri with authentic Windows 95 aesthetic — dr
 **Libraries:**
 - **98.css** — Mature CSS framework for Win98 styling (CDN)
 - **WinBox.js** — Zero-dependency window management: drag, resize, minimize, maximize (CDN)
+- **Font Awesome 6.7.2** — Professional social media icons (CDN)
 
 ---
 
@@ -22,15 +23,18 @@ Personal portfolio for Shayan Shakeri with authentic Windows 95 aesthetic — dr
 ```
 index.html
 ├── css/
-│   ├── main.css          # Layout, desktop, responsive
+│   ├── main.css          # Layout, desktop, WinBox overrides
 │   ├── taskbar.css       # Taskbar styles
-│   └── windows.css       # Window content styling
+│   ├── desktop-icons.css # Desktop icons and header styling
+│   └── mobile.css        # Mobile responsiveness (tabs/scroll modes)
 ├── js/
-│   ├── main.js           # Entry point
+│   ├── config.js         # Centralized configuration
+│   ├── app.js            # Entry point
 │   ├── window-manager.js # Window state/logic
 │   ├── taskbar.js        # Taskbar functionality
-│   ├── desktop.js        # Desktop icons
-│   └── easter-eggs.js    # Hidden features
+│   ├── desktop-icons.js  # Desktop icons and header socials
+│   ├── easter-eggs.js    # Hidden features
+│   └── mobile-nav.js     # Mobile navigation handler
 ├── icons/                # Pixel art icons (32x32)
 ├── images/               # Wallpaper, profile photo
 └── sounds/               # Optional: click, startup sounds
@@ -101,8 +105,8 @@ index.html
 **Windows:**
 | ID | Title | Auto-open | Hidden |
 |----|-------|-----------|--------|
-| about | About.exe | Yes | No |
-| projects | Research & Projects | Yes | No |
+| about | About.exe | Yes (centered) | No |
+| projects | Research & Projects | No | No |
 | plugs | Shameless Plugs | No | No |
 | merlyn | Merlyn Labs | No | No |
 | dnd | D&D Corner | No | **Yes** |
@@ -156,13 +160,42 @@ index.html
 
 **Deferred:** Secret word trigger + declassified animation (user wants to add later)
 
-### Phase 5: Mobile & Accessibility
-- Responsive breakpoints
-- Disable dragging on mobile
-- Window dimensions should use `min(400px, 90vw)` or similar for mobile viewports
-- Touch targets (taskbar buttons) need larger hit areas on mobile
-- Keyboard navigation
-- ARIA labels
+### Phase 5: Mobile Responsiveness ✅ COMPLETE
+- [x] Two switchable mobile modes: `'tabs'` and `'scroll'` (configurable in `CONFIG.mobile.mode`)
+- [x] Mobile breakpoint at 480px
+- [x] Tabs mode: Bottom nav with 4 buttons, one window at a time, centered on screen
+- [x] Scroll mode: All windows as stacked cards, vertical scroll
+- [x] Desktop (>480px) unchanged — full Win95 experience
+- [x] Disable dragging/resizing on mobile (`no-move`, `no-resize` classes)
+- [x] Touch-friendly targets (44px+ height for buttons)
+- [x] Header scales up on mobile (56px height, 18px name font)
+- [x] Taskbar/desktop icons hidden on mobile
+
+**Files created:**
+- `css/mobile.css` — All responsive CSS for both mobile modes
+- `js/mobile-nav.js` — MobileNav class handling tabs/scroll modes
+
+**Files modified:**
+- `js/config.js` — Added `CONFIG.mobile` with mode setting and `isMobile()` helper
+- `index.html` — Added mobile.css link, bottom nav HTML, window stack container
+- `js/window-manager.js` — Mobile window sizing, no-move/no-resize classes, adjusted bounds
+- `js/app.js` — Initialize MobileNav, conditional auto-open based on device/mode
+
+### Phase 5.5: UI Polish ✅ COMPLETE
+- [x] Header name enlarged (14px → 18px) for visibility
+- [x] Only About window opens on load (centered)
+- [x] Social icons replaced with Font Awesome brand icons (GitHub, X/Twitter, LinkedIn, Email)
+
+**Files modified:**
+- `css/desktop-icons.css` — Increased header name font size
+- `js/config.js` — About window centered, Projects not auto-open, social icons use FA classes
+- `js/desktop-icons.js` — Render social icons as `<i>` elements with FA classes
+- `index.html` — Added Font Awesome CDN link
+
+### Phase 6: Accessibility (TODO)
+- [ ] Keyboard navigation
+- [ ] ARIA labels
+- [ ] Focus indicators
 
 ---
 

@@ -2,43 +2,44 @@
 
 ## What Was Done This Session
 
-### Phase 4: Easter Eggs & Polish - COMPLETE
-Implemented all planned features from the workplan:
+### Phase 5: Mobile Responsiveness - PLANNED
+Created comprehensive mobile plan after discussing UX options with user.
 
-1. **Konami Code** (↑↑↓↓BA) → Opens hidden D&D Corner window
-2. **Console Hint** → "🎲 Secret portal detected..." with instructions
-3. **Coming Soon Dialog** → Win95-style error when clicking `.coming-soon` elements
-4. **Sound System** → Muted by default, 🔇/🔊 toggle in system tray
+**Key decisions:**
+- Two switchable mobile modes: `'tabs'` and `'scroll'`
+- Change one config value to swap between them for testing
+- Desktop (>480px) remains completely unchanged
+- Mobile hides taskbar/desktop icons, shows bottom nav (tabs mode) or stacked cards (scroll mode)
 
-**Files created:**
-- `js/easter-eggs.js` — EasterEggs class with all features
-- `sounds/README.md` — Instructions for adding audio files
-
-**Files modified:**
-- `index.html` — Added script tag, sound toggle button
-- `js/app.js` — Instantiates EasterEggs, sound toggle handler
-- `css/taskbar.css` — Tray button styling
-- `.claude/masterplan.md` — Updated Phase 4 as complete
-
-**Note:** Startup sound only plays when user clicks sound toggle to enable (not on page load since muted by default). User needs to add actual `startup.mp3` and `reveal.mp3` to `sounds/` folder.
-
-**Deferred:** Secret word trigger + declassified animation (user wants to add later)
+**Plan written to:** `.claude/workplan.md`
 
 ## Current State
 - Phases 1, 2, 3, 3.5, 4 **complete**
-- Phase 5 (Mobile & Accessibility) **not started**
-- Site is fully functional on desktop
+- Phase 5 (Mobile) **planned, not implemented**
+- Full workplan ready in `.claude/workplan.md`
 
-## Next Steps (Phase 5)
-1. Responsive breakpoints for mobile
-2. Disable window dragging on mobile
-3. Window dimensions: `min(400px, 90vw)` for mobile viewports
-4. Larger touch targets for taskbar buttons
-5. Keyboard navigation
-6. ARIA labels
+## Next Steps (Implementation)
+
+### Files to Create
+1. `css/mobile.css` — All responsive CSS for both modes
+2. `js/mobile-nav.js` — MobileNav class handling tabs/scroll modes
+
+### Files to Modify
+3. `js/config.js` — Add `CONFIG.mobile` with mode setting + `isMobile()` helper
+4. `index.html` — Add mobile.css link, nav HTML, script tag
+5. `js/window-manager.js` — Mobile window sizing + no-move/no-resize classes
+6. `js/app.js` — Initialize MobileNav, conditional auto-open
+
+### How to Switch Modes (for testing)
+In `js/config.js`:
+```javascript
+CONFIG.mobile = {
+  breakpoint: 480,
+  mode: 'tabs',  // ← CHANGE TO 'scroll' TO TEST OTHER MODE
+};
+```
 
 ## Files Reference
 - Masterplan: `.claude/masterplan.md`
-- Workplan: `.claude/workplan.md` (can be updated for Phase 5)
-- Easter eggs: `js/easter-eggs.js`
-- Sound toggle: System tray in `index.html`, handler in `js/app.js`
+- Workplan: `.claude/workplan.md` (full Phase 5 implementation plan)
+- Plan file: `C:\Users\User\.claude\plans\quizzical-gathering-giraffe.md` (copy of workplan)

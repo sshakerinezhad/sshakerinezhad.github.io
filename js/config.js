@@ -2,14 +2,19 @@
  * Site configuration - all window definitions live here
  */
 const CONFIG = {
+  mobile: {
+    breakpoint: 480,
+    mode: 'tabs'  // 'tabs' or 'scroll'
+  },
+
   windows: {
     about: {
       id: 'about',
       title: 'About.exe',
       width: 420,
       height: 300,
-      x: 80,
-      y: 60,
+      x: 'center',
+      y: 'center',
       contentId: 'about-content',
       openOnLoad: true
     },
@@ -21,7 +26,7 @@ const CONFIG = {
       x: 140,
       y: 100,
       contentId: 'projects-content',
-      openOnLoad: true
+      openOnLoad: false
     },
     plugs: {
       id: 'plugs',
@@ -73,5 +78,7 @@ const CONFIG = {
     twitter: { url: 'https://twitter.com/TheSigilliteX', icon: '🐦', title: 'Twitter' },
     linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: '💼', title: 'LinkedIn' },
     email: { url: 'mailto:sshakerinezhad@gmail.com', icon: '✉️', title: 'Email' }
-  }
+  },
+
+  isMobile: () => window.innerWidth <= CONFIG.mobile.breakpoint
 };

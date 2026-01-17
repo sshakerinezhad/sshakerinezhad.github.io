@@ -1,0 +1,136 @@
+/**
+ * Mobile Responsiveness - Windows 95 Portfolio
+ * Supports two modes: 'tabs' (one window at a time) and 'scroll' (stacked cards)
+ */
+
+@media (max-width: 480px) {
+  /* Header: 32px → 56px, larger text/buttons */
+  #header {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .header-name {
+    font-size: 18px;
+  }
+
+  .social-link {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  /* Hide desktop-only elements */
+  #desktop-icons {
+    display: none;
+  }
+
+  #taskbar {
+    display: none;
+  }
+
+  #start-menu {
+    display: none !important;
+  }
+
+  /* === TABS MODE === */
+  body.mobile-tabs #desktop {
+    top: 56px;
+    bottom: 60px;
+  }
+
+  body.mobile-tabs #mobile-nav {
+    display: flex;
+  }
+
+  body.mobile-tabs .winbox {
+    width: calc(100vw - 16px) !important;
+    max-width: 400px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* === SCROLL MODE === */
+  body.mobile-scroll #desktop {
+    top: 56px;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  body.mobile-scroll #mobile-nav {
+    display: none;
+  }
+
+  body.mobile-scroll #window-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 8px;
+  }
+
+  body.mobile-scroll .window-card {
+    background: var(--surface);
+    border: 2px solid;
+    border-color: #dfdfdf #808080 #808080 #dfdfdf;
+  }
+
+  body.mobile-scroll .window-card-title {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+  }
+
+  body.mobile-scroll .window-card-content {
+    padding: 12px;
+  }
+}
+
+/* Mobile nav (hidden by default) */
+#mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--surface);
+  border-top: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 8px;
+  z-index: 9999;
+}
+
+#mobile-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 60px;
+  min-height: 48px;
+  background: var(--surface);
+  border: 2px outset #dfdfdf;
+  font-family: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#mobile-nav button:active {
+  border-style: inset;
+}
+
+#mobile-nav button span {
+  font-size: 10px;
+}
+
+#mobile-nav button.active {
+  border-style: inset;
+  background: #c0c0c0;
+}
+
+/* Window stack container (hidden by default) */
+#window-stack {
+  display: none;
+}

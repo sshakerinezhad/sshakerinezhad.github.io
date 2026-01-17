@@ -8,6 +8,7 @@
   const taskbar = new Taskbar(windowManager);
   const desktopIcons = new DesktopIcons(windowManager);
   const easterEggs = new EasterEggs(windowManager);
+  const mobileNav = new MobileNav(windowManager);
 
   // Expose for debugging
   window.wm = windowManager;
@@ -25,12 +26,19 @@
     taskbar.init();
     desktopIcons.init();
 
-    // Open windows marked as openOnLoad (skip hidden windows)
-    Object.entries(CONFIG.windows).forEach(([id, config]) => {
-      if (config.openOnLoad && !config.hidden) {
-        windowManager.open(id);
-      }
-    });
+    // Open windows based on device/mode
+    if (CONFIG.isMobile() && CONFIG.mobile.mode === 'tabs') {
+      // Mobile tabs mode: only open About initially
+      windowManager.open('about');
+    } else if (!CONFIG.isMobile()) {
+      // Desktop: open windows marked as openOnLoad (skip hidden windows)
+      Object.entries(CONFIG.windows).forEach(([id, config]) => {
+        if (config.openOnLoad && !config.hidden) {
+          windowManager.open(id);
+        }
+      });
+    }
+    // Scroll mode: windows are rendered as cards by MobileNav, no WinBox needed
 
     console.log('Win95 Portfolio ready!');
   }

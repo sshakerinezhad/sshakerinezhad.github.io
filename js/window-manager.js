@@ -52,19 +52,32 @@ class WindowManager {
       return null;
     }
 
+    const isMobile = CONFIG.isMobile();
+
+    // Skip WinBox entirely in scroll mode on mobile
+    if (isMobile && CONFIG.mobile.mode === 'scroll') {
+      return null;
+    }
+
     const template = document.getElementById(config.contentId);
     const content = template ? template.content.cloneNode(true) : null;
 
+    // Mobile sizing
+    const mobileWidth = Math.min(400, window.innerWidth - 16);
+    const mobileHeight = Math.min(500, window.innerHeight - 130);
+
     const winbox = new WinBox(config.title, {
-      width: config.width,
-      height: config.height,
-      x: config.x,
-      y: config.y,
-      class: ['win95-window', 'no-full'],
+      width: isMobile ? mobileWidth : config.width,
+      height: isMobile ? mobileHeight : config.height,
+      x: isMobile ? 'center' : config.x,
+      y: isMobile ? 'center' : config.y,
+      class: isMobile
+        ? ['win95-window', 'no-full', 'no-move', 'no-resize']
+        : ['win95-window', 'no-full'],
 
       // Constrain windows to desktop area
-      top: 32,      // Below header (32px)
-      bottom: 28,   // Above taskbar (28px)
+      top: isMobile ? 64 : 32,      // Below header (56px on mobile, 32px on desktop)
+      bottom: isMobile ? 68 : 28,   // Above taskbar/nav (60px on mobile, 28px on desktop)
 
       onclose: () => {
         this.windows.delete(id);

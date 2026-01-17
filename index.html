@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/taskbar.css">
   <link rel="stylesheet" href="css/desktop-icons.css">
+  <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
   <!-- Header with name and social links -->
@@ -146,6 +147,17 @@
     </div>
   </template>
 
+  <!-- Mobile bottom nav (tabs mode) -->
+  <nav id="mobile-nav">
+    <button data-window="about">👤<span>About</span></button>
+    <button data-window="projects">📁<span>Projects</span></button>
+    <button data-window="plugs">🔗<span>Links</span></button>
+    <button data-window="merlyn">🧪<span>Merlyn</span></button>
+  </nav>
+
+  <!-- Mobile window stack (scroll mode) -->
+  <div id="window-stack"></div>
+
   <!-- WinBox.js for window management -->
   <script src="https://unpkg.com/winbox/dist/winbox.bundle.min.js"></script>
 
@@ -155,6 +167,7 @@
   <script src="js/taskbar.js"></script>
   <script src="js/desktop-icons.js"></script>
   <script src="js/easter-eggs.js"></script>
+  <script src="js/mobile-nav.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

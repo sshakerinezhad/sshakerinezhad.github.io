@@ -12,9 +12,9 @@
   function init() {
     console.log('Win95 Portfolio initializing...');
 
-    // Open windows marked as openOnLoad
+    // Open windows marked as openOnLoad (skip hidden windows)
     Object.entries(CONFIG.windows).forEach(([id, config]) => {
-      if (config.openOnLoad) {
+      if (config.openOnLoad && !config.hidden) {
         windowManager.open(id);
       }
     });

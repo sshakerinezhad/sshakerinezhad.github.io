@@ -1,0 +1,1671 @@
+﻿Machine Learning Pipeline for More Efficient and Expressive Control of Transhumeral Arm Prosthetics
+
+
+MIE1075 Project Report by Group 11 
+Yasser Sleiman, Shayan Shakeri-Nezhad, Ruifeng Zhu
+________________
+Introduction 
+Arm prosthetics have long been essential in restoring functionality and independence for individuals with upper limb amputations, and thanks to advancements in robotics technology these devices have evolved from basic aesthetic attachments and hooks into sophisticated tools that more closely replicate the complexity of the lost appendage. However, even these modern solutions are far from perfect, demanding extensive training and intact nerves in the user’s remaining limb to function effectively. The severity of the amputation can complicate matters further as greater damage requires more of the arm to be replaced and leaves fewer nerves available for operation. Even under optimal conditions, prosthetic limbs provide a limited range of motion and constrained set of actions, often accompanied by latency due to the complexity of reading and translating biological signals [1].
+As such, our goal for this project is to design a novel prosthetic control pipeline that leverages machine learning as an alternative to the more common direct neural control method. It aims to enable users to perform daily tasks such as grasping or moving objects more efficiently while also expanding their range of possible actions, fostering greater personal expression. 
+The proposed solution reimagines the prosthetic arm as an assistant rather than a tool. It will combine a large language model (LLM) to interpret user commands into machine executable tasks, a computer vision system to provide information on the user’s surroundings, and a control system to integrate their outputs, guiding the prosthetic to perform tasks seamlessly.
+  
+
+Figure 1: Simplified visualization of prosthetic control pipeline
+Background
+The development of a prosthetic control pipeline necessitates the integration of diverse technologies, this section describes the scope of the team’s exploration into each topic as well as some assumptions that were made for the project.
+• Robotic Manipulators
+Modern robotic prosthetics range in complexity and incorporate advanced systems to offer users functionality that mimics a natural arm. These devices often include myoelectric sensors to detect muscle signals and sometimes even haptic sensors that simulate the sense of touch. Typically made from combinations of durable and lightweight materials to offer a frame designed to withstand everyday use. However, these specific aspects are not essential to the pipeline being proposed and can be disregarded for now. For simplicity and simulation, in this project, prosthetics will be treated as simple robotic manipulators.
+What type of manipulator should then be considered? A human arm can be described as having around 7 degrees of freedom (DoF) [2], including shoulder flexion, abduction, and rotation, elbow flexion, forearm pronation, wrist flexion, and radial deviation. This doesn’t account for the articulation of individual fingers which can be simplified to a 1 DoF claw-like mechanism for grasping (opening and closing). This means that the prosthetic’s design and DoF will depend on the height of the user’s amputation (i.e. transradial, transhumeral, or higher), for this project the assumption is that the user has suffered a transhumeral amputation. This was chosen because transhumeral amputees are a common type of amputee [3] and face a more significant loss of functionality compared to lower-arm amputees. The result is a robotic manipulator with around 5 DoF (as the elbow, forearm, wrist, and fingers need to be replaced) whose links and joints should match a natural human arm.
+• Large Language Models
+Large Language Models (LLMs), such as OpenAI's ChatGPT, are trained on extensive datasets, enabling them to perform tasks like text generation, summarization, and interactive dialogue. One emerging application of LLMs leverages their ability to interpret and structure tasks, positioning them as function callers, intermediaries that bridge human instructions with machine-executable commands.
+In this context, function calling involves equipping the LLM with a predefined set of functions it can invoke after decomposing a complex task into actionable subtasks. Research indicates that LLMs excel at parsing intricate user instructions into precise subcommands by leveraging their understanding of semantics and context. For example, in software development, LLMs have been employed to interact with databases, generate code snippets, and automate workflows through predefined function calls.
+In robotics, integrating LLMs introduces a critical abstraction layer, enabling users to communicate desired manipulator actions in natural language rather than navigating complex programming interfaces or grappling with the limitations of direct neural control. In fact, other published projects have attempted to achieve similar LLM based control for robots with success [4][5], these highlight the potential of LLMs to significantly enhance the usability, adaptability, and intuitiveness of robotic systems.
+A key advantage of using LLMs for task decomposition and function calling lies in their semantic understanding and contextual reasoning. This allows them to extrapolate the goals of incomplete or ambiguous commands, deduce how to approach tasks even when the user is uncertain of, and enable more expressive control. For instance, they can facilitate highly specific actions, such as performing small, precise motions that might not be achievable with traditional myoelectric control, for example, raising a single finger to make a gesture.
+• Computer Vision
+Computer vision is a cornerstone of modern robotics, enabling machines to perceive, interpret, and interact with their environment. Among its key applications are object recognition and coordinate triangulation, which are essential for a task like robotic manipulation. Recent advancements in deep learning, particularly in convolutional neural networks (CNNs), have revolutionized object recognition, while sensor fusion techniques integrating camera and LiDAR systems have significantly enhanced spatial understanding and object localization.
+Object recognition involves identifying and classifying objects within an image or video. The YOLO (You Only Look Once) model, introduced by Redmon et al. (2016), is a leading framework in this domain. YOLO employs a single neural network to process the entire image, making predictions for bounding boxes and class probabilities in real-time. Its high-speed inference and accuracy have made it widely used in robotics, autonomous vehicles, and surveillance systems. It’s also capable of detecting objects at varying scales, orientations, and occlusions, as well as in cluttered or dynamic environments;ensuring reliable recognition in real-world scenarios. In the context of the pipeline, YOLO is utilized to identify common task-relevant objects, such as cups. 
+While object recognition identifies and classifies objects, coordinate triangulation determines their precise spatial location. This is achieved by integrating data from multiple sensors, such as cameras and LiDAR systems. The combination of these modalities allows for accurate depth estimation and object localization.
+- Camera-Based Triangulation: Monocular or stereo cameras can estimate object (x,y) coordinates through perspective geometry and feature matching. However, monocular systems are limited by their inability to resolve depth directly, while stereo systems require computationally intensive disparity calculations (Hartley & Zisserman, 2004).
+- LiDAR Integration: LiDAR systems complement cameras by providing precise depth measurements based on laser reflections. By fusing LiDAR data with 2D image data from cameras, a 3D representation of the environment can be constructed. This fusion enhances the robustness of object localization, particularly in environments with poor lighting or high visual complexity (Zhu et al., 2020).
+- Backprojection for Localization: Backprojection is a method used in computer vision to map 2D image pixel coordinates of objects onto their corresponding 3D real-world coordinates by integrating depth data. This calculation is done using the camera's intrinsic parameters, such as focal length and optical center, to project the 2D coordinates back into 3D space. The diagram below represents this process by showing a real-world scene being captured by a camera, and how obtaining depth data allows us to go back to the real world scene.
+  
+
+Figure 2: Diagram visualizing coordinate triangulation, without depth information (z) the object could be any distance away
+In the pipeline, the integration of camera and LiDAR systems enables simultaneous object detection and localization. YOLO identifies objects in 2D image frames, while LiDAR provides complementary depth information. By backprojecting through the combined data, the system triangulates object coordinates with high precision, enabling the robotic manipulator to interact accurately with its surroundings.
+• Control
+Robotic manipulator control algorithms are integral to achieving precise and adaptive movement in a variety of applications, from industrial automation to prosthetics. When working with myoelectrically controlled prosthetics, mapping the body’s electrical signals to joint commands in a smooth and natural manner remains a significant challenge, even in state-of-the-art applications. The team’s proposed pipeline, however, assumes that information about where the prosthetic needs to go is accurately provided, meaning that only kinematics to calculate the position and orientation of the manipulator's end effector, as well as adaptive path planning to navigate dynamic conditions need to be explored. When dealing with manipulators mounted on non-static bases, such as prosthetic arms attached to bicep stumps, these techniques must account for the base's motion, adding complexity to the control pipeline.
+Kinematics focuses on the geometric relationship between a manipulator’s joints and its end effector. Forward Kinematics is a straightforward method to calculate the position and orientation of the end effector based on known joint parameters. Inverse kinematics, in contrast,  determines the joint parameters required to achieve a desired end effector position and orientation. Unlike FK, IK is not always straightforward, as multiple solutions (or none) may exist due to the manipulator's constraints, singularities, or workspace boundaries. For prosthetic applications, IK is particularly important, as it allows the end effector (e.g., a robotic hand) to be guided to desired positions with precision, regardless of the user's stump position.
+Path planning is a critical part of robotic manipulator control, and for manipulators with non-static bases, such as prosthetic arms, path planning is necessary to dynamically adapt to the base’s movement. This requires continuous integration of base motion into the control algorithm. Dynamic path replanning algorithms allow for this by periodically recalculating the prosthetic’s path based on updated base and environmental data. Further exploration into path planning would be required for a full implementation of the system (as explained in the limitations section of the current simulation).
+Methodology
+The methodology for this project was designed to simulate what a complete version prosthetic control pipeline could look like. Each component was developed and tested independently to ensure robust functionality, but the interaction between them was simulated by manually providing the outputs of one step to the next. While the ultimate goal would be to create a seamless system that could autonomously interpret and perform user commands, limitations in hardware and project scope necessitated focusing on the individual steps of the pipeline in a simulated environment.
+• Large Language Model
+To make an LLM, in this case ChatGPT, behave as a function caller and “brain” for the control pipeline it is prompted to take in commands from the user and to determine the most efficient way to achieve the desired outcome. The LLM is also provided with a set of predefined functions that it can mix and match to control the prosthetic manipulator or obtain information about its environment. A version of the prompt used and descriptions of the available functions can be seen below:
+“For the rest of this conversation I want you to act as the brain for a robotic manipulator I am building, this means that when I give you a task I want you to break it down into subtasks based on the functions available to you. Act as a function caller and output only function calls (don't add comments). The robotic manipulator is a trans-humeral prosthetic arm with 5 degrees of freedom (as the elbow, forearm, wrist, and fingers need to be replaced) whose links and joints match a natural human arm. 
+Below are the only functions available to you, you can string as many of them in a row as needed (ignore the fact that the function logic isn't fully written). You must provide all inputs necessary for the functions (such as joint angles and the name of objects relevant to the task) “
+Functions:
+* def set_joint_angles(joint_angles: list[float]):
+   * Allows for forward kinematic control via joint angle setting.
+* def move_to_position(target_position: tuple[float, float, float]):
+   * Allows for inverse kinematic control by providing end effector coordinates and orientation.
+* def set_finger_angles(finger_angles: list[float]):
+   * Allows for detailed control of finger joints. The hand is usually simplified to a claw when individual finger control is not necessary.
+* def open_claw():
+   * Closes grip.
+* def close_claw():
+   * Opens grip.
+* def find_object(image: np.ndarray, target_object: str) -> tuple[float, float, float]:
+   * Queries the computer vision system to locate an object relevant to the task (named by the LLM), and returns their coordinates relative to the robotic manipulator
+        Once the LLM is provided all of this it should respond only with function calls to accomplish whatever goal is given to it. 
+• Computer Vision
+The computer vision system of the prosthetic arm integrates a camera, a LiDAR module, and the YOLO object detection model to enable precise object recognition, depth estimation, and environmental awareness. To test this system, an iPhone was utilized to record both camera and LiDAR data, which was then processed on a computer using the YOLO model. Modern iPhones, equipped with advanced short to medium-range LiDAR sensors and high-quality cameras, provided the team with high-resolution data for effective testing (a real implementation of this pipeline would most likely rely on a shoulder mounted camera/LiDAR system).
+The camera captures frames at a fixed frame rate, which are resized and normalized to match the input requirements of the YOLO model. Meanwhile, the LiDAR sensor, aligned with the camera’s orientation, generates a 3D depth map by measuring distances to objects within its field of view. This alignment ensures that data from both systems are mapped to the same coordinate space, allowing objects detected in the camera frame to share corresponding (x, y) coordinates with the LiDAR depth map. Using this alignment, 2D image coordinates from the camera can be converted into 3D world coordinates through backprojection.
+The YOLO model identifies objects relevant to the prosthetic’s tasks by generating bounding boxes around them in each camera frame. These bounding boxes are then extracted and mapped back onto the LiDAR depth map. The python code to perform this can be found in appendix A. For single-object detection and recognition, the coordinates of the top-left, bottom-right, and center points of the bounding box were extracted. For multiple-object detection and recognition, the coordinates of all four corners and the center point of each bounding box are measured to prevent overlapping or misalignment of bounding boxes between different objects (see Appendix B for sample data collected in both demonstrations)
+By correlating the locations of relevant objects in the image feed with their spatial coordinates in the real world, the prosthetic arm obtains all the necessary information to determine how to move and achieve its operational goals.
+Lastly, the team also explored an outline detection method for identifying the edges of objects within an image. This provides a more detailed representation of the relevant object’s structure which in the future could be used to perform more precise grasping of objects. This is achieved using a Sobel filter, which analyzes changes in pixel intensity. These filters identify regions where intensity shifts significantly, this often corresponds to object boundaries.
+• Prosthetic Control and Simulation
+In order to test how a prosthetic would behave when given the information and commands provided by the earlier steps of the pipeline, the team opted to run simulations in PyBullet, an open-source python module capable of performing realistic physics simulations. Ideally, a one-to-one model of a transhumeral prosthetic would be used for simulation however this could not be obtained, as such two separate models were used to simulate the functionality of a full prosthetic: 
+* The kuka_iiwa 7-joint robotic manipulator which was used to simulate the arm without individual finger control (the last 2 joints are for the manipulator’s gripper and can be ignored)
+* A five fingered hand model to simulate grasping and individual finger control
+  
+
+	  
+
+	Figure 3: kuka_iiwa robotic manipulator
+	Figure 4: Five finger hand model
+	With the simulation set up, the PyBullet toolbox for adaptive inverse kinematics was utilized. By simply providing the chosen target position and orientation of the end effector, the toolbox performed path planning automatically. A set of motion points that the prosthetic would travel through was determined using the calculateInverseKinematics function (IK) and the model is enumerated through this motion path using the setJointMotorControl2 function (FK). These two functions form the basis of motor control in PyBullet and together they can calculate and perform any requisite motion. 
+Even though the pipeline components were tested in isolation, the implementation of the control system was designed to be compatible with the remaining components. This was achieved by wrapping the two previously mentioned critical functions into the custom functions provided to the LLM (e.g. open_claw utilizing setJointMotorControl2 to extend all fingers). 
+The toolbox was also capable of handling time-variable target positions, so simulations where the manipulator continuously pointed to an object in the scene as it was manually moved around were possible. This served as an example of how a prosthetic would handle manipulating an object if it was in motion or if the user was in motion.
+Results
+With the outlined methods implemented, the following results were obtained, and with them additional insight into potential limitations of the proposed pipeline.
+• Large Language Model
+With the LLM set up, it was given tasks to see how well it would perform. Below are some of the results:
+  
+
+Figure 5: LLM attempts to open a door
+        When asked to “open the door”, the LLM recognizes that it most likely needs to reach for a door handle, and so it queries the computer vision system to determine the coordinates of the nearest door handle. After it obtains this information it moves the prosthetic end effector to these coordinates and closes its grip to grab the handle. It then manually sets the joint angles so that it is twisting the door handle while pulling it closer. It finishes by letting go.
+  
+
+Figure 6: LLM attempts to place a cup on a shelf
+When asked to “pick up the cup and put it on the shelf”, the LLM recognizes that it needs to locate both a cup and a shelf. It moves to the cup, grabs it, moves to the shelf, and lets it go. 
+Despite promising performances such as this, several challenges were identified when it came to using an LLM as a function caller for the pipeline. First, there’s a short delay in output generation which could make it feel less natural for users, though this can be improved by incorporating onboard models rather than an online model which needs to wait for a server response. It can also be seen that the solution provided by the LLM is the simplest and most straightforward and thus doesn’t currently account for complications such as obstructions on the arm’s path or the best way to grab specific objects, no solutions were implemented but some are briefly explored in the future steps section. Lastly, reproducibility can also be an issue, the same task phrased differently can yield different outputs which could negatively affect the user’s experience by behaving unpredictably. 
+  
+
+  
+
+Figure 7: Different outputs produced by the LLM after being asked to ring a doorbell
+	• Computer Vision
+        The diagrams below illustrate the results of single-object and multiple-object detection and recognition. The left image shows the camera feed with the YOLO model output overlaid. The middle image displays the depth map feed overlaid with the same bounding boxes extracted from the camera feed. The right image represents the camera feed after being passed through the outline detection filter, highlighting objects and providing additional information that could be used to fine tune grasping configurations.
+For the single object detection and recognition demonstration, the computer vision system successfully located a bottle that was placed on a desk with high consistency.
+  
+
+	  
+
+	  
+
+	Figure 8: YOLO Model
+	Figure 9: Depth Map 
+	Figure 10: Edge Detection
+	For the multiple object detection and recognition demonstration, the computer vision system was successfully able to simultaneously locate a bowl, cup, laptop, water bottle, cellphone and mouse on a desk.
+  
+
+	  
+
+	  
+
+	Figure 11: YOLO Model
+	Figure 12: Depth Map
+	Figure 13: Edge Detection
+	The computer vision system overall displayed promising performance, but it also displayed some common limitations that could impact the effectiveness and adaptability of the system in real-world environments, limitations that would need to be addressed in a full implementation.
+Computer vision system performance is heavily dependent on the nature of the object it is observing and the environmental conditions in which it is operating. Transparent objects for instance can pose a significant challenge, they can be ignored by object detection models if they blend in with the background, and can be difficult to see with LiDAR based on the reflectivity of their surface. Similarly, the environment can be a crucial factor, unevenly lit or noisy (rain, fog, etc.) environments can obscure details and degrade the accuracy of object detection and recognition. 
+The visual angle from which the system observes objects and the overlap of objects in a scene can also be limiting factors. Many object recognition models, including YOLO, struggle with detecting objects effectively when viewed from unconventional or extreme angles, such as top-down perspectives. This limitation can impact the prosthetic arm's ability to accurately perceive its surroundings, particularly in dynamic environments where objects may appear at various orientations. YOLO-based systems also employ a fixed grid-cell structure, where each grid cell predicts one object per cell. This creates a limitation in detecting multiple overlapping or closely positioned objects, potentially hindering the arm’s ability to interact accurately in cluttered or complex environments.
+The dataset used to train the object recognition model is also important. For this project, COCO (Common Objects in Context) was used, it is a widely-used dataset created by Microsoft for the purposes of training object detection, segmentation, and image captioning models [6]. While this dataset is comprehensive for general object detection tasks and a good starting point, it only includes 80 object categories. Many of these categories focus on animals or large objects which are not relevant to prosthetic arm tasks. This narrow range of identifiable objects limits the system’s versatility, though this could be solved by additional training with custom datasets that better cater to our specialized use cases.
+The last limitation that was identified is the effective range of the detection system. To locate objects in 3D space the computer vision system is integrated with LiDAR, however LiDAR has its own constraints. These systems are not designed to perform equally well across all ranges. When optimized for short-range accuracy, which it should be for prosthetic applications, it can lack the precision to accurately detect objects at greater distances.
+• Prosthetic Control and Simulation
+Simulation of the robotic control system resulted in successful and predictable results. In all cases the PyBullet model was able to interpret the tasks given by the LLM with the measurements from the vision model. When recreating a scene where we had the computer vision system differentiate between three objects, the simulation below shows how the prosthetic would react when given the task of pointing at the cube. The simulation could also be set up to have the arm continually point at the cube as it was moved around manually, better exemplifying how a prosthetic could behave in a real world scenario where the user or the object are moving.
+  
+
+Figure 14: Simulation of prompt “Point at the Cube”
+When testing the pipeline’s ability to perform more ambiguous tasks, it was particularly impressive that the LLM was able to decide on a fitting hand gesture to the prompt “show dissatisfaction”. This is a motion that couldn’t be performed with a regular prosthetic and displays the level of human-like expression that is possible with the proposed pipeline.
+  
+
+Figure 15: Simulation of prompt “Display dissatisfaction”
+Beyond expression, more complex cases of object manipulation were also successfully simulated, such as picking up a cup on a table and then putting it back down, a complex task consisting of multiple subtasks. 
+  
+
+Figure 16: Simulation of prompt “Pick up cup”
+Despite the promising results, these sorts of simulations also highlight a few serious limitations. Firstly, the motion of the prosthetic, while smooth is not always the most natural. It should mimic human movement, but it can be seen in the live version of the demonstrations that the movements are currently rigid and sudden which wouldn’t be ideal for user experience. 
+Another similar issue has to do with the ergonomics of it. The kinematic toolbox performs calculations to determine an optimal path to get the end effector to the desired location,  but this path is not always the most natural for a human arm. Because the user decides what the arm does but the system decides how it does it, this unpredictability can lead to a negative user experience. This issue could be resolved with more complex algorithms trained on human movement, as well as the addition of reinforcement learning models implemented to adapt to the user’s specifics over time.
+Force-modulation is also a pressing issue. Essentially, the prosthetic needs to avoid applying too much or too little force when performing tasks such as grasping objects or pushing/pulling. This is apparent in the cup grasping task, as it’s important not to grip too hard and shatter the cup. In this case, an adaptive force model would need to be implemented, perhaps in combination with additional suggestions from the LLM.
+Future Steps
+There are many things that would need to be done to bring this concept closer to a potentially realistic product. Here are a few of the next steps that could be explored for each of the pipeline components:
+* LLM:
+   * Hybrid Approaches: Combining LLMs with traditional myoelectric control systems for enhanced robustness.
+   * Learning from Feedback: Incorporating reinforcement learning or user feedback to refine task decomposition and execution.
+* Computer Vision:
+   * Object Detection Model Retraining: Develop a custom dataset tailored to the target application, containing data on objects commonly encountered in the user’s daily life.
+   * Object Tracking: Look into models capable of maintaining object tracking even when looking at objects from angles where they’re no longer recognizable by YOLO (e.g. DeepSORT).
+   * SLAM implementation: Simultaneous localization and mapping could be implemented to support later improvements to path planning such as obstacle avoidance
+* Control
+   * Optimal Grip Orientation: Utilize the outline detection obtained from the CV system to fine tune the way the end effector approaches objects it needs to manipulate
+   * Force & Pressure Control: Implement an adaptive force system for the prosthetic joints to only apply as much force as necessary
+   * Human-like Joint Control: Make the prosthetic move more predictably, perhaps by setting limits on joint angles or speeds
+   * Testing with a real prosthetic
+Conclusion
+This project explored a novel approach to prosthetic control systems by integrating machine learning powered tools with advanced robotics. The results demonstrated that LLMs can effectively interpret user instructions and decompose them into actionable tasks, enabling prosthetic systems to perform both routine and expressive actions. The computer vision pipeline, though dependent on environmental conditions and object characteristics, successfully provided object recognition and localization, proving its feasibility for guiding robotic manipulators.
+The simulation results underscored the promise of the proposed pipeline, showcasing its capability to handle complex tasks, such as object manipulation and human-like gestures. However, challenges related to motion naturality, ergonomics, force modulation, and environmental adaptability highlight areas for further development. Addressing these challenges through reinforcement learning, specialized datasets, and more advanced control algorithms could pave the way for real-world implementation.
+Overall, the proposed pipeline holds significant potential to redefine prosthetic control by enhancing usability, adaptability, and expressiveness, moving closer to the goal of providing amputees with prosthetic systems that function as intuitive extensions of their body.
+________________
+
+
+References
+[1] Igual, C.; Pardo, L.A., Jr.; Hahne, J.M.; Igual, J. Myoelectric Control for Upper Limb Prostheses. Electronics 2019, 8, 1244. https://doi.org/10.3390/electronics8111244
+[2] Thomas, Tessy & Hotson, Guy & Fifer, Matthew & Mcmullen, David & Johannes, Matthew & Katyal, Kapil & Para, Matthew & Armiger, Robert & Anderson, William & Thakor, N.v & Wester, Brock & Crone, Nathan. (2017). Brain-Machine Interface Development for Finger Movement Control. 10.1007/978-3-319-57132-4_4.
+[3] Diane W. Braza MD, Jennifer N. Yacub Martin MD, in Essentials of Physical Medicine and Rehabilitation (Fourth Edition), 2020
+[4] Ichter, B., et al. (2022). Leveraging Vision-Based AI for Robotic Manipulation. Robotics and Automation Letters.
+[5] Wu, Z., Zhang, L., & Yu, T. (2023). Optimizing Object Detection and Localization for Robotic Applications. IEEE Robotics and Automation Letters.
+[6] "COCO - Common Objects in Context," Accessed: Dec. 23, 2024. [Online]. Available: https://cocodataset.org/#home
+
+
+________________
+
+
+Appendix A: Code Snippets
+  
+
+Figure 17: Extract the Bounding Boxes from the YOLO Model
+  
+
+Figure 18: Draw the Corresponding Bounding Boxes for the Depth Map Frame
+________________
+Appendix B: Computer Vision Tracking Data
+Bounding box coordinates extracted from YOLO (The first 100 frames of the detection):
+frame
+	class_name
+	class_id
+	confidence
+	top_left
+	bottom_right
+	center
+	0
+	bottle
+	39
+	0.29061732
+	(182, 70)
+	(292, 345)
+	(237, 208)
+	1
+	bottle
+	39
+	0.35025048
+	(182, 68)
+	(292, 344)
+	(237, 206)
+	2
+	bottle
+	39
+	0.30332661
+	(181, 65)
+	(291, 343)
+	(236, 204)
+	3
+	bottle
+	39
+	0.29711804
+	(180, 60)
+	(292, 341)
+	(236, 201)
+	9
+	bottle
+	39
+	0.4650653
+	(182, 45)
+	(296, 331)
+	(239, 188)
+	12
+	bottle
+	39
+	0.35069543
+	(184, 44)
+	(298, 332)
+	(241, 188)
+	13
+	bottle
+	39
+	0.41463491
+	(184, 44)
+	(299, 332)
+	(241, 188)
+	14
+	bottle
+	39
+	0.32980251
+	(184, 47)
+	(299, 335)
+	(242, 191)
+	15
+	bottle
+	39
+	0.29877016
+	(184, 49)
+	(299, 338)
+	(242, 193)
+	16
+	bottle
+	39
+	0.31432843
+	(185, 51)
+	(299, 339)
+	(242, 195)
+	17
+	bottle
+	39
+	0.43509477
+	(186, 53)
+	(300, 341)
+	(243, 197)
+	18
+	bottle
+	39
+	0.35836121
+	(187, 56)
+	(300, 342)
+	(243, 199)
+	19
+	bottle
+	39
+	0.29547352
+	(187, 58)
+	(300, 344)
+	(244, 201)
+	22
+	bottle
+	39
+	0.27586195
+	(187, 69)
+	(300, 348)
+	(244, 208)
+	23
+	bottle
+	39
+	0.25823361
+	(187, 69)
+	(300, 350)
+	(244, 209)
+	26
+	bottle
+	39
+	0.37159467
+	(188, 73)
+	(301, 353)
+	(245, 213)
+	27
+	bottle
+	39
+	0.42797911
+	(189, 73)
+	(301, 355)
+	(245, 214)
+	28
+	bottle
+	39
+	0.35217485
+	(189, 75)
+	(301, 356)
+	(245, 215)
+	29
+	bottle
+	39
+	0.35288
+	(189, 77)
+	(301, 358)
+	(245, 217)
+	30
+	bottle
+	39
+	0.45144993
+	(190, 79)
+	(301, 358)
+	(245, 218)
+	31
+	bottle
+	39
+	0.48084587
+	(190, 79)
+	(301, 358)
+	(245, 219)
+	32
+	bottle
+	39
+	0.51973581
+	(190, 80)
+	(301, 359)
+	(246, 220)
+	33
+	bottle
+	39
+	0.48708957
+	(189, 80)
+	(301, 359)
+	(245, 220)
+	34
+	bottle
+	39
+	0.45653099
+	(189, 81)
+	(301, 360)
+	(245, 220)
+	35
+	bottle
+	39
+	0.39590523
+	(189, 81)
+	(301, 360)
+	(245, 220)
+	36
+	bottle
+	39
+	0.29241517
+	(189, 81)
+	(300, 360)
+	(245, 220)
+	37
+	bottle
+	39
+	0.42106134
+	(189, 81)
+	(301, 360)
+	(245, 220)
+	38
+	bottle
+	39
+	0.44042364
+	(189, 82)
+	(301, 361)
+	(245, 221)
+	39
+	bottle
+	39
+	0.45228425
+	(188, 82)
+	(300, 362)
+	(244, 222)
+	40
+	bottle
+	39
+	0.44341236
+	(187, 82)
+	(299, 362)
+	(243, 222)
+	41
+	bottle
+	39
+	0.4753772
+	(187, 82)
+	(299, 362)
+	(243, 222)
+	42
+	bottle
+	39
+	0.42506516
+	(186, 82)
+	(298, 362)
+	(242, 222)
+	43
+	bottle
+	39
+	0.5065102
+	(185, 83)
+	(297, 362)
+	(241, 222)
+	44
+	bottle
+	39
+	0.46984595
+	(185, 83)
+	(296, 362)
+	(241, 222)
+	45
+	bottle
+	39
+	0.45086247
+	(184, 83)
+	(296, 362)
+	(240, 222)
+	46
+	bottle
+	39
+	0.44508415
+	(184, 84)
+	(295, 362)
+	(239, 223)
+	47
+	bottle
+	39
+	0.45777097
+	(183, 84)
+	(295, 362)
+	(239, 223)
+	48
+	bottle
+	39
+	0.44651735
+	(183, 84)
+	(294, 362)
+	(238, 223)
+	49
+	bottle
+	39
+	0.49396008
+	(182, 84)
+	(294, 363)
+	(238, 224)
+	50
+	bottle
+	39
+	0.44053224
+	(181, 84)
+	(293, 363)
+	(237, 223)
+	51
+	bottle
+	39
+	0.46706954
+	(181, 85)
+	(293, 362)
+	(237, 223)
+	52
+	bottle
+	39
+	0.4756555
+	(181, 84)
+	(292, 362)
+	(236, 223)
+	53
+	bottle
+	39
+	0.4190222
+	(182, 85)
+	(292, 363)
+	(237, 224)
+	54
+	bottle
+	39
+	0.34778622
+	(180, 86)
+	(292, 362)
+	(236, 224)
+	55
+	bottle
+	39
+	0.32424459
+	(181, 86)
+	(291, 363)
+	(236, 225)
+	56
+	bottle
+	39
+	0.34284103
+	(181, 86)
+	(291, 363)
+	(236, 225)
+	57
+	bottle
+	39
+	0.35645795
+	(180, 85)
+	(291, 363)
+	(236, 224)
+	58
+	bottle
+	39
+	0.38074729
+	(179, 84)
+	(291, 364)
+	(235, 224)
+	59
+	bottle
+	39
+	0.33986837
+	(180, 84)
+	(291, 364)
+	(236, 224)
+	60
+	bottle
+	39
+	0.26554644
+	(180, 84)
+	(292, 364)
+	(236, 224)
+	66
+	bottle
+	39
+	0.27122149
+	(180, 86)
+	(291, 367)
+	(236, 227)
+	70
+	bottle
+	39
+	0.25485542
+	(180, 87)
+	(291, 368)
+	(235, 227)
+	71
+	bottle
+	39
+	0.28699112
+	(180, 88)
+	(290, 369)
+	(235, 228)
+	73
+	bottle
+	39
+	0.28032494
+	(179, 88)
+	(290, 369)
+	(235, 229)
+	74
+	bottle
+	39
+	0.32930624
+	(179, 89)
+	(289, 370)
+	(234, 229)
+	74
+	bottle
+	39
+	0.28096595
+	(179, 0)
+	(210, 63)
+	(195, 31)
+	76
+	bottle
+	39
+	0.2510913
+	(179, 91)
+	(290, 373)
+	(235, 232)
+	85
+	bottle
+	39
+	0.28975183
+	(186, 0)
+	(210, 70)
+	(198, 35)
+	86
+	bottle
+	39
+	0.39500338
+	(186, 1)
+	(210, 71)
+	(198, 36)
+	86
+	bottle
+	39
+	0.29699934
+	(180, 98)
+	(293, 380)
+	(236, 239)
+	88
+	bottle
+	39
+	0.27681911
+	(188, 5)
+	(213, 72)
+	(201, 39)
+	89
+	bottle
+	39
+	0.273651
+	(188, 4)
+	(216, 73)
+	(202, 38)
+	90
+	bottle
+	39
+	0.31104168
+	(180, 101)
+	(292, 384)
+	(236, 243)
+	90
+	bottle
+	39
+	0.28731921
+	(189, 4)
+	(214, 74)
+	(202, 39)
+	91
+	bottle
+	39
+	0.30875832
+	(180, 101)
+	(292, 384)
+	(236, 243)
+	93
+	bottle
+	39
+	0.30799109
+	(181, 104)
+	(293, 385)
+	(237, 244)
+	93
+	bottle
+	39
+	0.26408046
+	(195, 5)
+	(217, 76)
+	(206, 41)
+	94
+	bottle
+	39
+	0.42272985
+	(194, 8)
+	(218, 77)
+	(206, 42)
+	94
+	bottle
+	39
+	0.33925769
+	(180, 105)
+	(292, 388)
+	(236, 247)
+	95
+	bottle
+	39
+	0.54029107
+	(194, 8)
+	(218, 78)
+	(206, 43)
+	95
+	bottle
+	39
+	0.44643006
+	(180, 107)
+	(293, 389)
+	(236, 248)
+	95
+	bottle
+	39
+	0.27655509
+	(318, 9)
+	(336, 81)
+	(327, 45)
+	96
+	bottle
+	39
+	0.31977826
+	(180, 107)
+	(293, 390)
+	(236, 248)
+	96
+	bottle
+	39
+	0.307529
+	(195, 9)
+	(220, 78)
+	(207, 44)
+	97
+	bottle
+	39
+	0.35037732
+	(180, 108)
+	(293, 390)
+	(237, 249)
+	97
+	bottle
+	39
+	0.27150875
+	(196, 9)
+	(221, 79)
+	(208, 44)
+	98
+	bottle
+	39
+	0.31783795
+	(180, 109)
+	(293, 391)
+	(237, 250)
+	98
+	bottle
+	39
+	0.28489318
+	(196, 10)
+	(222, 80)
+	(209, 45)
+	100
+	bottle
+	39
+	0.35093284
+	(179, 109)
+	(292, 392)
+	(236, 250)
+	
+
+Partial bounding box coordinates extracted from YOLO:
+frame
+	class_name
+	confidence
+	top_left_x
+	top_left_y
+	bottom_right_x
+	bottom_right_y
+	center_x
+	center_y
+	0
+	cup
+	0.90205079
+	223
+	357
+	326
+	495
+	275
+	426
+	0
+	laptop
+	0.89112663
+	136
+	209
+	388
+	406
+	262
+	307
+	0
+	bowl
+	0.79543757
+	72
+	386
+	196
+	485
+	134
+	436
+	0
+	cup
+	0.77087122
+	380
+	261
+	440
+	479
+	410
+	370
+	0
+	bottle
+	0.59783608
+	380
+	259
+	440
+	477
+	410
+	368
+	0
+	dining table
+	0.47960281
+	0
+	336
+	433
+	584
+	216
+	460
+	1
+	cup
+	0.90234792
+	223
+	357
+	326
+	495
+	275
+	426
+	1
+	laptop
+	0.89884591
+	136
+	209
+	389
+	406
+	262
+	307
+	1
+	bowl
+	0.81076086
+	72
+	387
+	196
+	485
+	134
+	436
+	1
+	cup
+	0.80045128
+	380
+	261
+	440
+	480
+	410
+	370
+	1
+	dining table
+	0.44597644
+	2
+	383
+	437
+	584
+	220
+	484
+	1
+	bottle
+	0.44502872
+	380
+	259
+	440
+	477
+	410
+	368
+	2
+	cup
+	0.90907156
+	223
+	358
+	327
+	495
+	275
+	427
+	2
+	laptop
+	0.90205985
+	132
+	209
+	389
+	405
+	261
+	307
+	2
+	cup
+	0.80837637
+	380
+	261
+	440
+	479
+	410
+	370
+	2
+	bowl
+	0.7955451
+	72
+	387
+	195
+	485
+	134
+	436
+	2
+	dining table
+	0.4679293
+	0
+	332
+	433
+	584
+	216
+	458
+	2
+	bottle
+	0.35047248
+	379
+	259
+	441
+	479
+	410
+	369
+	3
+	laptop
+	0.91765249
+	136
+	209
+	389
+	405
+	263
+	307
+	3
+	cup
+	0.90789139
+	224
+	358
+	327
+	495
+	276
+	426
+	3
+	cup
+	0.81179494
+	380
+	261
+	440
+	479
+	410
+	370
+	3
+	bowl
+	0.77581489
+	72
+	387
+	195
+	485
+	134
+	436
+	3
+	dining table
+	0.46289638
+	2
+	382
+	438
+	584
+	220
+	483
+	3
+	bottle
+	0.29566187
+	379
+	260
+	441
+	479
+	410
+	370
+	4
+	laptop
+	0.91213262
+	136
+	209
+	389
+	406
+	263
+	307
+	4
+	cup
+	0.90645802
+	225
+	358
+	327
+	495
+	276
+	426
+	4
+	cup
+	0.80839002
+	381
+	262
+	440
+	480
+	410
+	371
+	4
+	bowl
+	0.77070022
+	72
+	388
+	196
+	485
+	134
+	436
+	4
+	dining table
+	0.46223804
+	0
+	343
+	433
+	584
+	217
+	463
+	4
+	bottle
+	0.38767222
+	380
+	260
+	441
+	479
+	410
+	369
+	5
+	laptop
+	0.91464102
+	136
+	208
+	389
+	406
+	263
+	307
+	5
+	cup
+	0.90926898
+	225
+	358
+	328
+	495
+	276
+	427
+	5
+	bowl
+	0.78870189
+	72
+	389
+	196
+	486
+	134
+	437
+	5
+	cup
+	0.78599894
+	381
+	262
+	440
+	480
+	411
+	371
+	5
+	dining table
+	0.47693938
+	0
+	344
+	429
+	584
+	214
+	464
+	5
+	bottle
+	0.32458419
+	381
+	260
+	440
+	479
+	410
+	370
+	6
+	laptop
+	0.91082358
+	138
+	210
+	390
+	405
+	264
+	307
+	6
+	cup
+	0.90598047
+	225
+	359
+	328
+	496
+	276
+	427
+	6
+	bowl
+	0.78879464
+	72
+	389
+	196
+	487
+	134
+	438
+	6
+	cup
+	0.76481473
+	381
+	262
+	440
+	481
+	411
+	372
+	6
+	dining table
+	0.53982717
+	0
+	345
+	428
+	584
+	214
+	465
+	6
+	bottle
+	0.32959113
+	381
+	260
+	440
+	479
+	411
+	370
+	7
+	cup
+	0.90241027
+	225
+	359
+	328
+	496
+	276
+	427
+	7
+	laptop
+	0.89906037
+	137
+	209
+	390
+	405
+	264
+	307
+	7
+	bowl
+	0.772264
+	73
+	388
+	196
+	487
+	134
+	438
+	7
+	cup
+	0.76130348
+	382
+	262
+	440
+	481
+	411
+	371
+	7
+	dining table
+	0.5947659
+	0
+	343
+	428
+	584
+	214
+	464
+	7
+	bottle
+	0.4530853
+	382
+	260
+	440
+	479
+	411
+	370
+	8
+	cup
+	0.92062765
+	225
+	360
+	328
+	497
+	276
+	428
+	8
+	laptop
+	0.86576211
+	139
+	211
+	388
+	407
+	263
+	309
+	8
+	bowl
+	0.76785254
+	73
+	388
+	196
+	487
+	134
+	438
+	8
+	cup
+	0.75604874
+	382
+	262
+	440
+	481
+	411
+	371
+	8
+	dining table
+	0.66256839
+	0
+	336
+	428
+	584
+	214
+	460
+	8
+	bottle
+	0.53014809
+	382
+	260
+	440
+	479
+	411
+	370
+	9
+	cup
+	0.92400247
+	225
+	359
+	328
+	498
+	277
+	428
+	9
+	laptop
+	0.8416751
+	133
+	211
+	390
+	408
+	261
+	309
+	9
+	bowl
+	0.79111302
+	72
+	388
+	196
+	487
+	134
+	438
+	9
+	cup
+	0.78074306
+	382
+	262
+	440
+	481
+	411
+	371
+	9
+	dining table
+	0.6247173
+	0
+	340
+	429
+	584
+	215
+	462
+	9
+	bottle
+	0.41395229
+	382
+	260
+	440
+	479
+	411
+	370
+	10
+	cup
+	0.91854638
+	225
+	359
+	329
+	498
+	277
+	428
+	10
+	laptop
+	0.83169812
+	138
+	211
+	389
+	408
+	264
+	309
+	10
+	bowl
+	0.79317355
+	72
+	389
+	196
+	487
+	134
+	438
+	10
+	cup
+	0.76850933
+	382
+	262
+	440
+	481
+	411
+	371
+	10
+	dining table
+	0.48331252
+	0
+	338
+	430
+	584
+	215
+	461
+	10
+	bottle
+	0.46360809
+	383
+	260
+	440
+	479
+	412
+	370
+	11
+	cup
+	0.91019577
+	225
+	359
+	329
+	498
+	277
+	429
+	11
+	laptop
+	0.89444643
+	138
+	209
+	390
+	407
+	264
+	308
+	11
+	bowl
+	0.79896152
+	73
+	389
+	196
+	487
+	134
+	438
+	11
+	cup
+	0.76002502
+	383
+	262
+	440
+	481
+	412
+	371
+	11
+	bottle
+	0.5946334
+	383
+	260
+	440
+	480
+	412
+	370
+	11
+	dining table
+	0.44433635
+	0
+	338
+	434
+	584
+	217
+	461
+	12
+	laptop
+	0.9106856
+	137
+	209
+	391
+	406
+	264
+	307
+	12
+	cup
+	0.90833694
+	225
+	359
+	329
+	497
+	277
+	428
+	12
+	cup
+	0.75974858
+	383
+	262
+	440
+	480
+	412
+	371
+	12
+	bowl
+	0.73930335
+	73
+	388
+	196
+	487
+	135
+	437
+	12
+	dining table
+	0.49356773
+	0
+	331
+	431
+	584
+	216
+	458
+	12
+	bottle
+	0.30322465
+	383
+	260
+	440
+	481
+	412
+	370
+	13
+	cup
+	0.92169625
+	225
+	358
+	329
+	497
+	277
+	428
+	13
+	laptop
+	0.90771902
+	136
+	209
+	391
+	406
+	263
+	307
+	13
+	bowl
+	0.79902005
+	73
+	387
+	196
+	485
+	135
+	436
+	13
+	cup
+	0.76133263
+	383
+	261
+	440
+	481
+	412
+	371
+	13
+	dining table
+	0.62083673
+	0
+	327
+	431
+	584
+	215
+	456
+	13
+	bottle
+	0.5210551
+	384
+	259
+	440
+	480
+	412
+	369
+	14
+	cup
+	0.92752969
+	225
+	359
+	329
+	497
+	277
+	428
+	14
+	laptop
+	0.90087032
+	137
+	209
+	391
+	405
+	264
+	307
+	14
+	bowl
+	0.7905423
+	73
+	387
+	196
+	485
+	135
+	436
+	14
+	cup
+	0.77391088
+	383
+	261
+	440
+	481
+	412
+	371
+	14
+	dining table
+	0.53375065
+	0
+	329
+	430
+	584
+	215
+	456
+	14
+	bottle
+	0.46762687
+	384
+	259
+	440
+	480
+	412
+	369
+	15
+	cup
+	0.93229294
+	225
+	358
+	329
+	496
+	277
+	427
+	15
+	laptop
+	0.9033978
+	138
+	209
+	391
+	405
+	264
+	307
+	15
+	bowl
+	0.78722382
+	73
+	386
+	196
+	485
+	134
+	436
+	15
+	cup
+	0.78398806
+	383
+	261
+	440
+	481
+	412
+	371
+	15
+	dining table
+	0.51640457
+	0
+	329
+	430
+	584
+	215
+	457
+	15
+	bottle
+	0.4613933
+	384
+	259
+	440
+	480
+	412
+	369
+	16
+	cup
+	0.9324683
+	225
+	358
+	329
+	496
+	277
+	427
+	16
+	laptop
+	0.90715289
+	137
+	208
+	391
+	405
+	264
+	307
+	16
+	bowl
+	0.79945314
+	72
+	387
+	196
+	484
+	134
+	436
+	16
+	cup
+	0.78297019
+	383
+	261
+	440
+	481
+	412
+	371
+	16
+	dining table
+	0.5322262
+	0
+	327
+	430
+	584
+	215
+	455
+	16
+	bottle
+	0.45632496
+	384
+	259
+	440
+	479
+	412
+	369

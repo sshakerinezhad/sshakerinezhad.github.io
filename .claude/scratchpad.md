@@ -1,8 +1,14 @@
 # Session Scratchpad
 
-Archived previous plan to changelog/2026-01-17-win95-portfolio-site.md
-
 ## Current State
-- Portfolio site complete (all 6 phases + accessibility)
-- Session management commands operational (`/save-plan`, `/sync-masterplan`, `/archive-plan`, `/handoff`)
+- Portfolio site complete with authentic Win95 pixel-art icons everywhere
+- Icon system is config-driven for window icons (single source of truth)
+- Taskbar icons (Start, sound) are in HTML directly
+- Full documentation in docs/ICONS.md
 - Ready for new project or enhancements
+
+## Recent Work
+- Replaced emoji icons with Win95 pixel-art PNGs (desktop, mobile, taskbar)
+- Made mobile-nav dynamically render from CONFIG.desktopIcons
+- Replaced Start button and sound toggle emojis with pixel-art icons
+- Created docs/ICONS.md guide

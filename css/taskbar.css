@@ -30,7 +30,10 @@
 }
 
 #start-button .start-icon {
-  font-size: 14px;
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 #start-button:active {
@@ -65,8 +68,16 @@
 }
 
 .taskbar-button .tb-icon {
-  font-size: 12px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.taskbar-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .taskbar-button .tb-title {
@@ -118,8 +129,16 @@
   border: none;
   padding: 0 2px;
   cursor: pointer;
-  font-size: 12px;
   line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.tray-button img {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .tray-button:hover {
@@ -194,9 +213,15 @@
 }
 
 .start-menu-item .smi-icon {
-  font-size: 16px;
   width: 20px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-menu-item .smi-icon .taskbar-icon {
+  width: 16px;
+  height: 16px;
 }
 
 .start-menu-divider {

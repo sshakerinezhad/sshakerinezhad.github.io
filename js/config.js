@@ -7,70 +7,77 @@ const CONFIG = {
     mode: 'tabs'  // 'tabs' or 'scroll'
   },
 
+  // === ALL WINDOWS - order determines icon order ===
   windows: {
     about: {
       id: 'about',
       title: 'About.exe',
+      label: 'About.exe',
+      icon: 'images/icons/about.png',
       width: 420,
       height: 300,
       x: 'center',
       y: 'center',
       contentId: 'about-content',
-      openOnLoad: true
+      openOnLoad: true,
+      showInUI: true
     },
     projects: {
       id: 'projects',
       title: 'Research & Projects',
+      label: 'Projects',
+      icon: 'images/icons/projects.png',
       width: 500,
       height: 400,
       x: 140,
       y: 100,
       contentId: 'projects-content',
-      openOnLoad: false
+      openOnLoad: false,
+      showInUI: true
     },
     plugs: {
       id: 'plugs',
       title: 'Shameless Plugs',
+      label: 'Shameless Plugs',
+      icon: 'images/icons/blogposts.png',
       width: 400,
       height: 320,
       x: 200,
       y: 140,
       contentId: 'plugs-content',
-      openOnLoad: false
+      openOnLoad: false,
+      showInUI: true
     },
     merlyn: {
       id: 'merlyn',
       title: 'Merlyn Labs',
+      label: 'Merlyn Labs',
+      icon: 'images/icons/merlyn.png',  // Alternative: 'images/icons/merlyn-wizard.png'
       width: 480,
       height: 380,
       x: 260,
       y: 180,
       contentId: 'merlyn-content',
-      openOnLoad: false
+      openOnLoad: false,
+      showInUI: true
     },
     dnd: {
       id: 'dnd',
       title: 'D&D Corner',
+      label: 'D&D Corner',
+      icon: 'images/icons/dnd.png',
       width: 450,
       height: 350,
       x: 320,
       y: 220,
       contentId: 'dnd-content',
       openOnLoad: false,
-      hidden: true
+      showInUI: false  // Hidden easter egg
     }
   },
 
   desktop: {
     containerId: 'desktop'
-  },
-
-  desktopIcons: {
-    about: { windowId: 'about', label: 'About.exe', icon: '👤' },
-    projects: { windowId: 'projects', label: 'Projects', icon: '📁' },
-    plugs: { windowId: 'plugs', label: 'Shameless Plugs', icon: '🔗' },
-    merlyn: { windowId: 'merlyn', label: 'Merlyn Labs', icon: '🧪' }
-    // D&D Corner NOT shown (hidden easter egg)
   },
 
   socials: {

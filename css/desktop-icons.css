@@ -36,10 +36,11 @@
 }
 
 .icon-image {
-  font-size: 32px;
-  line-height: 1;
+  width: 32px;
+  height: 32px;
   margin-bottom: 4px;
-  /* For emoji icons - can replace with img later */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .icon-label {

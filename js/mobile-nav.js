@@ -28,10 +28,28 @@ class MobileNav {
     }
   }
 
+  renderMobileNav(nav) {
+    nav.innerHTML = '';
+
+    Object.entries(CONFIG.windows).forEach(([id, config]) => {
+      if (!config.showInUI) return;
+
+      const btn = document.createElement('button');
+      btn.dataset.window = id;
+      btn.innerHTML = `
+        <img src="${config.icon}" alt="">
+        <span>${config.label.replace('.exe', '').replace('Shameless ', '')}</span>
+      `;
+      nav.appendChild(btn);
+    });
+  }
+
   // === TABS MODE ===
   initTabsMode() {
     const nav = document.getElementById('mobile-nav');
     if (!nav) return;
+
+    this.renderMobileNav(nav);
 
     nav.querySelectorAll('button[data-window]').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -81,12 +99,14 @@ class MobileNav {
     const stack = document.getElementById('window-stack');
     if (!stack) return;
 
-    // Render all non-hidden windows as cards
-    const windowIds = ['about', 'projects', 'plugs', 'merlyn'];
+    // Render all visible windows as cards
+    const windowIds = Object.keys(CONFIG.windows).filter(id =>
+      CONFIG.windows[id].showInUI
+    );
 
     windowIds.forEach(id => {
       const config = CONFIG.windows[id];
-      if (!config || config.hidden) return;
+      if (!config) return;
 
       const template = document.getElementById(config.contentId);
       if (!template) return;

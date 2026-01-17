@@ -118,6 +118,13 @@
   cursor: pointer;
 }
 
+#mobile-nav button img {
+  width: 24px;
+  height: 24px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
 #mobile-nav button:active {
   border-style: inset;
 }

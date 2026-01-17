@@ -33,12 +33,14 @@
   <!-- Taskbar -->
   <div id="taskbar">
     <button id="start-button" class="button">
-      <span class="start-icon">🪟</span>
+      <img class="start-icon" src="images/icons/start.png" alt="">
       Start
     </button>
     <div id="taskbar-windows"></div>
     <div id="system-tray">
-      <button id="sound-toggle" class="tray-button" title="Toggle sounds">🔇</button>
+      <button id="sound-toggle" class="tray-button" title="Toggle sounds">
+        <img id="sound-icon" src="images/icons/sound-off.png" alt="">
+      </button>
       <span id="clock"></span>
     </div>
   </div>
@@ -143,13 +145,8 @@
     </div>
   </template>
 
-  <!-- Mobile bottom nav (tabs mode) -->
-  <nav id="mobile-nav">
-    <button data-window="about">👤<span>About</span></button>
-    <button data-window="projects">📁<span>Projects</span></button>
-    <button data-window="plugs">🔗<span>Links</span></button>
-    <button data-window="merlyn">🧪<span>Merlyn</span></button>
-  </nav>
+  <!-- Mobile bottom nav (tabs mode) - rendered dynamically from CONFIG.desktopIcons -->
+  <nav id="mobile-nav"></nav>
 
   <!-- Mobile window stack (scroll mode) -->
   <div id="window-stack"></div>

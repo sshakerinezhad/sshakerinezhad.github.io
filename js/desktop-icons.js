@@ -17,15 +17,17 @@ class DesktopIcons {
     const container = document.getElementById('desktop-icons');
     container.innerHTML = '';
 
-    Object.entries(CONFIG.desktopIcons).forEach(([id, config]) => {
+    Object.entries(CONFIG.windows).forEach(([id, config]) => {
+      if (!config.showInUI) return;
+
       const icon = document.createElement('div');
       icon.className = 'desktop-icon';
-      icon.dataset.windowId = config.windowId;
+      icon.dataset.windowId = id;
       icon.tabIndex = 0;
       icon.setAttribute('role', 'button');
       icon.setAttribute('aria-label', `Open ${config.label}`);
       icon.innerHTML = `
-        <span class="icon-image">${config.icon}</span>
+        <img class="icon-image" src="${config.icon}" alt="${config.label}" draggable="false">
         <span class="icon-label">${config.label}</span>
       `;
       container.appendChild(icon);

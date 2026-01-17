@@ -18,9 +18,10 @@
   soundToggle.setAttribute('aria-label', 'Toggle sound effects');
   soundToggle.setAttribute('aria-pressed', 'false');
 
+  const soundIcon = document.getElementById('sound-icon');
   soundToggle.addEventListener('click', () => {
     const enabled = easterEggs.toggleSound();
-    soundToggle.textContent = enabled ? '🔊' : '🔇';
+    soundIcon.src = enabled ? 'images/icons/sound-on.png' : 'images/icons/sound-off.png';
     soundToggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
   });
 

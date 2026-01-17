@@ -26,9 +26,9 @@ class Taskbar {
     // Set menu role for accessibility
     this.startMenu.setAttribute('role', 'menu');
 
-    // Add menu items for non-hidden windows
+    // Add menu items for visible windows
     Object.entries(CONFIG.windows).forEach(([id, config]) => {
-      if (config.hidden) return;
+      if (!config.showInUI) return;
 
       const item = document.createElement('button');
       item.className = 'start-menu-item';
@@ -44,8 +44,9 @@ class Taskbar {
   }
 
   getIconForWindow(windowId) {
-    const iconConfig = CONFIG.desktopIcons[windowId];
-    return iconConfig ? iconConfig.icon : '📄';
+    const windowConfig = CONFIG.windows[windowId];
+    const iconPath = windowConfig ? windowConfig.icon : 'images/icons/folder.png';
+    return `<img src="${iconPath}" alt="" class="taskbar-icon">`;
   }
 
   bindEvents() {

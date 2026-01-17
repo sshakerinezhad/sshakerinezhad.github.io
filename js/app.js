@@ -7,9 +7,16 @@
   const windowManager = new WindowManager();
   const taskbar = new Taskbar(windowManager);
   const desktopIcons = new DesktopIcons(windowManager);
+  const easterEggs = new EasterEggs(windowManager);
 
   // Expose for debugging
   window.wm = windowManager;
+
+  // Sound toggle handler
+  document.getElementById('sound-toggle').addEventListener('click', () => {
+    const enabled = easterEggs.toggleSound();
+    document.getElementById('sound-toggle').textContent = enabled ? '🔊' : '🔇';
+  });
 
   function init() {
     console.log('Win95 Portfolio initializing...');

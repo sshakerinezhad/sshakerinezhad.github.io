@@ -130,15 +130,31 @@ index.html
 - [x] Minimize keeps windows above taskbar — added `bottom: 28` constraint
 - [x] Maximize keeps title bar below header — added `top: 32` constraint
 - [x] Windows can't be dragged outside desktop bounds
+- [x] Fullscreen button removed — added `'no-full'` class
+- [x] Window border separation — configurable via `--window-outer-shadow` CSS variable
 
 **Files modified:**
-- `js/window-manager.js` — Fixed `onclose` callback, added `top: 32` and `bottom: 28` WinBox constraints
+- `js/window-manager.js` — Fixed `onclose` callback, added `top: 32` and `bottom: 28` WinBox constraints, added `'no-full'` class
+- `css/main.css` — Added `--window-outer-shadow` variable with 3 options (none, 1px border, drop shadow)
 
-### Phase 4: Easter Eggs & Polish
-- Konami code + secret word triggers
-- Merlyn Labs hidden window with "declassified" reveal
-- Optional sound effects
-- Error dialogs for "coming soon" items
+### Phase 4: Easter Eggs & Polish ✅ COMPLETE
+- [x] Konami code (↑↑↓↓BA) reveals hidden D&D Corner
+- [x] Console hint for devs ("🎲 Secret portal detected...")
+- [x] Coming Soon dialog for unfinished projects (Win95-style error)
+- [x] Sound effects system (muted by default, toggle in system tray)
+
+**Files created:**
+- `js/easter-eggs.js` — EasterEggs class with Konami handler, console hint, coming soon dialog, sound system
+- `sounds/README.md` — Instructions for adding sound files
+
+**Files modified:**
+- `index.html` — Added script tag, sound toggle button in system tray
+- `js/app.js` — Instantiates EasterEggs, sound toggle handler
+- `css/taskbar.css` — Tray button styling
+
+**Note:** Sound files (`startup.mp3`, `reveal.mp3`) need to be added to `sounds/` folder. Startup sound only plays when user manually enables sound (not on page load since sounds start muted).
+
+**Deferred:** Secret word trigger + declassified animation (user wants to add later)
 
 ### Phase 5: Mobile & Accessibility
 - Responsive breakpoints

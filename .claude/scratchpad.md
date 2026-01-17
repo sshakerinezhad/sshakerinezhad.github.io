@@ -1,49 +1,44 @@
 # Session Handoff - 2026-01-17
 
 ## What Was Done This Session
-- **Identified 5 window management bugs** after Phase 3 completion
-- **Created detailed fix plan** in `.claude/workplan.md`
 
-## Bugs Identified
-1. Close button (X) not working
-2. Minimize hides window below taskbar (only top edge visible)
-3. Maximize hides window behind header (can't access title bar)
-4. Fullscreen button exists but user wants it removed
-5. Window borders blend together when overlapping
+### Phase 4: Easter Eggs & Polish - COMPLETE
+Implemented all planned features from the workplan:
 
-## Root Causes Found
-- No `top`/`bottom` bounds configured in WinBox options
-- WinBox `max` button enabled by default
-- CSS only has inset shadows, no outer border/shadow
+1. **Konami Code** (↑↑↓↓BA) → Opens hidden D&D Corner window
+2. **Console Hint** → "🎲 Secret portal detected..." with instructions
+3. **Coming Soon Dialog** → Win95-style error when clicking `.coming-soon` elements
+4. **Sound System** → Muted by default, 🔇/🔊 toggle in system tray
 
-## Fixes Planned (NOT YET IMPLEMENTED)
+**Files created:**
+- `js/easter-eggs.js` — EasterEggs class with all features
+- `sounds/README.md` — Instructions for adding audio files
 
-### 1. js/window-manager.js (lines 58-63)
-Add to WinBox config:
-```javascript
-top: 32,      // Below header
-bottom: 28,   // Above taskbar
-right: 0,
-left: 0,
-max: false,   // Remove maximize button
-```
+**Files modified:**
+- `index.html` — Added script tag, sound toggle button
+- `js/app.js` — Instantiates EasterEggs, sound toggle handler
+- `css/taskbar.css` — Tray button styling
+- `.claude/masterplan.md` — Updated Phase 4 as complete
 
-### 2. css/main.css (lines 34-42)
-Add outer drop shadow to `.winbox`:
-```css
-3px 3px 0 rgba(0, 0, 0, 0.4);  /* Outer drop shadow */
-```
+**Note:** Startup sound only plays when user clicks sound toggle to enable (not on page load since muted by default). User needs to add actual `startup.mp3` and `reveal.mp3` to `sounds/` folder.
+
+**Deferred:** Secret word trigger + declassified animation (user wants to add later)
 
 ## Current State
-- Phases 1, 2, 3 complete
-- Bug fixes planned but NOT implemented yet
-- Full plan in `.claude/workplan.md`
+- Phases 1, 2, 3, 3.5, 4 **complete**
+- Phase 5 (Mobile & Accessibility) **not started**
+- Site is fully functional on desktop
 
-## Next Steps
-1. Apply the 2 code changes above
-2. Test all 7 verification items in workplan
-3. Then continue to Phase 4 (Easter Eggs & Polish)
+## Next Steps (Phase 5)
+1. Responsive breakpoints for mobile
+2. Disable window dragging on mobile
+3. Window dimensions: `min(400px, 90vw)` for mobile viewports
+4. Larger touch targets for taskbar buttons
+5. Keyboard navigation
+6. ARIA labels
 
 ## Files Reference
 - Masterplan: `.claude/masterplan.md`
-- Current workplan: `.claude/workplan.md` (contains full fix plan)
+- Workplan: `.claude/workplan.md` (can be updated for Phase 5)
+- Easter eggs: `js/easter-eggs.js`
+- Sound toggle: System tray in `index.html`, handler in `js/app.js`

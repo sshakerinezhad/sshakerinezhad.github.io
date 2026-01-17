@@ -5,6 +5,11 @@
   --win95-title-active: #000080;
   --win95-title-inactive: #808080;
   --win95-text: #000000;
+
+  /* Window separation - uncomment ONE option: */
+  /* --window-outer-shadow: none; */                       /* Authentic Win95 (no outer effect) */
+   --window-outer-shadow: 0 0 0 1px #000000;           /* 1px black border (subtle) */
+  /* --window-outer-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4); */    /* Drop shadow (XP-style) */
 }
 
 /* === Reset & Base === */
@@ -38,7 +43,8 @@ html, body {
     inset -1px -1px #0a0a0a,
     inset 1px 1px #ffffff,
     inset -2px -2px #808080,
-    inset 2px 2px #dfdfdf;
+    inset 2px 2px #dfdfdf,
+    var(--window-outer-shadow);
 }
 
 .winbox .wb-header {

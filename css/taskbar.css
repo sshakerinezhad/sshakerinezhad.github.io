@@ -113,6 +113,19 @@
   white-space: nowrap;
 }
 
+.tray-button {
+  background: transparent;
+  border: none;
+  padding: 0 2px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.tray-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* === Start Menu === */
 #start-menu {
   position: fixed;

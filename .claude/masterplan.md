@@ -125,6 +125,15 @@ index.html
 - `css/main.css` — Adjusted desktop bounds for header/taskbar
 - `js/app.js` — Instantiates Taskbar and DesktopIcons
 
+### Phase 3.5: Window Bug Fixes ✅ COMPLETE
+- [x] Close button (X) now works — removed incorrect `return true` from `onclose` callback
+- [x] Minimize keeps windows above taskbar — added `bottom: 28` constraint
+- [x] Maximize keeps title bar below header — added `top: 32` constraint
+- [x] Windows can't be dragged outside desktop bounds
+
+**Files modified:**
+- `js/window-manager.js` — Fixed `onclose` callback, added `top: 32` and `bottom: 28` WinBox constraints
+
 ### Phase 4: Easter Eggs & Polish
 - Konami code + secret word triggers
 - Merlyn Labs hidden window with "declassified" reveal
@@ -134,6 +143,8 @@ index.html
 ### Phase 5: Mobile & Accessibility
 - Responsive breakpoints
 - Disable dragging on mobile
+- Window dimensions should use `min(400px, 90vw)` or similar for mobile viewports
+- Touch targets (taskbar buttons) need larger hit areas on mobile
 - Keyboard navigation
 - ARIA labels
 

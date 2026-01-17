@@ -60,7 +60,11 @@ class WindowManager {
       height: config.height,
       x: config.x,
       y: config.y,
-      class: ['win95-window'],
+      class: ['win95-window', 'no-full'],
+
+      // Constrain windows to desktop area
+      top: 32,      // Below header (32px)
+      bottom: 28,   // Above taskbar (28px)
 
       onclose: () => {
         this.windows.delete(id);

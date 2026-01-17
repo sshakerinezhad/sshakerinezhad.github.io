@@ -192,6 +192,14 @@ index.html
 - `js/desktop-icons.js` — Render social icons as `<i>` elements with FA classes
 - `index.html` — Added Font Awesome CDN link
 
+### Phase 5.6: Remove Duplicate Window Titles ✅ COMPLETE
+- [x] Removed duplicate `<h2>` titles from all 5 window templates (title now only appears in WinBox header bar)
+- [x] Enhanced header bar title styling (15px font, 0.5px letter-spacing, subtle text shadow)
+
+**Files modified:**
+- `index.html` — Removed `<h2>` tags from about, projects, plugs, merlyn, and dnd templates
+- `css/main.css` — Enhanced `.wb-title` styling for better emphasis
+
 ### Phase 6: Accessibility (TODO)
 - [ ] Keyboard navigation
 - [ ] ARIA labels

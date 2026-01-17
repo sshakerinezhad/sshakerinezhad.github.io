@@ -62,7 +62,9 @@ html, body {
 .winbox .wb-title {
   font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
 }
 
 .winbox .wb-body {

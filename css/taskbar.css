@@ -1,0 +1,188 @@
+/* === Taskbar === */
+#taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: var(--win95-gray);
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 2px;
+  z-index: 9999;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 0 #0a0a0a;
+}
+
+/* === Start Button === */
+#start-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  min-width: 54px;
+  height: 22px;
+}
+
+#start-button .start-icon {
+  font-size: 14px;
+}
+
+#start-button:active {
+  box-shadow:
+    inset 1px 1px #0a0a0a,
+    inset -1px -1px #ffffff;
+}
+
+/* === Taskbar Windows Area === */
+#taskbar-windows {
+  display: flex;
+  flex: 1;
+  gap: 2px;
+  overflow: hidden;
+  margin-left: 4px;
+}
+
+.taskbar-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  min-width: 100px;
+  max-width: 160px;
+  height: 22px;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.taskbar-button .tb-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.taskbar-button .tb-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskbar-button.active {
+  box-shadow:
+    inset 1px 1px #0a0a0a,
+    inset -1px -1px #ffffff;
+  background: repeating-comb-gradient(
+    #ffffff 0px,
+    #ffffff 1px,
+    var(--win95-gray) 1px,
+    var(--win95-gray) 2px
+  );
+}
+
+/* Use a simpler active state that works cross-browser */
+.taskbar-button.active {
+  box-shadow:
+    inset 1px 1px #0a0a0a,
+    inset -1px -1px #ffffff;
+  background: #c0c0c0;
+}
+
+/* === System Tray === */
+#system-tray {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-left: auto;
+  box-shadow:
+    inset -1px -1px #ffffff,
+    inset 1px 1px #808080;
+  height: 20px;
+}
+
+#clock {
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* === Start Menu === */
+#start-menu {
+  position: fixed;
+  bottom: 28px;
+  left: 0;
+  width: 180px;
+  background: var(--win95-gray);
+  z-index: 10000;
+  box-shadow:
+    inset -1px -1px #0a0a0a,
+    inset 1px 1px #ffffff,
+    inset -2px -2px #808080,
+    inset 2px 2px #dfdfdf;
+}
+
+#start-menu.hidden {
+  display: none;
+}
+
+#start-menu-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(to bottom, #000080, #1084d0);
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 8px;
+}
+
+#start-menu-sidebar span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #c0c0c0;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+#start-menu-items {
+  margin-left: 24px;
+  padding: 4px;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.start-menu-item:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.start-menu-item .smi-icon {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.start-menu-divider {
+  height: 1px;
+  margin: 4px 8px;
+  background: #808080;
+  box-shadow: 0 1px 0 #ffffff;
+}

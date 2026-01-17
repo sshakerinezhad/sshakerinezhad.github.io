@@ -58,5 +58,20 @@ const CONFIG = {
 
   desktop: {
     containerId: 'desktop'
+  },
+
+  desktopIcons: {
+    about: { windowId: 'about', label: 'About.exe', icon: '👤' },
+    projects: { windowId: 'projects', label: 'Projects', icon: '📁' },
+    plugs: { windowId: 'plugs', label: 'Shameless Plugs', icon: '🔗' },
+    merlyn: { windowId: 'merlyn', label: 'Merlyn Labs', icon: '🧪' }
+    // D&D Corner NOT shown (hidden easter egg)
+  },
+
+  socials: {
+    github: { url: 'https://github.com/sshakerinezhad', icon: '💻', title: 'GitHub' },
+    twitter: { url: 'https://twitter.com/TheSigilliteX', icon: '🐦', title: 'Twitter' },
+    linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: '💼', title: 'LinkedIn' },
+    email: { url: 'mailto:sshakerinezhad@gmail.com', icon: '✉️', title: 'Email' }
   }
 };

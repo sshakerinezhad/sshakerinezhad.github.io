@@ -83,7 +83,7 @@ index.html
 - [x] Desktop container, basic styling
 - [x] WindowManager class with state tracking
 - [x] Single test window (About.exe) working
-- [ ] Deploy to GitHub Pages
+- [x] Deploy to GitHub Pages
 
 **Files created:**
 - `index.html` — Structure, CDN links, templates
@@ -92,15 +92,38 @@ index.html
 - `js/window-manager.js` — WindowManager class
 - `js/app.js` — Entry point
 
-### Phase 2: Window System (NEXT)
-- All 4 main windows with content (Research, D&D, Shameless Plugs)
-- Hidden Merlyn Labs window
-- Window content styling
+### Phase 2: Window System ✅ COMPLETE
+- [x] All 5 windows with content (About, Research & Projects, Shameless Plugs, Merlyn Labs, D&D Corner)
+- [x] D&D Corner is hidden Easter egg (hidden: true flag)
+- [x] Window content styling (project items, links, coming-soon)
+- [x] Cascading window positions
 
-### Phase 3: Taskbar & Desktop
-- Taskbar with Start menu, running windows, clock
-- Desktop icons with double-click
-- Header with name + socials (GitHub, Twitter, email)
+**Windows:**
+| ID | Title | Auto-open | Hidden |
+|----|-------|-----------|--------|
+| about | About.exe | Yes | No |
+| projects | Research & Projects | Yes | No |
+| plugs | Shameless Plugs | No | No |
+| merlyn | Merlyn Labs | No | No |
+| dnd | D&D Corner | No | **Yes** |
+
+### Phase 3: Taskbar & Desktop ✅ COMPLETE
+- [x] Taskbar with Start menu, running windows, clock
+- [x] Desktop icons with double-click
+- [x] Header with name + socials (GitHub, Twitter, LinkedIn, email)
+
+**Files created:**
+- `css/taskbar.css` — Taskbar, Start menu, clock styling
+- `css/desktop-icons.css` — Desktop icons and header styling
+- `js/taskbar.js` — Taskbar class with Start menu and clock
+- `js/desktop-icons.js` — DesktopIcons class with double-click handling
+
+**Files modified:**
+- `js/window-manager.js` — Added event emitter (on/emit) for taskbar sync
+- `js/config.js` — Added `desktopIcons` and `socials` config sections
+- `index.html` — Added header, taskbar, desktop icons HTML structure
+- `css/main.css` — Adjusted desktop bounds for header/taskbar
+- `js/app.js` — Instantiates Taskbar and DesktopIcons
 
 ### Phase 4: Easter Eggs & Polish
 - Konami code + secret word triggers

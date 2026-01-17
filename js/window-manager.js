@@ -4,6 +4,30 @@
 class WindowManager {
   constructor() {
     this.windows = new Map();
+    this.listeners = {};
+  }
+
+  /**
+   * Subscribe to window events
+   * @param {string} event - Event name (windowOpen, windowClose, windowFocus, windowMinimize, windowRestore)
+   * @param {Function} callback - Callback function
+   */
+  on(event, callback) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+    this.listeners[event].push(callback);
+  }
+
+  /**
+   * Emit an event to all subscribers
+   * @param {string} event - Event name
+   * @param {...any} args - Arguments to pass to callbacks
+   */
+  emit(event, ...args) {
+    if (this.listeners[event]) {
+      this.listeners[event].forEach(cb => cb(...args));
+    }
   }
 
   /**
@@ -40,27 +64,39 @@ class WindowManager {
 
       onclose: () => {
         this.windows.delete(id);
-        return true;
+        this.emit('windowClose', id, config);
       },
 
       onfocus: () => {
         const win = this.windows.get(id);
-        if (win) win.focused = true;
+        if (win) {
+          win.focused = true;
+          this.emit('windowFocus', id, config);
+        }
       },
 
       onblur: () => {
         const win = this.windows.get(id);
-        if (win) win.focused = false;
+        if (win) {
+          win.focused = false;
+          this.emit('windowBlur', id, config);
+        }
       },
 
       onminimize: () => {
         const win = this.windows.get(id);
-        if (win) win.state = 'minimized';
+        if (win) {
+          win.state = 'minimized';
+          this.emit('windowMinimize', id, config);
+        }
       },
 
       onrestore: () => {
         const win = this.windows.get(id);
-        if (win) win.state = 'normal';
+        if (win) {
+          win.state = 'normal';
+          this.emit('windowRestore', id, config);
+        }
       }
     });
 
@@ -76,6 +112,8 @@ class WindowManager {
       state: 'normal',
       focused: true
     });
+
+    this.emit('windowOpen', id, config);
 
     return winbox;
   }

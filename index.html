@@ -11,10 +11,41 @@
   <link rel="stylesheet" href="https://unpkg.com/winbox/dist/winbox.min.css">
   <!-- Our styles -->
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/taskbar.css">
+  <link rel="stylesheet" href="css/desktop-icons.css">
 </head>
 <body>
+  <!-- Header with name and social links -->
+  <header id="header">
+    <div class="header-name">Shayan Shakeri</div>
+    <div class="header-socials"><!-- Rendered by JS --></div>
+  </header>
+
   <!-- Desktop area where windows live -->
-  <div id="desktop"></div>
+  <div id="desktop">
+    <!-- Desktop icons container -->
+    <div id="desktop-icons"></div>
+  </div>
+
+  <!-- Taskbar -->
+  <div id="taskbar">
+    <button id="start-button" class="button">
+      <span class="start-icon">🪟</span>
+      Start
+    </button>
+    <div id="taskbar-windows"></div>
+    <div id="system-tray">
+      <span id="clock"></span>
+    </div>
+  </div>
+
+  <!-- Start Menu -->
+  <div id="start-menu" class="hidden">
+    <div id="start-menu-sidebar">
+      <span>Windows95</span>
+    </div>
+    <div id="start-menu-items"><!-- Rendered by JS --></div>
+  </div>
 
   <!-- Window content templates (hidden, cloned when windows open) -->
   <template id="about-content">
@@ -120,6 +151,8 @@
   <!-- Our scripts (order matters) -->
   <script src="js/config.js"></script>
   <script src="js/window-manager.js"></script>
+  <script src="js/taskbar.js"></script>
+  <script src="js/desktop-icons.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

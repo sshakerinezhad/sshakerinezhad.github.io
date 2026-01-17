@@ -5,12 +5,18 @@
   'use strict';
 
   const windowManager = new WindowManager();
+  const taskbar = new Taskbar(windowManager);
+  const desktopIcons = new DesktopIcons(windowManager);
 
   // Expose for debugging
   window.wm = windowManager;
 
   function init() {
     console.log('Win95 Portfolio initializing...');
+
+    // Initialize taskbar and desktop icons
+    taskbar.init();
+    desktopIcons.init();
 
     // Open windows marked as openOnLoad (skip hidden windows)
     Object.entries(CONFIG.windows).forEach(([id, config]) => {

@@ -23,13 +23,18 @@ class Taskbar {
     const itemsContainer = document.getElementById('start-menu-items');
     itemsContainer.innerHTML = '';
 
+    // Set menu role for accessibility
+    this.startMenu.setAttribute('role', 'menu');
+
     // Add menu items for non-hidden windows
     Object.entries(CONFIG.windows).forEach(([id, config]) => {
       if (config.hidden) return;
 
-      const item = document.createElement('div');
+      const item = document.createElement('button');
       item.className = 'start-menu-item';
+      item.type = 'button';
       item.dataset.windowId = id;
+      item.setAttribute('role', 'menuitem');
       item.innerHTML = `
         <span class="smi-icon">${this.getIconForWindow(id)}</span>
         <span>${config.title}</span>
@@ -44,6 +49,10 @@ class Taskbar {
   }
 
   bindEvents() {
+    // Start button ARIA attributes
+    this.startButton.setAttribute('aria-haspopup', 'menu');
+    this.startButton.setAttribute('aria-expanded', 'false');
+
     // Start button
     this.startButton.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -57,6 +66,14 @@ class Taskbar {
         const windowId = item.dataset.windowId;
         this.wm.open(windowId);
         this.closeStartMenu();
+      }
+    });
+
+    // Escape key to close start menu
+    this.startMenu.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        this.closeStartMenu();
+        this.startButton.focus();
       }
     });
 
@@ -151,12 +168,14 @@ class Taskbar {
   openStartMenu() {
     this.startMenu.classList.remove('hidden');
     this.startButton.classList.add('active');
+    this.startButton.setAttribute('aria-expanded', 'true');
     this.startMenuOpen = true;
   }
 
   closeStartMenu() {
     this.startMenu.classList.add('hidden');
     this.startButton.classList.remove('active');
+    this.startButton.setAttribute('aria-expanded', 'false');
     this.startMenuOpen = false;
   }
 

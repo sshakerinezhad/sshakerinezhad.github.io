@@ -22,6 +22,8 @@ class DesktopIcons {
       icon.className = 'desktop-icon';
       icon.dataset.windowId = config.windowId;
       icon.tabIndex = 0;
+      icon.setAttribute('role', 'button');
+      icon.setAttribute('aria-label', `Open ${config.label}`);
       icon.innerHTML = `
         <span class="icon-image">${config.icon}</span>
         <span class="icon-label">${config.label}</span>
@@ -42,6 +44,7 @@ class DesktopIcons {
       link.href = config.url;
       link.target = config.url.startsWith('mailto:') ? '_self' : '_blank';
       link.title = config.title;
+      link.setAttribute('aria-label', config.title);
       link.innerHTML = `<i class="${config.icon}"></i>`;
       container.appendChild(link);
     });

@@ -200,10 +200,18 @@ index.html
 - `index.html` — Removed `<h2>` tags from about, projects, plugs, merlyn, and dnd templates
 - `css/main.css` — Enhanced `.wb-title` styling for better emphasis
 
-### Phase 6: Accessibility (TODO)
-- [ ] Keyboard navigation
-- [ ] ARIA labels
-- [ ] Focus indicators
+### Phase 6: Accessibility ✅ COMPLETE
+- [x] Keyboard navigation (Start menu items are buttons, Escape closes menu, Tab works throughout)
+- [x] ARIA labels (desktop icons, social links, Start button, sound toggle)
+- [x] Focus indicators (`:focus-visible` styles for Win95 aesthetic)
+
+**Files modified:**
+- `js/taskbar.js` — Start menu items now `<button>` with `role="menuitem"`, Escape handler, `aria-haspopup`/`aria-expanded` on Start button
+- `js/desktop-icons.js` — `role="button"` and `aria-label` on desktop icons, `aria-label` on social links
+- `js/app.js` — `aria-label` and `aria-pressed` on sound toggle
+- `css/main.css` — Global `:focus-visible` style
+- `css/taskbar.css` — Button reset styles for Start menu items, `:focus-visible` highlight
+- `css/desktop-icons.css` — `:focus-visible` for desktop icons and social links
 
 ---
 

@@ -14,9 +14,14 @@
   window.wm = windowManager;
 
   // Sound toggle handler
-  document.getElementById('sound-toggle').addEventListener('click', () => {
+  const soundToggle = document.getElementById('sound-toggle');
+  soundToggle.setAttribute('aria-label', 'Toggle sound effects');
+  soundToggle.setAttribute('aria-pressed', 'false');
+
+  soundToggle.addEventListener('click', () => {
     const enabled = easterEggs.toggleSound();
-    document.getElementById('sound-toggle').textContent = enabled ? '🔊' : '🔇';
+    soundToggle.textContent = enabled ? '🔊' : '🔇';
+    soundToggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
   });
 
   function init() {

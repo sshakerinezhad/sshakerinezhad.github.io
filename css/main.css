@@ -163,3 +163,13 @@ html, body {
   color: #404040;
   margin-top: 2px;
 }
+
+/* === Accessibility: Focus Indicators === */
+:focus-visible {
+  outline: 1px dotted #000000;
+  outline-offset: 2px;
+}
+
+.window-content a:focus-visible {
+  outline: 1px dotted currentColor;
+}

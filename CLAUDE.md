@@ -20,7 +20,7 @@ Use `/handoff` at the end of a session to capture context for the next session.
 
 ## Documenting Changes
 
-When working through plans, capture context alongside progress:
+When working through OR writing plans, capture context alongside progress:
 - **Why** decisions were made (not just what was done)
 - **Gotchas** encountered and how they were resolved
 - **Bugs** that arose during implementation

@@ -180,11 +180,17 @@
   cursor: pointer;
   font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
   font-size: 11px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
 }
 
-.start-menu-item:hover {
+.start-menu-item:hover,
+.start-menu-item:focus-visible {
   background: #000080;
   color: #ffffff;
+  outline: none;
 }
 
 .start-menu-item .smi-icon {

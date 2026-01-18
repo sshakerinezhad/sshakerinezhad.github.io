@@ -57,6 +57,10 @@ All window/icon configuration lives in `js/config.js`:
 - `js/config.js` - Add/remove/reorder windows, change icons, sizes
 - `index.html` - Change window content (via `<template>` tags)
 
+## Skills
+
+When working on specialized tasks, check `.claude/skills/` for relevant domain expertise based on each skill's triggers.
+
 ## Local Testing
 
 Use Live Server extension or `python -m http.server` — `fetch()` doesn't work with `file://`. Disable cache in DevTools if changes don't appear.

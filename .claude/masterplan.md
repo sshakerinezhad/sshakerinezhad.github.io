@@ -124,24 +124,47 @@ if (config.type === 'explorer') {
 - **Blog migrated**: Added `type: 'blog'` to plugs config so both Blog and FileExplorer use the same init pattern.
 - **Config passed to init**: `module.init(container, config)` passes the full config object, allowing FileExplorer to access `dataUrl` in Step 2.
 
-### Step 2: Data Layer
-- Create `data/projects.json` with metadata (id, title, summary, tags, thumbnail, icon, contentFile)
-- Create `data/projects/` folder with HTML files for each project
-- Migrate current projects: metadata → JSON, content → individual HTML files
-- FileExplorer fetches JSON on init, extracts unique tags for categories
+### Step 2: Data Layer ✓
+- [x] Create `data/projects.json` with metadata (id, title, summary, tags, thumbnail, icon, contentFile)
+- [x] Create `data/projects/` folder with HTML files for each project
+- [x] Migrate current projects: metadata → JSON, content → individual HTML files
+- [x] FileExplorer fetches JSON on init, extracts unique tags for categories
 - **Deliverable:** Data loads, categories derived from tags, logged to console
 
-### Step 3: Explorer View - Template & CSS
-- Create generic explorer template in index.html
-- Create `css/file-explorer.css` (sidebar + grid layout)
-- FileExplorer renders categories and folder grid
+**Implementation Notes:**
+- **Schema addition:** Added `status` field ("published" | "coming-soon") to enable data-driven styling instead of CSS classes
+- **5 unique tags derived:** AI, D&D, ML, Robotics, Security - categories auto-populate via `extractCategories()`
+- **Config addition:** `dataUrl: 'data/projects.json'` added to projects config
+
+### Step 3: Explorer View - Template & CSS ✓
+- [x] Create generic explorer template in index.html
+- [x] Create `css/file-explorer.css` (sidebar + grid layout)
+- [x] FileExplorer renders categories and folder grid
 - **Deliverable:** Visual explorer with clickable folders (no navigation yet)
 
-### Step 4: Detail View
-- Add detail view template structure
-- Implement show/hide navigation between views
-- Sidebar hidden in detail view, back button visible
-- **Deliverable:** Full navigation working
+**Implementation Notes:**
+- Template replaced hardcoded projects list with dynamic explorer structure
+- Sidebar filter buttons with click handlers for category filtering
+- Grid renders folder icons with titles, respects `status: coming-soon` for grayed-out items
+
+### Step 4: Detail View ✓
+- [x] Add detail view template structure
+- [x] Implement show/hide navigation between views
+- [x] Sidebar hidden in detail view, back button visible
+- [x] Load HTML content from `contentFile` on folder click
+- **Deliverable:** Full navigation working (list → detail → back)
+
+**Implementation Notes:**
+- CSS uses `.detail-active` class on container to toggle visibility
+- Click handlers only on non-coming-soon items
+- `openDetail()` fetches HTML and shows view, `closeDetail()` hides it
+- Error handling shows "Failed to load content" message on fetch failure
+
+**Bug Fix - Detail view not showing:**
+- **Symptom:** Clicking folders did nothing visible despite click handlers firing
+- **Root cause:** `this.container` stored WindowManager's wrapper div, but CSS selectors expected `.explorer-container.detail-active`
+- **Fix:** Changed `this.container = container;` to `this.container = container.querySelector('.explorer-container');`
+- **Gotcha:** WindowManager passes a wrapper div to module init, not the actual template content. Modules should query for their root element.
 
 ### Step 5: Polish & Mobile
 - **Mobile explorer:** No sidebar. Items grouped by tag as sections (Robotics section, D&D section, etc.)
@@ -155,13 +178,13 @@ if (config.type === 'explorer') {
 
 | File | Action | Status |
 |------|--------|--------|
-| `js/config.js` | MODIFY | ✓ Added `type: 'explorer'` to projects, `type: 'blog'` to plugs |
-| `js/file-explorer.js` | CREATE | ✓ Created with skeleton |
+| `js/config.js` | MODIFY | ✓ Added `type: 'explorer'`, `dataUrl` to projects; `type: 'blog'` to plugs |
+| `js/file-explorer.js` | CREATE | ✓ Full navigation: openDetail(), closeDetail(), click handlers |
 | `js/window-manager.js` | MODIFY | ✓ Added generic `initWindowType()` method |
-| `index.html` | MODIFY | ✓ Added script tag; template pending (Step 3) |
-| `data/projects.json` | CREATE | Pending (Step 2) |
-| `data/projects/*.html` | CREATE | Pending (Step 2) |
-| `css/file-explorer.css` | CREATE | Pending (Step 3) |
+| `index.html` | MODIFY | ✓ Script tag + explorer template |
+| `data/projects.json` | CREATE | ✓ Metadata index with 5 projects |
+| `data/projects/*.html` | CREATE | ✓ 5 detail content files |
+| `css/file-explorer.css` | CREATE | ✓ Sidebar + grid + detail view styles |
 
 ---
 

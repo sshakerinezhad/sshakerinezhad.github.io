@@ -1,0 +1,129 @@
+/**
+ * FileExplorer - Windows 95 style file browser
+ */
+
+/* Explorer container - sidebar + main grid layout */
+.explorer-container {
+  display: flex;
+  height: 100%;
+}
+
+/* List view wrapper (sidebar + main) */
+.explorer-list-view {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sidebar with category filters */
+.explorer-sidebar {
+  width: 120px;
+  border-right: 1px solid #808080;
+  padding: 8px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.explorer-filter {
+  display: block;
+  width: 100%;
+  padding: 4px 8px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.explorer-filter:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.explorer-filter.active {
+  background: #000080;
+  color: #ffffff;
+}
+
+/* Main content area - folder grid */
+.explorer-main {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.explorer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 16px;
+}
+
+/* Individual folder items */
+.explorer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.explorer-item:hover {
+  background: rgba(0, 0, 128, 0.1);
+}
+
+.explorer-item-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 4px;
+}
+
+.explorer-item-title {
+  font-size: 11px;
+  word-break: break-word;
+  max-width: 80px;
+}
+
+/* Coming soon items - grayed out */
+.explorer-item.coming-soon {
+  opacity: 0.5;
+}
+
+/* Detail view - shown when item selected */
+.explorer-detail-view {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+/* When detail is active: show detail, hide list */
+.explorer-container.detail-active .explorer-list-view {
+  display: none;
+}
+
+.explorer-container.detail-active .explorer-detail-view {
+  display: flex;
+}
+
+/* Back button - Windows 95 style */
+.explorer-back-btn {
+  align-self: flex-start;
+  margin-bottom: 12px;
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border: 2px outset #dfdfdf;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.explorer-back-btn:active {
+  border-style: inset;
+}
+
+/* Detail content area */
+.explorer-detail-content {
+  flex: 1;
+}

@@ -1,6 +1,6 @@
 # Sync Masterplan
 
-Update the masterplan with accomplishments from this session.
+Update the masterplan with accomplishments from this session, run the handoff command, and then generate a proposed one-line commit message for the changes. In that order.
 
 ## Instructions
 

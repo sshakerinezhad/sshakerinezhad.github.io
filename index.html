@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/taskbar.css">
   <link rel="stylesheet" href="css/desktop-icons.css">
   <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/file-explorer.css">
 </head>
 <body>
   <!-- Header with name and social links -->
@@ -65,41 +66,23 @@
   </template>
 
   <template id="projects-content">
-    <div class="window-content">
-      <div class="project-item">
-        <div class="project-title">BEHAVIOR-1K</div>
-        <div class="project-desc">8th place in Stanford BEHAVIOR challenge. Embodied AI benchmark for household robotics.</div>
-        <div class="project-links">
-          <a href="https://merlyn-labs.com/behavior-report" target="_blank">Report</a> &bull;
-          <a href="https://github.com/Merlyn-Labs/BEHAVIOR-1K" target="_blank">GitHub</a> &bull;
-          <a href="https://github.com/Merlyn-Labs/openpi" target="_blank">OpenPI</a>
+    <div class="window-content explorer-container">
+      <!-- List View (sidebar + grid) -->
+      <div class="explorer-list-view">
+        <div class="explorer-sidebar">
+          <!-- Populated by JS -->
+        </div>
+        <div class="explorer-main">
+          <div class="explorer-grid">
+            <!-- Populated by JS -->
+          </div>
         </div>
       </div>
 
-      <div class="project-item">
-        <div class="project-title">BardSong</div>
-        <div class="project-desc">D&D AI companion tool for DMs and players.</div>
-        <div class="project-links">
-          <a href="https://mythos-ten.vercel.app" target="_blank">Try it</a>
-        </div>
-      </div>
-
-      <div class="project-item">
-        <div class="project-title">Herbalism Tool</div>
-        <div class="project-desc">D&D 5e character tracker for the Elros Player's Guide homebrew. Tracks foraging, elixir brewing, and recipe management.</div>
-        <div class="project-links">
-          <a href="https://github.com/sshakerinezhad/herbalism-tool" target="_blank">GitHub</a>
-        </div>
-      </div>
-
-      <div class="project-item">
-        <div class="project-title">Voice-Controlled Prosthetic</div>
-        <div class="project-desc">ML pipeline for transhumeral arm prosthetics. Uses LLM for natural language commands, computer vision for object detection, and inverse kinematics for control. MEng research at UofT.</div>
-      </div>
-
-      <div class="project-item">
-        <div class="project-title coming-soon">Prompt Injection Monitor</div>
-        <div class="project-desc coming-soon">Security tool for LLM applications. Coming soon.</div>
+      <!-- Detail View (hidden, for Step 4) -->
+      <div class="explorer-detail-view">
+        <button class="explorer-back-btn">← Back</button>
+        <div class="explorer-detail-content"></div>
       </div>
     </div>
   </template>

@@ -34,7 +34,8 @@ const CONFIG = {
       contentId: 'projects-content',
       openOnLoad: false,
       showInUI: true,
-      type: 'explorer'
+      type: 'explorer',
+      dataUrl: 'data/projects.json'
     },
     plugs: {
       id: 'plugs',

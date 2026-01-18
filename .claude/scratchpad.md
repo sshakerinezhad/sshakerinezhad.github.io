@@ -1,37 +1,55 @@
 # Session Scratchpad
 
-## Session Status: Ready for Step 2
+## Session Status: Step 4 Bug Fixed
 
 ---
 
 ## Last Session Summary
 
-Implemented **Step 1: Type System Foundation** of the FileExplorer masterplan.
+Fixed bug where **FileExplorer detail view wasn't showing** when clicking folders.
 
-**What was done:**
-- Added `type` property to window configs (`type: 'explorer'` for projects, `type: 'blog'` for plugs)
-- Created generic `initWindowType()` method in window-manager.js (replaces hardcoded Blog check)
-- Created `js/file-explorer.js` skeleton with `init(container, config)` method
-- Added script tag to index.html
+**Root cause:** `this.container` stored WindowManager's wrapper div, but CSS expected `.explorer-container.detail-active`. The class was being added to the wrong element.
 
-**Key architectural decision:** Modules lookup object instead of if/else chains. Adding new window types only requires adding to the `modules` object in `initWindowType()`.
+**Fix:** In `js/file-explorer.js` line 26, changed:
+```javascript
+// Before
+this.container = container;
 
-**Not yet committed.** Suggested message: `Add type-based window initialization system`
+// After
+this.container = container.querySelector('.explorer-container');
+```
+
+**Key learning:** WindowManager passes a wrapper div to module init, not the actual template content. Modules should query for their root element.
+
+**Files changed:**
+| File | Action |
+|------|--------|
+| `js/file-explorer.js` | MODIFIED - fixed container reference |
+| `.claude/masterplan.md` | MODIFIED - documented bug fix in Step 4 |
+
+**Not yet committed.** Changes from this session + previous Step 4 work are uncommitted.
 
 ---
 
-## Next Session: Step 2 - Data Layer
+## Verification Steps
+
+1. Open site with Live Server (hard refresh)
+2. Open Projects window
+3. Click a folder → detail view should appear
+4. Click "← Back" → list view should return
+5. Click sidebar filter → grid should re-filter
+6. No console errors
+
+---
+
+## Next Session: Step 5 - Polish & Mobile
 
 From `.claude/masterplan.md`:
 
-1. Create `data/projects.json` with metadata schema:
-   ```json
-   { "id", "title", "summary", "tags": [], "thumbnail", "icon", "contentFile" }
-   ```
-2. Create `data/projects/` folder with HTML files for each project
-3. Migrate current projects content from template to JSON + HTML files
-4. Update FileExplorer to fetch JSON on init, extract unique tags for categories
-5. **Deliverable:** Data loads, categories derived from tags, logged to console
+1. **Mobile explorer:** No sidebar. Items grouped by tag as sections
+2. **Mobile detail:** Full-width, scrollable
+3. Hover/selection states (desktop)
+4. Edge cases (empty categories, missing thumbnails, etc.)
 
 ---
 
@@ -40,15 +58,6 @@ From `.claude/masterplan.md`:
 | File | Purpose |
 |------|---------|
 | `.claude/masterplan.md` | Full 5-step plan with architecture diagrams |
-| `js/file-explorer.js` | Add data fetching logic here |
-| `js/config.js` | May need `dataUrl` property added to projects config |
-| `index.html` | Current projects content in `<template id="projects-content">` - migrate this |
-
----
-
-## Verification
-
-Step 1 test (should still work):
-1. Open site with Live Server
-2. DevTools console → Click Projects → see `FileExplorer.init()` log
-3. Click Blog → posts still load normally
+| `js/file-explorer.js` | FileExplorer module |
+| `css/file-explorer.css` | Explorer styles |
+| `data/projects/*.html` | Content loaded on folder click |

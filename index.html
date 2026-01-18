@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://unpkg.com/98.css">
   <!-- WinBox CSS -->
   <link rel="stylesheet" href="https://unpkg.com/winbox/dist/winbox.min.css">
+  <!-- Markdown rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <!-- Our styles -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/taskbar.css">
@@ -103,17 +105,38 @@
   </template>
 
   <template id="plugs-content">
+    <div class="window-content blog-container">
+      <!-- List View -->
+      <div class="blog-list-view">
+        <p>Things I've written:</p>
+        <div class="blog-list"></div>
+      </div>
+
+      <!-- Article View (hidden by default) -->
+      <div class="blog-article-view" style="display: none;">
+        <div class="blog-article-header">
+          <button class="blog-back-btn">← Back</button>
+          <h2 class="blog-article-title"></h2>
+          <div class="blog-article-meta">
+            <span class="blog-article-date"></span>
+            <a class="blog-article-source" target="_blank">View original →</a>
+          </div>
+        </div>
+        <div class="blog-article-content"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="mail-content">
     <div class="window-content">
-      <p>Things I've written:</p>
 
       <div class="link-item">
-        <a href="https://lesswrong.com/posts/4p2HBMxCkh7pZ3xCa" target="_blank">LessWrong Post</a>
-        <div class="link-desc">Thoughts on AI alignment and rationality</div>
+        <a href="https://twitter.com/TheSigilliteX" target="_blank">Message me on X</a>
       </div>
 
       <div class="link-item">
-        <a href="https://merlyn-labs.com" target="_blank">Merlyn Labs Blog</a>
-        <div class="link-desc">Technical writing on robotics and embodied AI</div>
+        <a href='mailto:sshakerinezhad11@gmail.com' target="_blank">Send me an email</a>
+        <div class="link-desc">sshakerinezhad11@gmail.com</div>
       </div>
     </div>
   </template>
@@ -124,9 +147,8 @@
 
       <p><strong>Some of Our Current work:</strong></p>
       <ul>
-        <li>Vision-Language-Action models for robotics</li>
-        <li>Embodied AI research</li>
-        <li>Building robots that actually work</li>
+        <li>Reinforcement learning on household tasks</li>
+        <li>Early failure detection and replanning heuristics</li>
       </ul>
       <p><strong>More info at:</strong></p>
       <p><a href="https://merlyn-labs.com" target="_blank">merlyn-labs.com</a></p>
@@ -161,6 +183,7 @@
   <script src="js/desktop-icons.js"></script>
   <script src="js/easter-eggs.js"></script>
   <script src="js/mobile-nav.js"></script>
+  <script src="js/blog.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

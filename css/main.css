@@ -28,11 +28,11 @@ html, body {
 /* === Desktop === */
 #desktop {
   position: fixed;
-  top: 32px;    /* below header */
+  top: 40px;    /* below header */
   left: 0;
   right: 0;
-  bottom: 28px; /* above taskbar */
-  background-color: var(--win95-bg);
+  bottom: 36px; /* above taskbar */
+  background: url('/images/misc/wallpaper2.png') center/cover no-repeat;
 }
 
 /* === WinBox Overrides (Win95 look) === */
@@ -162,6 +162,185 @@ html, body {
   font-size: 11px;
   color: #404040;
   margin-top: 2px;
+}
+
+/* === Blog Window === */
+.blog-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Blog List View */
+.blog-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #c0c0c0;
+  cursor: pointer;
+}
+
+.blog-item:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.blog-item:hover .blog-item-date,
+.blog-item:hover .blog-item-desc {
+  color: #ffffff;
+}
+
+.blog-item:last-child {
+  border-bottom: none;
+}
+
+.blog-item-date {
+  font-size: 11px;
+  color: #808080;
+}
+
+.blog-item-title {
+  display: block;
+  font-weight: bold;
+  font-size: 17px;
+  margin: 2px 0;
+}
+
+.blog-item-desc {
+  font-size: 13px;
+  color: #404040;
+}
+
+/* Blog Article View */
+.blog-article-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.blog-article-header {
+  background: #c0c0c0;
+  padding: 8px 12px;
+  border-bottom: 2px groove #ffffff;
+  flex-shrink: 0;
+}
+
+.blog-back-btn {
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.blog-back-btn:active {
+  border-style: inset;
+}
+
+.blog-article-header .blog-article-title {
+  margin: 4px 0;
+  font-size: 32px;
+}
+
+.blog-article-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 11px;
+}
+
+.blog-article-date {
+  color: #404040;
+}
+
+.blog-article-source {
+  font-size: 11px;
+}
+
+.blog-article-content {
+  /* SWAP FONT: uncomment ONE option */
+  /* --blog-font: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif; */
+  --blog-font: Georgia, "Times New Roman", serif;
+
+  background: #e8e0d0;
+  padding: 12px;
+  font-family: var(--blog-font);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.blog-article-content img {
+  max-width: min(100%, 1000px);
+  height: auto;
+  display: block;
+  margin: 8px auto;
+}
+
+.blog-article-content pre {
+  background: #f0f0f0;
+  padding: 8px;
+  overflow-x: auto;
+  font-size: 12px;
+}
+
+.blog-article-content code {
+  background: #f0f0f0;
+  padding: 1px 4px;
+  font-size: 12px;
+}
+
+.blog-article-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.blog-article-content h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 16px 0 8px 0;
+}
+
+.blog-article-content h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 14px 0 6px 0;
+}
+
+.blog-article-content h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0 6px 0;
+}
+
+/* Blog Video Layouts */
+.blog-article-content .video-pair {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.blog-article-content .video-pair video {
+  width: min(45%, 480px);
+  height: auto;
+  border-radius: 2px;
+}
+
+.blog-article-content .video-single {
+  margin: 12px 0;
+  text-align: center;
+}
+
+.blog-article-content .video-single video {
+  width: min(60%, 700px);
+  height: auto;
+  border-radius: 2px;
+}
+
+.blog-article-content .video-pair + p em,
+.blog-article-content .video-single + p em {
+  display: block;
+  text-align: center;
 }
 
 /* === Accessibility: Focus Indicators === */

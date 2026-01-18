@@ -40,3 +40,23 @@ Before starting significant work:
 - Use `git log -p <file>` to understand why a specific file evolved
 
 When something seems oddly implemented, assume there was a reason - check history before "fixing" it.
+
+## Architecture: Single Source of Truth
+
+All window/icon configuration lives in `js/config.js`:
+
+- **`CONFIG.windows`** - All windows with their display properties (icon, label, size, position, showInUI)
+- **`CONFIG.socials`** - Social links shown in header
+- Order in config = order on screen
+- `showInUI: false` hides a window from all UI (for easter eggs)
+
+**Files that should never need editing for common tasks:**
+- `desktop-icons.js`, `mobile-nav.js`, `taskbar.js`, `window-manager.js`
+
+**Common edits happen in only 2 files:**
+- `js/config.js` - Add/remove/reorder windows, change icons, sizes
+- `index.html` - Change window content (via `<template>` tags)
+
+## Local Testing
+
+Use Live Server extension or `python -m http.server` — `fetch()` doesn't work with `file://`. Disable cache in DevTools if changes don't appear.

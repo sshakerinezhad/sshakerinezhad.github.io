@@ -13,7 +13,7 @@ const CONFIG = {
       id: 'about',
       title: 'About.exe',
       label: 'About.exe',
-      icon: 'images/icons/about.png',
+      icon: 'images/icons/Alchemy.png',
       width: 420,
       height: 300,
       x: 'center',
@@ -37,11 +37,11 @@ const CONFIG = {
     },
     plugs: {
       id: 'plugs',
-      title: 'Shameless Plugs',
-      label: 'Shameless Plugs',
+      title: 'Blog',
+      label: 'Blog',
       icon: 'images/icons/blogposts.png',
-      width: 400,
-      height: 320,
+      width: 800,
+      height: 500,
       x: 200,
       y: 140,
       contentId: 'plugs-content',
@@ -58,6 +58,19 @@ const CONFIG = {
       x: 260,
       y: 180,
       contentId: 'merlyn-content',
+      openOnLoad: false,
+      showInUI: true
+    },
+    contact: {
+      id: 'contact',
+      title: 'Contact Me',
+      label: 'Contact Me',
+      icon: 'images/icons/mail.png',
+      width: 400,
+      height: 320,
+      x: 200,
+      y: 140,
+      contentId: 'mail-content',
       openOnLoad: false,
       showInUI: true
     },
@@ -84,7 +97,7 @@ const CONFIG = {
     github: { url: 'https://github.com/sshakerinezhad', icon: 'fa-brands fa-github', title: 'GitHub' },
     twitter: { url: 'https://twitter.com/TheSigilliteX', icon: 'fa-brands fa-x-twitter', title: 'Twitter' },
     linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: 'fa-brands fa-linkedin', title: 'LinkedIn' },
-    email: { url: 'mailto:sshakerinezhad@gmail.com', icon: 'fa-solid fa-envelope', title: 'Email' }
+    email: { url: 'mailto:sshakerinezhad11@gmail.com', icon: 'fa-solid fa-envelope', title: 'Email' }
   },
 
   isMobile: () => window.innerWidth <= CONFIG.mobile.breakpoint

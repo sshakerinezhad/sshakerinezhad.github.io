@@ -76,8 +76,8 @@ class WindowManager {
         : ['win95-window', 'no-full'],
 
       // Constrain windows to desktop area
-      top: isMobile ? 64 : 32,      // Below header (56px on mobile, 32px on desktop)
-      bottom: isMobile ? 68 : 28,   // Above taskbar/nav (60px on mobile, 28px on desktop)
+      top: isMobile ? 64 : 40,      // Below header (56px on mobile, 40px on desktop)
+      bottom: isMobile ? 68 : 36,   // Above taskbar/nav (60px on mobile, 36px on desktop)
 
       onclose: () => {
         this.windows.delete(id);
@@ -121,6 +121,11 @@ class WindowManager {
       const container = document.createElement('div');
       container.appendChild(content);
       winbox.mount(container);
+
+      // Initialize blog when its window opens
+      if (id === 'plugs' && typeof Blog !== 'undefined') {
+        Blog.init(container);
+      }
     }
 
     this.windows.set(id, {

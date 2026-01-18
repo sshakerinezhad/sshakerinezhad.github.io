@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 28px;
+  height: 36px;
   background: var(--win95-gray);
   display: flex;
   align-items: center;
@@ -23,15 +23,15 @@
   gap: 4px;
   padding: 2px 6px;
   font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
-  min-width: 54px;
-  height: 22px;
+  min-width: 64px;
+  height: 28px;
 }
 
 #start-button .start-icon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
@@ -58,9 +58,9 @@
   padding: 2px 8px;
   min-width: 100px;
   max-width: 160px;
-  height: 22px;
+  height: 28px;
   font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,8 +74,8 @@
 }
 
 .taskbar-icon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
@@ -115,12 +115,12 @@
   box-shadow:
     inset -1px -1px #ffffff,
     inset 1px 1px #808080;
-  height: 20px;
+  height: 26px;
 }
 
 #clock {
   font-family: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -135,8 +135,8 @@
 }
 
 .tray-button img {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
@@ -148,7 +148,7 @@
 /* === Start Menu === */
 #start-menu {
   position: fixed;
-  bottom: 28px;
+  bottom: 36px;
   left: 0;
   width: 180px;
   background: var(--win95-gray);

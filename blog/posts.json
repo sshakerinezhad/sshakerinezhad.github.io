@@ -1,0 +1,18 @@
+[
+  {
+    "id": "behavior-report",
+    "title": "Removing Bottlenecks: Training Generalist VLAs for the BEHAVIOR-1K Challenge",
+    "date": "2025-11",
+    "description": "We trained a generalist robotics policy to perform a series of household tasks. Along the way we addressed major bottlenecks that offered a glimpse into the deeper principles of robot intelligence.",
+    "file": "blog/behavior-report.md",
+    "source": "https://merlyn-labs.com/behavior-report"
+  },
+  {
+    "id": "lesswrong-post",
+    "title": "VLAs as Model Organisms for AI Safety",
+    "date": "2026-01",
+    "description": "What training VLAs taught me about AI safety.",
+    "file": "blog/lesswrong_post.md",
+    "source": "https://www.lesswrong.com/posts/4p2HBMxCkh7pZ3xCa/vlas-as-model-organisms-for-ai-safety"
+  }
+]

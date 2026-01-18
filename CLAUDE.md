@@ -6,6 +6,14 @@ Everything should always be done cleanly, simply, and scalably. no spaghetti cod
 
 Always ask yourself, is this the simplest solution? Will this cause problems down the line? Is this scalable?
 
+Golden Rules
+- THe best solution is the simplest solution.
+- NOTHING should be a bandaid or spaghetti.
+- all code should be industry standard and scalable ALWAYS
+- The WHY is as important as the WHAT. When making decisions and creating/modifying documentation, always include the reasoning behind things.
+- when implementing an existing plan, do a second pass and critique it. Does it make sense? is it the best/simplest solution? and what could go wrong?
+- before adding new features or changing existing ones, consider how these changes will interact with the existing system. If it will introduce inefficiencies, scalability issues, or bloat, reassess.
+
 ## Project Overview
 
 Personal portfolio website for Shayan Shakeri. GitHub Pages site with a Windows 95 aesthetic.

@@ -33,7 +33,8 @@ const CONFIG = {
       y: 100,
       contentId: 'projects-content',
       openOnLoad: false,
-      showInUI: true
+      showInUI: true,
+      type: 'explorer'
     },
     plugs: {
       id: 'plugs',
@@ -46,7 +47,8 @@ const CONFIG = {
       y: 140,
       contentId: 'plugs-content',
       openOnLoad: false,
-      showInUI: true
+      showInUI: true,
+      type: 'blog'
     },
     merlyn: {
       id: 'merlyn',

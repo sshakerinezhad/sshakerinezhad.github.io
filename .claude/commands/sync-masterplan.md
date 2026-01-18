@@ -32,7 +32,7 @@ Update the masterplan with accomplishments from this session.
 6. After approval, apply the changes to masterplan.md
 
 7. Review the completed work for learnings worth adding to CLAUDE.md. Only propose additions that are:
-   - **High-level context** every future agent should know (tech stack, architecture decisions)
+   - **High-level context** every future agent should know (tech stack, architecture decisions that arent obvious and will come up often)
    - **Decision-making guidance** (when to use X vs Y)
    - **Critical gotchas** that would cause significant problems if forgotten
 
@@ -42,3 +42,9 @@ Update the masterplan with accomplishments from this session.
    - Anything too lengthy or specific to one feature
 
    If proposing CLAUDE.md changes, present them for user approval before applying.
+
+8. Run the /handoff command.
+
+9. Determine and present the user with a breif commit message if they decide to commit and push these changes. it should fit in one line and be natural sounding.
+
+

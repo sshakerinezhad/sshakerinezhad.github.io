@@ -113,11 +113,16 @@ if (config.type === 'explorer') {
 
 ## Step-by-Step Plan
 
-### Step 1: Foundation - Type System & Module Skeleton
-- Add `type` property support to window config system
-- Create `js/file-explorer.js` with basic structure
-- Add type-based initialization in `window-manager.js`
+### Step 1: Foundation - Type System & Module Skeleton ✓
+- [x] Add `type` property support to window config system
+- [x] Create `js/file-explorer.js` with basic structure
+- [x] Add type-based initialization in `window-manager.js`
 - **Deliverable:** Console logs when explorer window opens
+
+**Implementation Notes:**
+- **Why generic `initWindowType()`**: Instead of adding more `if (id === 'xxx')` checks, we created a modules lookup object. Adding new types only requires adding to the object - no new conditionals.
+- **Blog migrated**: Added `type: 'blog'` to plugs config so both Blog and FileExplorer use the same init pattern.
+- **Config passed to init**: `module.init(container, config)` passes the full config object, allowing FileExplorer to access `dataUrl` in Step 2.
 
 ### Step 2: Data Layer
 - Create `data/projects.json` with metadata (id, title, summary, tags, thumbnail, icon, contentFile)
@@ -148,15 +153,15 @@ if (config.type === 'explorer') {
 
 ## Files
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `js/config.js` | MODIFY | Add `type`, `dataUrl` to projects window |
-| `js/file-explorer.js` | CREATE | Generic reusable explorer module |
-| `js/window-manager.js` | MODIFY | Type-based initialization |
-| `data/projects.json` | CREATE | Project metadata index |
-| `data/projects/*.html` | CREATE | Individual project detail content |
-| `index.html` | MODIFY | Generic explorer template, link CSS |
-| `css/file-explorer.css` | CREATE | Explorer styling |
+| File | Action | Status |
+|------|--------|--------|
+| `js/config.js` | MODIFY | ✓ Added `type: 'explorer'` to projects, `type: 'blog'` to plugs |
+| `js/file-explorer.js` | CREATE | ✓ Created with skeleton |
+| `js/window-manager.js` | MODIFY | ✓ Added generic `initWindowType()` method |
+| `index.html` | MODIFY | ✓ Added script tag; template pending (Step 3) |
+| `data/projects.json` | CREATE | Pending (Step 2) |
+| `data/projects/*.html` | CREATE | Pending (Step 2) |
+| `css/file-explorer.css` | CREATE | Pending (Step 3) |
 
 ---
 

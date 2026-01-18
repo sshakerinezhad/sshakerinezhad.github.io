@@ -122,10 +122,8 @@ class WindowManager {
       container.appendChild(content);
       winbox.mount(container);
 
-      // Initialize blog when its window opens
-      if (id === 'plugs' && typeof Blog !== 'undefined') {
-        Blog.init(container);
-      }
+      // Initialize module based on window type
+      this.initWindowType(config.type, container, config);
     }
 
     this.windows.set(id, {
@@ -184,6 +182,23 @@ class WindowManager {
     const win = this.windows.get(id);
     if (win) {
       win.instance.minimize();
+    }
+  }
+
+  /**
+   * Initialize a window's module based on its type
+   */
+  initWindowType(type, container, config) {
+    if (!type) return;
+
+    const modules = {
+      blog: typeof Blog !== 'undefined' ? Blog : null,
+      explorer: typeof FileExplorer !== 'undefined' ? FileExplorer : null
+    };
+
+    const module = modules[type];
+    if (module && typeof module.init === 'function') {
+      module.init(container, config);
     }
   }
 }

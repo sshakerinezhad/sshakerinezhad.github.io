@@ -64,6 +64,21 @@ const CONFIG = {
       openOnLoad: false,
       showInUI: true
     },
+    books: {
+      id: 'books',
+      title: 'Library',
+      label: 'Book Club',
+      icon: 'images/icons/Myst.png',
+      width: 550,
+      height: 450,
+      x: 160,
+      y: 120,
+      contentId: 'books-content',
+      openOnLoad: false,
+      showInUI: true,
+      type: 'explorer',
+      dataUrl: 'data/books.json'
+    },
     contact: {
       id: 'contact',
       title: 'Contact Me',

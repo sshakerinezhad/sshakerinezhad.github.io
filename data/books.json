@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "id": "horus-rising",
+      "title": "Horus Rising",
+      "summary": "Book 1 - Dan Abnett",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/horus-rising.jpg",
+      "contentFile": "data/books/horus-rising.html",
+      "status": "published"
+    },
+    {
+      "id": "false-gods",
+      "title": "False Gods",
+      "summary": "Book 2 - Graham McNeill",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/false-gods.jpg",
+      "contentFile": "data/books/false-gods.html",
+      "status": "published"
+    },
+    {
+      "id": "galaxy-in-flames",
+      "title": "Galaxy in Flames",
+      "summary": "Book 3 - Ben Counter",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/galaxy-in-flames.jpg",
+      "contentFile": "data/books/galaxy-in-flames.html",
+      "status": "published"
+    },
+    {
+      "id": "flight-of-the-eisenstein",
+      "title": "The Flight of the Eisenstein",
+      "summary": "Book 4 - James Swallow",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/flight-of-the-eisenstein.jpg",
+      "contentFile": "data/books/flight-of-the-eisenstein.html",
+      "status": "published"
+    },
+    {
+      "id": "fulgrim",
+      "title": "Fulgrim",
+      "summary": "Book 5 - Graham McNeill",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/fulgrim.jpg",
+      "contentFile": "data/books/fulgrim.html",
+      "status": "published"
+    },
+    {
+      "id": "descent-of-angels",
+      "title": "Descent of Angels",
+      "summary": "Book 6 - Mitchel Scanlon",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/descent-of-angels.jpg",
+      "contentFile": "data/books/descent-of-angels.html",
+      "status": "published"
+    },
+    {
+      "id": "legion",
+      "title": "Legion",
+      "summary": "Book 7 - Dan Abnett",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/legion.jpg",
+      "contentFile": "data/books/legion.html",
+      "status": "published"
+    }
+  ]
+}

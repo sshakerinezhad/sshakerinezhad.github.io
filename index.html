@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="css/desktop-icons.css">
   <link rel="stylesheet" href="css/mobile.css">
   <link rel="stylesheet" href="css/file-explorer.css">
+  <link rel="stylesheet" href="css/books.css">
 </head>
 <body>
   <!-- Header with name and social links -->
@@ -85,6 +86,21 @@
       </div>
 
       <!-- Detail View (hidden, for Step 4) -->
+      <div class="explorer-detail-view">
+        <button class="explorer-back-btn">← Back</button>
+        <div class="explorer-detail-content"></div>
+      </div>
+    </div>
+  </template>
+
+  <template id="books-content">
+    <div class="window-content explorer-container">
+      <div class="explorer-list-view">
+        <div class="explorer-sidebar"></div>
+        <div class="explorer-main">
+          <div class="explorer-grid"></div>
+        </div>
+      </div>
       <div class="explorer-detail-view">
         <button class="explorer-back-btn">← Back</button>
         <div class="explorer-detail-content"></div>

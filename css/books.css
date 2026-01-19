@@ -1,0 +1,19 @@
+.book-detail .book-cover {
+  max-width: 150px;
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.book-detail h2 {
+  margin-top: 0;
+}
+
+.book-detail .book-author {
+  color: #666;
+  font-style: italic;
+}
+
+.book-detail .book-thoughts {
+  clear: both;
+}

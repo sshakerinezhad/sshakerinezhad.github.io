@@ -6,50 +6,66 @@
 2. **Missing quote section**: Need italicized quote with attribution under summary
 3. **Author placement**: Should be next to title, not below
 4. **Star rating**: Numeric display for now (★ 3.6/5), upgrade to images later
-5. **Heading sizes broken project-wide**: No consistent scale, contexts define their own sizes
+5. **Heading sizes broken in window-content**: h3 has no rule, defaults to ~19px (larger than h2's 14px)
 
 ## Files to Modify
 
-### 1. `css/main.css` - Establish base heading scale
-Add CSS custom properties in `:root` and base heading styles:
+### 1. `css/main.css` - Add missing heading rules
+
+**The Problem:**
+- `.window-content h2` = 14px (styled)
+- `.window-content h3` = ~19px (browser default - LARGER than h2!)
+- `.window-content h1, h4` = browser defaults
+
+**The Fix:** Add CSS variables and the missing rules. Keep h2 at 14px (don't change what works).
+
 ```css
 :root {
-  /* ... existing vars ... */
+  /* ... existing color vars ... */
 
-  /* Base heading scale */
-  --heading-1: 18px;
-  --heading-2: 15px;
-  --heading-3: 13px;
-  --heading-4: 12px;
+  /* Window heading scale */
+  --window-heading-1: 18px;
+  --window-heading-2: 14px;  /* matches existing .window-content h2 */
+  --window-heading-3: 12px;
+  --window-heading-4: 11px;
 }
 
-/* Base heading styles (all contexts inherit) */
-h1, h2, h3, h4 {
-  font-weight: bold;
-  margin: 0;
-}
-
-.window-content h1 { font-size: var(--heading-1); margin-bottom: 12px; }
-.window-content h2 { font-size: var(--heading-2); margin-bottom: 10px; }
-.window-content h3 { font-size: var(--heading-3); margin-bottom: 8px; }
-.window-content h4 { font-size: var(--heading-4); margin-bottom: 6px; }
+/* Window content headings - complete hierarchy */
+.window-content h1 { font-size: var(--window-heading-1); font-weight: bold; margin: 0 0 12px 0; }
+.window-content h2 { font-size: var(--window-heading-2); font-weight: bold; margin: 0 0 10px 0; }
+.window-content h3 { font-size: var(--window-heading-3); font-weight: bold; margin: 0 0 8px 0; }
+.window-content h4 { font-size: var(--window-heading-4); font-weight: bold; margin: 0 0 6px 0; }
 ```
 
-Then update `.blog-article-content` headings to use the same variables (scaled up for larger format):
-```css
-.blog-article-content h1 { font-size: calc(var(--heading-1) + 4px); }
-.blog-article-content h2 { font-size: calc(var(--heading-2) + 1px); }
-.blog-article-content h3 { font-size: var(--heading-3); }
-```
+**Why this approach:**
+- Named `--window-heading-*` to be explicit about scope (not global `--heading-*`)
+- h2 stays 14px to match existing behavior
+- Blog rules left unchanged (they already work: 22/16/14px for h1/h2/h3)
+- No `calc()` coupling between blog and window contexts - they're different (reading font vs UI font)
 
-### 2. `index.html` - Add books-explorer class to template
-Change the books template container to include a modifier class:
+**What changes:**
+| Element | Before | After |
+|---------|--------|-------|
+| `.window-content h1` | ~32px (default) | 18px |
+| `.window-content h2` | 14px | 14px (unchanged) |
+| `.window-content h3` | ~19px (default) | 12px (fixes bug) |
+| `.window-content h4` | ~16px (default) | 11px |
+| Blog headings | 22/16/14px | unchanged |
+
+**What could break:** Nothing. Searched codebase - no templates currently use h1, h3, or h4 in window-content except books (where this fix is intended).
+
+### 2. `data/books/legion.html` - Fix heading inconsistency
+
+Change line 3 from `<h3>Legion</h3>` to `<h2>Legion</h2>` (all other books use h2 for title).
+
+### 3. `index.html` - Add books-explorer class to template
+
 ```html
 <div class="window-content explorer-container books-explorer">
 ```
 
-### 3. `css/file-explorer.css` - Books-specific icon sizing
-Target via the class added above (no JS changes):
+### 4. `css/file-explorer.css` - Books-specific icon sizing
+
 ```css
 /* Book covers - taller aspect ratio */
 .books-explorer .explorer-item-icon {
@@ -58,7 +74,8 @@ Target via the class added above (no JS changes):
 }
 ```
 
-### 4. `css/books.css` - Complete rewrite
+### 5. `css/books.css` - Update for new structure
+
 ```css
 /* Book detail header - title and author inline */
 .book-detail .book-header {
@@ -69,13 +86,13 @@ Target via the class added above (no JS changes):
 }
 
 .book-detail .book-title {
-  font-size: var(--heading-1);
+  font-size: var(--window-heading-1);
   font-weight: bold;
   margin: 0;
 }
 
 .book-detail .book-author {
-  font-size: var(--heading-3);
+  font-size: var(--window-heading-3);
   color: #666;
   font-style: italic;
 }
@@ -120,7 +137,8 @@ Target via the class added above (no JS changes):
 }
 ```
 
-### 5. Update all 7 book HTML files
+### 6. Update all 7 book HTML files
+
 New structure:
 ```html
 <div class="book-detail">
@@ -131,7 +149,7 @@ New structure:
     <span class="book-author">by [Author]</span>
   </div>
 
-  <p class="book-rating"><span class="star-icon">★</span> 4.2/5</p>
+  <p class="book-rating"><span class="star-icon">★</span> X.X/5</p>
 
   <p class="book-summary">[Summary]</p>
 
@@ -148,15 +166,21 @@ New structure:
 ```
 
 ## Implementation Order
-1. `css/main.css` - Establish base heading scale with CSS vars
-2. `index.html` - Add `books-explorer` class to template
-3. `css/file-explorer.css` - Books-specific icon sizing
-4. `css/books.css` - Rewrite with new structure
-5. Update all 7 book HTML files
+
+1. `css/main.css` - Add CSS vars and heading rules
+2. `data/books/legion.html` - Fix h3→h2 for title
+3. `index.html` - Add `books-explorer` class to template
+4. `css/file-explorer.css` - Books-specific icon sizing
+5. `css/books.css` - Update with new structure
+6. Update all 7 book HTML files
 
 ## Verification
-- Grid icons show full rectangular covers (not squished)
-- Title and author on same line in detail view
+
+- Open Books window → grid icons show full rectangular covers (not squished)
+- Click any book → title (h2) visibly larger than "My Thoughts" (h3)
+- Title and author on same line
 - Rating shows as "★ X.X/5"
-- Quote in italics with dash attribution below summary
-- Heading hierarchy correct site-wide (h1 > h2 > h3 > h4)
+- Quote in italics with attribution
+- Open Blog → headings unchanged (22/16/14px)
+- Open About/Projects → unchanged appearance
+- DevTools: `.window-content h3` shows 12px, not browser default

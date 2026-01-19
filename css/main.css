@@ -10,6 +10,12 @@
   /* --window-outer-shadow: none; */                       /* Authentic Win95 (no outer effect) */
    --window-outer-shadow: 0 0 0 1px #000000;           /* 1px black border (subtle) */
   /* --window-outer-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4); */    /* Drop shadow (XP-style) */
+
+  /* Window heading scale */
+  --window-heading-1: 18px;
+  --window-heading-2: 14px;  /* matches existing .window-content h2 */
+  --window-heading-3: 12px;
+  --window-heading-4: 11px;
 }
 
 /* === Reset & Base === */
@@ -79,11 +85,11 @@ html, body {
   color: var(--win95-text);
 }
 
-.window-content h2 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  font-weight: bold;
-}
+/* Window content headings - complete hierarchy */
+.window-content h1 { font-size: var(--window-heading-1); font-weight: bold; margin: 0 0 12px 0; }
+.window-content h2 { font-size: var(--window-heading-2); font-weight: bold; margin: 0 0 10px 0; }
+.window-content h3 { font-size: var(--window-heading-3); font-weight: bold; margin: 0 0 8px 0; }
+.window-content h4 { font-size: var(--window-heading-4); font-weight: bold; margin: 0 0 6px 0; }
 
 .window-content p {
   margin: 0 0 8px 0;

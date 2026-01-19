@@ -67,7 +67,7 @@ const CONFIG = {
     books: {
       id: 'books',
       title: 'Library',
-      label: 'Book Club',
+      label: 'Book Club - Stuff I read for fun',
       icon: 'images/icons/Myst.png',
       width: 550,
       height: 450,

@@ -5,7 +5,6 @@
       "title": "BEHAVIOR-1K",
       "summary": "8th place in Stanford BEHAVIOR challenge. Embodied AI benchmark for household robotics.",
       "tags": ["Robotics", "AI"],
-      "thumbnail": null,
       "icon": null,
       "contentFile": "data/projects/behavior-1k.html",
       "status": "published"
@@ -15,7 +14,6 @@
       "title": "BardSong",
       "summary": "D&D AI companion tool for DMs and players.",
       "tags": ["D&D", "AI"],
-      "thumbnail": null,
       "icon": null,
       "contentFile": "data/projects/bardsong.html",
       "status": "published"
@@ -25,7 +23,6 @@
       "title": "Herbalism Tool",
       "summary": "D&D 5e character tracker for the Elros Player's Guide homebrew.",
       "tags": ["D&D"],
-      "thumbnail": null,
       "icon": null,
       "contentFile": "data/projects/herbalism-tool.html",
       "status": "published"
@@ -35,7 +32,6 @@
       "title": "Voice-Controlled Prosthetic",
       "summary": "ML pipeline for transhumeral arm prosthetics using LLM commands and computer vision.",
       "tags": ["Robotics", "ML"],
-      "thumbnail": null,
       "icon": null,
       "contentFile": "data/projects/prosthetic.html",
       "status": "published"
@@ -45,7 +41,6 @@
       "title": "Prompt Injection Monitor",
       "summary": "Security tool for LLM applications.",
       "tags": ["Security", "AI"],
-      "thumbnail": null,
       "icon": null,
       "contentFile": "data/projects/prompt-injection.html",
       "status": "coming-soon"

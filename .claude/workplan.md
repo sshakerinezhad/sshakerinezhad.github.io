@@ -1,98 +1,97 @@
-# Fix: FileExplorer folder clicks not working
+# Step 5: FileExplorer Polish & Mobile
 
-## Problem
+## Summary
 
-- Sidebar category buttons work (click → grid re-renders)
-- Folder items don't respond to clicks
-- No console errors
-- FileExplorer.init() logs appear correctly
-- Double-click shows text selection (browser default) but single click does nothing
+Add mobile responsiveness and improved desktop interactions to the FileExplorer component.
 
-## Diagnosis
+---
 
-The click handlers are attached in `renderGrid()` using the same pattern as sidebar, but folder clicks don't trigger `openDetail()`.
+## Changes
 
-Possible causes:
-1. Click handler not being attached (selector issue)
-2. Handler runs but `openDetail()` fails silently (async Promise rejection)
-3. Something prevents clicks from reaching the elements
+### 1. Mobile Styles (css/file-explorer.css)
 
-## Fix Plan
+Add media query for 480px breakpoint:
 
-### Step 1: Add debug logging to `renderGrid()`
+```css
+@media (max-width: 480px) {
+  .explorer-sidebar {
+    width: 100px;      /* shrink from 120px */
+    padding: 4px;
+  }
 
-In `js/file-explorer.js`, add console.log to verify click handlers are attached and triggered:
+  .explorer-filter {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
 
-```javascript
-renderGrid(container, items) {
-  const grid = container.querySelector('.explorer-grid');
-
-  // ... existing filter and render code ...
-
-  // Add click handlers for non-coming-soon items
-  const clickableItems = grid.querySelectorAll('.explorer-item:not(.coming-soon)');
-  console.log('Attaching click handlers to', clickableItems.length, 'items');
-
-  clickableItems.forEach(el => {
-    el.addEventListener('click', () => {
-      console.log('Folder clicked:', el.dataset.id);
-      const id = el.dataset.id;
-      const item = this.currentData.items.find(p => p.id === id);
-      if (item) {
-        this.openDetail(item);
-      } else {
-        console.error('Item not found for id:', id);
-      }
-    });
-  });
+  .explorer-detail-view {
+    padding: 8px;      /* tighter padding on mobile */
+  }
 }
 ```
 
-### Step 2: Add error handling to click handler
+### 2. Desktop Hover/Selection States (css/file-explorer.css)
 
-Wrap `openDetail` call to catch async errors:
+Replace subtle hover with Windows 95-style selection:
 
-```javascript
-el.addEventListener('click', async () => {
-  console.log('Folder clicked:', el.dataset.id);
-  const id = el.dataset.id;
-  const item = this.currentData.items.find(p => p.id === id);
-  if (item) {
-    try {
-      await this.openDetail(item);
-    } catch (err) {
-      console.error('openDetail failed:', err);
-    }
-  }
-});
+```css
+/* Current - subtle */
+.explorer-item:hover {
+  background: rgba(0, 0, 128, 0.1);
+}
+
+/* New - Windows 95 style */
+.explorer-item:hover {
+  background: #000080;
+  color: #ffffff;
+}
+
+.explorer-item:hover .explorer-item-title {
+  color: #ffffff;
+}
 ```
 
-### Step 3: Verify with browser
+Add dotted focus outline for keyboard navigation:
 
-After changes:
-1. Hard refresh page
-2. Open Projects window
-3. Check console for "Attaching click handlers to X items"
-4. Click a folder
-5. Check console for "Folder clicked: [id]"
+```css
+.explorer-item:focus {
+  outline: 1px dotted #000;
+  outline-offset: -1px;
+}
+```
 
-If "Attaching..." appears but "Folder clicked" doesn't appear on click:
-- Something is intercepting clicks (CSS overlay, event capture)
-- We'll add `pointer-events: auto` to `.explorer-item` as a safeguard
+### 3. Remove unused `thumbnail` field (data/projects.json)
 
-If both logs appear:
-- The issue is in `openDetail()` - check for "openDetail failed" error
+The `thumbnail` field exists in the JSON but is never used. Remove it to avoid confusion.
+
+- `icon` = folder icon in grid view (keep)
+- `thumbnail` = unused, remove
+
+---
 
 ## Files to Modify
 
 | File | Changes |
 |------|---------|
-| `js/file-explorer.js` | Add debug logging, async error handling |
+| `css/file-explorer.css` | Add mobile media query, update hover styles |
+| `data/projects.json` | Remove unused `thumbnail` field from all items |
+
+---
 
 ## Verification
 
-1. Open site with Live Server
-2. Open Projects window
-3. Console shows: "Attaching click handlers to 4 items"
-4. Click folder → Console shows: "Folder clicked: behavior-1k"
-5. Detail view opens (or error is logged)
+1. **Desktop hover:**
+   - Open Projects window
+   - Hover over folder → should turn blue with white text
+   - Move mouse away → returns to normal
+
+2. **Mobile (use DevTools responsive mode at 480px):**
+   - Sidebar should be narrower (100px)
+   - Grid items should still be clickable
+   - Detail view should be full-width and scrollable
+
+3. **No regressions:**
+   - Click folder → detail view opens
+   - Click "← Back" → returns to grid
+   - Sidebar filters still work
+   - No console errors

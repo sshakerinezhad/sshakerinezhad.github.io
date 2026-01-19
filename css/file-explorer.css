@@ -69,7 +69,17 @@
 }
 
 .explorer-item:hover {
-  background: rgba(0, 0, 128, 0.1);
+  background: #000080;
+  color: #ffffff;
+}
+
+.explorer-item:hover .explorer-item-title {
+  color: #ffffff;
+}
+
+.explorer-item:focus {
+  outline: 1px dotted #000;
+  outline-offset: -1px;
 }
 
 .explorer-item-icon {
@@ -126,4 +136,21 @@
 /* Detail content area */
 .explorer-detail-content {
   flex: 1;
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .explorer-sidebar {
+    width: 100px;
+    padding: 4px;
+  }
+
+  .explorer-filter {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  .explorer-detail-view {
+    padding: 8px;
+  }
 }

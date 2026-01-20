@@ -93,9 +93,9 @@ const CONFIG = {
       showInUI: true
     },
     dnd: {
-      id: 'dnd',
-      title: 'D&D Corner',
-      label: 'D&D Corner',
+      id: 'Secret Room',
+      title: 'Secret Room',
+      label: 'Secret Room',
       icon: 'images/icons/dnd.png',
       width: 450,
       height: 350,

@@ -88,6 +88,12 @@
   margin-bottom: 4px;
 }
 
+/* Book covers - taller aspect ratio */
+.books-explorer .explorer-item-icon {
+  height: 64px;
+  object-fit: contain;
+}
+
 .explorer-item-title {
   font-size: 11px;
   word-break: break-word;

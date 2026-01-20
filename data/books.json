@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "id": "horus-rising",
+      "title": "Horus Rising",
+      "summary": "Book 1 - Dan Abnett",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/horus-rising.jpg",
+      "contentFile": "data/books/horus-rising.html",
+      "status": "published"
+    },
+    {
+      "id": "false-gods",
+      "title": "False Gods",
+      "summary": "Book 2 - Graham McNeill",
+      "tags": ["Fiction", "Warhammer"],
+      "icon": "images/books/covers/false-gods.png",
+      "contentFile": "data/books/false-gods.html",
+      "status": "published"
+    }
+  ]
+}

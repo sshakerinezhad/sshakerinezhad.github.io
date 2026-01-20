@@ -1,29 +1,34 @@
 # Session Scratchpad
 
-## Session Status: Complete
+## Status: Books Window Phase 2 Complete
+
+Phase 2 (detail view polish) fully implemented. Masterplan updated.
 
 ---
 
-## Current Session Work
+## What Was Done
 
-Created `window-system` skill at `.claude/skills/window-system.md`:
-- Guide for creating windows in the portfolio site
-- Covers static windows, explorer windows, and custom window types
-- Documents config field reference and key principles
-- Consistent with existing skill file pattern (flat file, not subdirectory)
+- Fixed site-wide heading bug: added `--window-heading-1/2/3/4` CSS vars and `.window-content h1-h4` rules
+- Book covers now display at proper aspect ratio (not squished 48x48)
+- New book detail structure: title + author inline, rating, summary, quote section, thoughts
+- All 7 book HTML files updated with new structure
 
-## Previous Work Summary
+See `.claude/masterplan.md` and `.claude/workplan.md` for full details.
 
-The FileExplorer component is complete:
-- Generic, config-driven file browser
-- Sidebar with dynamic category filtering
-- Detail view with HTML content loading
-- Mobile responsive styles
+---
 
-See `changelog/2026-01-18-file-explorer-component.md` for full implementation details.
+## User Action Needed
 
-## Next Steps
+- Add cover images to `images/books/covers/` (use `.png` - see `false-gods.png` as reference)
+- Fill in ratings, quotes, and thoughts in the 7 book HTML files
+- Optionally add `images/icons/books.png`
 
-No pending work. Skills documentation is now available for:
-- `ui-design.md` - UI/design guidance
-- `window-system.md` - Window creation guide
+## Verification
+
+Test the site to confirm:
+- Books grid shows covers at correct aspect ratio
+- Book detail: title > "My Thoughts" heading size
+- Blog/About/Projects windows unchanged
+
+## Branch
+`temp`

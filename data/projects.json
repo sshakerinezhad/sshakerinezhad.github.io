@@ -2,8 +2,8 @@
   "items": [
     {
       "id": "behavior-1k",
-      "title": "BEHAVIOR-1K",
-      "summary": "8th place in Stanford BEHAVIOR challenge. Embodied AI benchmark for household robotics.",
+      "title": "Stanford BEHAVIOR-1K Challenge",
+      "summary": "Embodied AI benchmark for household robotics.",
       "tags": ["Robotics", "AI"],
       "date": "2025-11-30",
       "icon": null,

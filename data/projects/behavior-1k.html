@@ -1,15 +1,30 @@
 <div class="project-detail">
   <div class="project-media">
-    <video autoplay loop muted playsinline style="max-width: 50%;">
+    <video autoplay loop muted playsinline style="max-width: 70%; display: block; margin: 0 auto;">
       <source src="/videos/behavior-videos/01-successful-mbts.mp4" type="video/mp4">
     </video>
   </div>
 
   <p>
-    Meet Arthur. For six weeks, he refused to do his chores. He'd just stand there trembling because he realized the best way to minimize error was to never move an inch.
+    This is Arthur. For six weeks, he refused to do his chores. Our job, as part of the BEHAVIOR Challenge, was to fix that. The environment he's in is a simulated house with 50 unique household tasks (moving boxes, chopping wood, cooking pizza, etc.) created by the <a href="https://svl.stanford.edu/" target="_blank">Stanford Vision & Learning Lab</a> called OmniGibson.
   </p>
 
   <p>
-    We eventually fixed him by blinding him (60% proprioceptive dropout) and forcing him to commit to his decisions (receding horizon control). In the final 48 hours, he panicked his way from a 0% to a 1.78% score. It sounds modest, but watching him finally pick up that trash felt like watching a child walk.
+    In the end we attained a score of <strong>1.78%</strong>, placing <strong>8th</strong> on the standard track leaderboard.
+  </p>
+
+  <p>
+    Over the challenge, we ran experiments on VLAs to determine the optimal training recipe to make Arthur do the damn dishes. It ended up being a lot more complicated that we thought, but we learned a few interesting things along the way.
+  </p>
+
+  <p>Just a couple of our learning include:</p>
+  <ul>
+    <li>The model was prone to over-indexing on its own proprioceptive data during training to cheat the loss metrics</li>
+    <li>Receding horizon control performed up to 3x better than temporal ensembling indicating some fundamental flaw in current VLA architectures when it comes to temporal awareness</li>
+  </ul>
+
+  <p>
+    Links to our open source code (both simulator and training code) can be found linked above.
+    You can also find more details on all of our findings, analysis, and results in our technical report <a href="https://merlyn-labs.com/behavior-report" target="_blank">here</a>.</p>
   </p>
 </div>

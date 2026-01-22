@@ -259,7 +259,7 @@ Books has no header - just back button and content:
 </template>
 ```
 
-### Step 3: Update `js/blog.js`
+### Step 3: Update `js/blog.js` ✅
 Change all selectors from `.blog-article-*` to `.detail-*`:
 
 | Old | New |
@@ -275,7 +275,7 @@ Change all selectors from `.blog-article-*` to `.detail-*`:
 | `.blog-article-content` | `.detail-content` |
 | `.blog-container` (for detail-active) | `.blog-container` (keep - it's the root) |
 
-### Step 4: Update `js/file-explorer.js`
+### Step 4: Update `js/file-explorer.js` ✅
 Change all selectors from `.explorer-detail-*` to `.detail-*`:
 
 | Old | New |
@@ -333,8 +333,8 @@ These are list-view specific, not detail-view.
 
 1. **NEW:** `css/detail-view.css` - Unified detail view component ✅
 2. `index.html` - Add CSS link, update 3 templates ✅
-3. `js/blog.js` - Update selectors
-4. `js/file-explorer.js` - Update selectors
+3. `js/blog.js` - Update selectors ✅
+4. `js/file-explorer.js` - Update selectors ✅
 5. `css/main.css` - Remove blog detail view styles
 6. `css/file-explorer.css` - Remove explorer detail view styles
 7. `css/mobile.css` - Update/remove blog detail mobile styles

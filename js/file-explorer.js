@@ -30,7 +30,7 @@ const FileExplorer = {
       this.renderGrid(container, data.items);
 
       // Wire up back button
-      container.querySelector('.explorer-back-btn').addEventListener('click', () => {
+      container.querySelector('.detail-back-btn').addEventListener('click', () => {
         this.closeDetail();
       });
 
@@ -110,13 +110,13 @@ const FileExplorer = {
 
   async openDetail(item) {
     // Populate header from config
-    const titleEl = this.container.querySelector('.explorer-detail-title');
+    const titleEl = this.container.querySelector('.detail-title');
     if (titleEl) {
       titleEl.textContent = item.title;
     }
 
     // Date is optional - hide if not provided
-    const dateEl = this.container.querySelector('.explorer-detail-date');
+    const dateEl = this.container.querySelector('.detail-date');
     if (dateEl) {
       if (item.date) {
         dateEl.textContent = this.formatDate(item.date);
@@ -127,7 +127,7 @@ const FileExplorer = {
     }
 
     // Render links (may be empty)
-    const linksEl = this.container.querySelector('.explorer-detail-links');
+    const linksEl = this.container.querySelector('.detail-links');
     if (linksEl) {
       linksEl.innerHTML = (item.links || []).map(link =>
         `<a href="${link.url}"${link.external ? ' target="_blank"' : ''}>${link.label}${link.external ? ' ↗' : ' →'}</a>`
@@ -135,7 +135,7 @@ const FileExplorer = {
     }
 
     // Load body content
-    const detailContent = this.container.querySelector('.explorer-detail-content');
+    const detailContent = this.container.querySelector('.detail-content');
 
     try {
       const response = await fetch(item.contentFile);

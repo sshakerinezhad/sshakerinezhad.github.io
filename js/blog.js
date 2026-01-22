@@ -39,7 +39,7 @@ const Blog = {
     });
 
     // Set up back button
-    container.querySelector('.blog-back-btn').addEventListener('click', () => {
+    container.querySelector('.detail-back-btn').addEventListener('click', () => {
       this.showListView(container);
     });
   },
@@ -49,12 +49,12 @@ const Blog = {
     const markdown = await response.text();
     const html = marked.parse(markdown);
 
-    container.querySelector('.blog-article-title').textContent = post.title;
-    container.querySelector('.blog-article-date').textContent = this.formatDate(post.date);
-    container.querySelector('.blog-article-content').innerHTML = html;
+    container.querySelector('.detail-title').textContent = post.title;
+    container.querySelector('.detail-date').textContent = this.formatDate(post.date);
+    container.querySelector('.detail-content').innerHTML = html;
 
     // Handle source link visibility
-    const sourceLink = container.querySelector('.blog-article-source');
+    const sourceLink = container.querySelector('.detail-source');
     if (post.source) {
       sourceLink.href = post.source;
       sourceLink.style.display = 'inline';

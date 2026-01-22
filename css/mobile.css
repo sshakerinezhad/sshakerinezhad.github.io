@@ -40,7 +40,7 @@
   }
 
   body.mobile-tabs #mobile-nav {
-    display: flex;
+    display: grid;  /* Grid for equal-width tabs */
   }
 
   body.mobile-tabs .winbox {
@@ -98,19 +98,23 @@
   background: var(--surface);
   border-top: 2px solid;
   border-color: #fff #808080 #808080 #fff;
-  justify-content: space-around;
+  /* Grid layout - equal columns */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(50px, 1fr);
   align-items: center;
   padding: 0 8px;
+  gap: 2px;
+  /* Scroll for overflow (>6 items) */
+  overflow-x: auto;
+  overflow-y: hidden;
   z-index: 9999;
 }
 
 #mobile-nav button {
-  flex: 1 1 0;         /* Equal width - start at 0, grow/shrink equally */
-  min-width: 50px;     /* Reduced from 60px to fit 320px screens */
-  max-width: 80px;     /* Cap width to prevent overly wide tabs */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   min-height: 48px;
   background: var(--surface);
@@ -133,6 +137,10 @@
 
 #mobile-nav button span {
   font-size: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 #mobile-nav button.active {

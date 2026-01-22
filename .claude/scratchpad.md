@@ -1,32 +1,31 @@
 # Session Scratchpad
 
-## Last Session: Mobile Tab Sizing Fix
+## Last Session: Mobile Tab Sizing - CSS Grid Implementation
 
 ### What Was Done
-- Implemented Part 1 of the mobile tab sizing fix
-- Applied `flex: 1 1 0`, `min-width: 50px`, `max-width: 80px` to `#mobile-nav button`
-- Updated masterplan with status and implementation notes
+- Re-implemented mobile tab equal sizing using **CSS Grid** (replacing previous flexbox approach)
+- Updated masterplan to reflect completed work (both Part 1 and Part 2 now complete)
 
 ### Current State
-- **Part 1 complete** - Mobile tabs now have equal widths regardless of label length
-- **Part 2 (scrollable tab bar)** - Documented in masterplan for future if >6 tabs needed
+- **Mobile tab sizing: COMPLETE** - All tabs now equal width using Grid
+- **Scrollable support: BUILT-IN** - `overflow-x: auto` handles >6 tabs automatically
 
-### Key Implementation Details
-**File modified:** `css/mobile.css` lines 107-121
+### Key Implementation (css/mobile.css)
 
-```css
-#mobile-nav button {
-  flex: 1 1 0;         /* Equal width - start at 0, grow/shrink equally */
-  min-width: 50px;     /* Fits 320px screens (6 × 50px = 300px) */
-  max-width: 80px;     /* Prevents overly wide tabs */
-  ...
-}
-```
+1. **#mobile-nav container** - Uses `grid-auto-columns: minmax(50px, 1fr)` for equal columns
+2. **Media query** - Changed `display: flex` to `display: grid`
+3. **Button styles** - Removed flex sizing props, kept internal flexbox for icon/label layout
+4. **Text overflow** - Added ellipsis truncation for long labels
 
-### Verification Needed
-- Test on Chrome DevTools mobile simulation (320px, 375px, 480px)
-- Confirm all 6 tabs appear equal width
-- Check that labels aren't truncated awkwardly
+### Why Grid Over Flexbox
+- Grid's `1fr` is designed for equal sizing by definition
+- Flexbox `flex: 1 1 0` is a workaround with edge cases
+- Grid naturally supports horizontal scroll
+
+### Verification Checklist
+- [ ] Test Chrome DevTools → iPhone SE (375px) - all tabs equal width
+- [ ] Long labels ("Stuff I've Read") truncate with "..."
+- [ ] (Optional) Add temp 7th window to config → verify scroll works
 
 ### Reference
-- Full plan and future scalability options in `.claude/masterplan.md`
+- Full implementation notes in `.claude/masterplan.md`

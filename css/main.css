@@ -11,11 +11,6 @@
    --window-outer-shadow: 0 0 0 1px #000000;           /* 1px black border (subtle) */
   /* --window-outer-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4); */    /* Drop shadow (XP-style) */
 
-  /* Window heading scale */
-  --window-heading-1: 18px;
-  --window-heading-2: 14px;  /* matches existing .window-content h2 */
-  --window-heading-3: 12px;
-  --window-heading-4: 11px;
 }
 
 /* === Reset & Base === */
@@ -85,11 +80,13 @@ html, body {
   color: var(--win95-text);
 }
 
-/* Window content headings - complete hierarchy */
-.window-content h1 { font-size: var(--window-heading-1); font-weight: bold; margin: 0 0 12px 0; }
-.window-content h2 { font-size: var(--window-heading-2); font-weight: bold; margin: 0 0 10px 0; }
-.window-content h3 { font-size: var(--window-heading-3); font-weight: bold; margin: 0 0 8px 0; }
-.window-content h4 { font-size: var(--window-heading-4); font-weight: bold; margin: 0 0 6px 0; }
+/* Window content headings - page title hierarchy */
+.window-content h1 { font-size: 48px; font-weight: bold; margin: 0 0 12px 0; }
+.window-content h2 { font-size: 40px; font-weight: bold; margin: 0 0 10px 0; }
+.window-content h3 { font-size: 36px; font-weight: bold; margin: 0 0 8px 0; }
+.window-content h4 { font-size: 30px; font-weight: bold; margin: 0 0 6px 0; }
+.window-content h5 { font-size: 26px; font-weight: bold; margin: 0 0 6px 0; }
+.window-content h6 { font-size: 22px; font-weight: bold; margin: 0 0 6px 0; }
 
 .window-content p {
   margin: 0 0 8px 0;
@@ -212,151 +209,6 @@ html, body {
 .blog-item-desc {
   font-size: 13px;
   color: #404040;
-}
-
-/* Blog Article View */
-.blog-article-view {
-  display: none;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* When detail is active: show article, hide list (matches explorer pattern) */
-.blog-container.detail-active .blog-list-view {
-  display: none;
-}
-
-.blog-container.detail-active .blog-article-view {
-  display: flex;
-}
-
-.blog-article-header {
-  background: #c0c0c0;
-  padding: 8px 12px;
-  border-bottom: 2px groove #ffffff;
-  flex-shrink: 0;
-}
-
-.blog-back-btn {
-  background: #c0c0c0;
-  border: 2px outset #ffffff;
-  padding: 4px 12px;
-  font-size: 12px;
-  cursor: pointer;
-  margin-bottom: 8px;
-}
-
-.blog-back-btn:active {
-  border-style: inset;
-}
-
-.blog-article-header .blog-article-title {
-  margin: 4px 0;
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.blog-article-meta {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  font-size: 11px;
-}
-
-.blog-article-date {
-  color: #404040;
-}
-
-.blog-article-source {
-  font-size: 11px;
-}
-
-.blog-article-content {
-  /* SWAP FONT: uncomment ONE option */
-  /* --blog-font: "Pixelated MS Sans Serif", "MS Sans Serif", Tahoma, sans-serif; */
-  --blog-font: Georgia, "Times New Roman", serif;
-
-  background: #e8e0d0;
-  padding: 12px;
-  font-family: var(--blog-font);
-  font-size: 15px;
-  line-height: 1.7;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.blog-article-content img {
-  max-width: min(100%, 1000px);
-  height: auto;
-  display: block;
-  margin: 8px auto;
-}
-
-.blog-article-content pre {
-  background: #f0f0f0;
-  padding: 8px;
-  overflow-x: auto;
-  font-size: 12px;
-}
-
-.blog-article-content code {
-  background: #f0f0f0;
-  padding: 1px 4px;
-  font-size: 12px;
-}
-
-.blog-article-content pre code {
-  background: none;
-  padding: 0;
-}
-
-.blog-article-content h1 {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 16px 0 8px 0;
-}
-
-.blog-article-content h2 {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 14px 0 6px 0;
-}
-
-.blog-article-content h3 {
-  font-size: 14px;
-  font-weight: bold;
-  margin: 12px 0 6px 0;
-}
-
-/* Blog Video Layouts */
-.blog-article-content .video-pair {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 12px 0;
-}
-
-.blog-article-content .video-pair video {
-  width: min(45%, 480px);
-  height: auto;
-  border-radius: 2px;
-}
-
-.blog-article-content .video-single {
-  margin: 12px 0;
-  text-align: center;
-}
-
-.blog-article-content .video-single video {
-  width: min(60%, 700px);
-  height: auto;
-  border-radius: 2px;
-}
-
-.blog-article-content .video-pair + p em,
-.blog-article-content .video-single + p em {
-  display: block;
-  text-align: center;
 }
 
 /* === Accessibility: Focus Indicators === */

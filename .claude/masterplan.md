@@ -289,7 +289,7 @@ Change all selectors from `.explorer-detail-*` to `.detail-*`:
 | `.explorer-detail-links` | `.detail-links` |
 | `.explorer-detail-content` | `.detail-content` |
 
-### Step 5: Remove duplicate CSS
+### Step 5: Remove duplicate CSS ✅
 
 **From `css/main.css` - DELETE lines ~217-360:**
 - `.blog-article-view`
@@ -335,9 +335,9 @@ These are list-view specific, not detail-view.
 2. `index.html` - Add CSS link, update 3 templates ✅
 3. `js/blog.js` - Update selectors ✅
 4. `js/file-explorer.js` - Update selectors ✅
-5. `css/main.css` - Remove blog detail view styles
-6. `css/file-explorer.css` - Remove explorer detail view styles
-7. `css/mobile.css` - Update/remove blog detail mobile styles
+5. `css/main.css` - Remove blog detail view styles ✅
+6. `css/file-explorer.css` - Remove explorer detail view styles ✅
+7. `css/mobile.css` - Update/remove blog detail mobile styles ✅
 
 ## Verification
 
@@ -347,5 +347,29 @@ These are list-view specific, not detail-view.
 4. Open a book → Should still work (back button + content, no header)
 5. Test mobile view for all three
 
-## Result
+## Result ✅
 One reusable `.detail-*` component. Any future file explorer just uses these classes.
+
+---
+
+## Follow-on: Heading Hierarchy Fix ✅
+
+**Problem:** The global `.window-content h1` was only 18px (via CSS variable), which was too small for page titles. The `.detail-title` class tried to override this at 72px but the specificity was inconsistent.
+
+**Solution:** Two-tier heading system:
+
+| Context | h1 | h2 | h3 | h4 | h5 | h6 |
+|---------|----|----|----|----|----|----|
+| Page titles (`.window-content`) | 48px | 40px | 36px | 30px | 26px | 22px |
+| Content body (`.detail-content`) | 22px | 18px | 16px | 14px | - | - |
+
+**Changes:**
+- `css/main.css` - Removed `--window-heading-*` variables, added explicit h1-h6 sizes
+- `css/detail-view.css` - Removed explicit `.detail-title` font-size (inherits 48px from global h1), updated `.detail-content h*` sizes, removed mobile `.detail-title` override
+- `css/books.css` - Removed variable references, `.book-title` inherits from `.detail-content h2`, `.book-author` explicit 12px
+
+**Why this approach:**
+- Global consistency: all page titles use same hierarchy automatically
+- Clear separation: page titles (big) vs content headings (small)
+- No specificity hacks - `.detail-content h*` naturally overrides via higher specificity (class+class+element)
+- Extensible: new windows automatically get proper heading sizes

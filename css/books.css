@@ -7,13 +7,13 @@
 }
 
 .book-detail .book-title {
-  font-size: var(--window-heading-1);
+  /* inherits from .detail-content h2 (18px) */
   font-weight: bold;
   margin: 0;
 }
 
 .book-detail .book-author {
-  font-size: var(--window-heading-3);
+  font-size: 12px;  /* explicit - not a heading element */
   color: #666;
   font-style: italic;
 }

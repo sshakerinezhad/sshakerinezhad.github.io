@@ -1,4 +1,4 @@
-**[Salman Shahid](https://x.com/_sshahid_) & [Shayan Shakeri](https://x.com/TheSigilliteX)** · Merlyn Labs · November 2025
+**[Salman Shahid](https://x.com/_sshahid_) & [Shayan Shakeri](https://x.com/TheSigilliteX)** · Merlyn Labs
 
 ---
 

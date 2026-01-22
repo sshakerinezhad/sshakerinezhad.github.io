@@ -1,186 +1,81 @@
-# Plan: Book Detail View Fixes
+# Plan: Standardize Project Detail View Headers
 
-## Issues Identified
+**Status: COMPLETED**
 
-1. **Squished icons**: `.explorer-item-icon` forces 48x48px square, distorting rectangular book covers
-2. **Missing quote section**: Need italicized quote with attribution under summary
-3. **Author placement**: Should be next to title, not below
-4. **Star rating**: Numeric display for now (★ 3.6/5), upgrade to images later
-5. **Heading sizes broken in window-content**: h3 has no rule, defaults to ~19px (larger than h2's 14px)
+## Summary
 
-## Files to Modify
+Standardized project detail views to match the blog pattern where header metadata (title, date, links) comes from config rather than being embedded in each HTML file. Then aligned visual styling to match blog headers exactly.
 
-### 1. `css/main.css` - Add missing heading rules
+## Changes Made
 
-**The Problem:**
-- `.window-content h2` = 14px (styled)
-- `.window-content h3` = ~19px (browser default - LARGER than h2!)
-- `.window-content h1, h4` = browser defaults
+### 1. `data/projects.json`
+Added `links` array to each project:
+- `behavior-1k`: 3 links (Read the Report, Simulator Repo, Training Repo)
+- `bardsong`: 1 link (Try it)
+- `herbalism-tool`: 1 link (GitHub)
+- `prosthetic`: no links
+- `prompt-injection`: no links
 
-**The Fix:** Add CSS variables and the missing rules. Keep h2 at 14px (don't change what works).
-
-```css
-:root {
-  /* ... existing color vars ... */
-
-  /* Window heading scale */
-  --window-heading-1: 18px;
-  --window-heading-2: 14px;  /* matches existing .window-content h2 */
-  --window-heading-3: 12px;
-  --window-heading-4: 11px;
-}
-
-/* Window content headings - complete hierarchy */
-.window-content h1 { font-size: var(--window-heading-1); font-weight: bold; margin: 0 0 12px 0; }
-.window-content h2 { font-size: var(--window-heading-2); font-weight: bold; margin: 0 0 10px 0; }
-.window-content h3 { font-size: var(--window-heading-3); font-weight: bold; margin: 0 0 8px 0; }
-.window-content h4 { font-size: var(--window-heading-4); font-weight: bold; margin: 0 0 6px 0; }
-```
-
-**Why this approach:**
-- Named `--window-heading-*` to be explicit about scope (not global `--heading-*`)
-- h2 stays 14px to match existing behavior
-- Blog rules left unchanged (they already work: 22/16/14px for h1/h2/h3)
-- No `calc()` coupling between blog and window contexts - they're different (reading font vs UI font)
-
-**What changes:**
-| Element | Before | After |
-|---------|--------|-------|
-| `.window-content h1` | ~32px (default) | 18px |
-| `.window-content h2` | 14px | 14px (unchanged) |
-| `.window-content h3` | ~19px (default) | 12px (fixes bug) |
-| `.window-content h4` | ~16px (default) | 11px |
-| Blog headings | 22/16/14px | unchanged |
-
-**What could break:** Nothing. Searched codebase - no templates currently use h1, h3, or h4 in window-content except books (where this fix is intended).
-
-### 2. `data/books/legion.html` - Fix heading inconsistency
-
-Change line 3 from `<h3>Legion</h3>` to `<h2>Legion</h2>` (all other books use h2 for title).
-
-### 3. `index.html` - Add books-explorer class to template
-
+### 2. `index.html`
+Added header structure to the projects explorer template with meta wrapper for date+links:
 ```html
-<div class="window-content explorer-container books-explorer">
-```
-
-### 4. `css/file-explorer.css` - Books-specific icon sizing
-
-```css
-/* Book covers - taller aspect ratio */
-.books-explorer .explorer-item-icon {
-  height: 64px;
-  object-fit: contain;
-}
-```
-
-### 5. `css/books.css` - Update for new structure
-
-```css
-/* Book detail header - title and author inline */
-.book-detail .book-header {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.book-detail .book-title {
-  font-size: var(--window-heading-1);
-  font-weight: bold;
-  margin: 0;
-}
-
-.book-detail .book-author {
-  font-size: var(--window-heading-3);
-  color: #666;
-  font-style: italic;
-}
-
-/* Star rating - simple numeric for now */
-.book-rating {
-  font-size: 13px;
-  color: #404040;
-  margin-bottom: 8px;
-}
-
-.book-rating .star-icon {
-  color: #f5c518;
-}
-
-/* Cover image */
-.book-detail .book-cover {
-  max-width: 150px;
-  float: left;
-  margin-right: 15px;
-  margin-bottom: 10px;
-}
-
-/* Quote section */
-.book-detail .book-quote {
-  font-style: italic;
-  margin: 12px 0;
-  padding-left: 12px;
-  border-left: 2px solid #808080;
-  color: #404040;
-}
-
-.book-detail .book-quote .quote-attribution {
-  display: block;
-  margin-top: 4px;
-  font-size: 11px;
-}
-
-/* My thoughts section */
-.book-detail .book-thoughts {
-  clear: both;
-}
-```
-
-### 6. Update all 7 book HTML files
-
-New structure:
-```html
-<div class="book-detail">
-  <img src="images/books/covers/[slug].jpg" alt="[Title]" class="book-cover">
-
-  <div class="book-header">
-    <h2 class="book-title">[Title]</h2>
-    <span class="book-author">by [Author]</span>
-  </div>
-
-  <p class="book-rating"><span class="star-icon">★</span> X.X/5</p>
-
-  <p class="book-summary">[Summary]</p>
-
-  <div class="book-quote">
-    "[Quote from the book]"
-    <span class="quote-attribution">— [Character Name]</span>
-  </div>
-
-  <div class="book-thoughts">
-    <h3>My Thoughts</h3>
-    <p>Review here...</p>
+<div class="explorer-detail-header">
+  <h1 class="explorer-detail-title"></h1>
+  <div class="explorer-detail-meta">
+    <span class="explorer-detail-date"></span>
+    <div class="explorer-detail-links"></div>
   </div>
 </div>
 ```
 
-## Implementation Order
+### 3. `js/file-explorer.js`
+Updated `openDetail()` to populate header from config:
+- Sets title from `item.title`
+- Shows/hides date based on `item.date` (optional)
+- Renders links with correct arrows (internal → vs external ↗)
+- Uses null checks for backwards compatibility with books explorer
 
-1. `css/main.css` - Add CSS vars and heading rules
-2. `data/books/legion.html` - Fix h3→h2 for title
-3. `index.html` - Add `books-explorer` class to template
-4. `css/file-explorer.css` - Books-specific icon sizing
-5. `css/books.css` - Update with new structure
-6. Update all 7 book HTML files
+Added `formatDate()` helper matching the blog.js pattern.
+
+### 4. `css/file-explorer.css`
+Styled header elements to match blog styling:
+- `.explorer-detail-header` - gray background (#c0c0c0), padding, groove border (matches blog)
+- `.explorer-detail-title` - 32px font (matches blog), no bold
+- `.explorer-detail-meta` - flex container for date+links on same line
+- `.explorer-detail-date` - 11px, #404040 color (matches blog)
+- `.explorer-detail-links` - `display: contents` to flow inline, monospace links
+
+### 5. Project HTML Files
+Simplified to body-only content:
+- `behavior-1k.html` - Removed h1 title and project-links div
+- `bardsong.html` - Removed project-links div
+- `herbalism-tool.html` - Removed project-links div
+- `prosthetic.html` - Already clean (no changes)
+- `prompt-injection.html` - Already clean (no changes)
+
+## Design Decisions
+
+1. **No dates added** - Dates were optional per the plan and projects don't have clear dates. Kept it simple.
+
+2. **Null checks in JS** - Allows the same FileExplorer code to work with both projects (has header) and books (no header).
+
+3. **Link arrows** - Internal links use `→`, external links use `↗` matching existing site patterns.
+
+4. **Visual alignment with blog** - Title size (32px), header background, date color, and date+links on same line all match blog styling for consistency.
 
 ## Verification
 
-- Open Books window → grid icons show full rectangular covers (not squished)
-- Click any book → title (h2) visibly larger than "My Thoughts" (h3)
-- Title and author on same line
-- Rating shows as "★ X.X/5"
-- Quote in italics with attribution
-- Open Blog → headings unchanged (22/16/14px)
-- Open About/Projects → unchanged appearance
-- DevTools: `.window-content h3` shows 12px, not browser default
+- JSON syntax validated
+- JS syntax validated
+- Books explorer unaffected (graceful degradation via null checks)
+- Project headers now visually match blog headers
+
+## Files Modified
+
+1. `data/projects.json`
+2. `index.html`
+3. `js/file-explorer.js`
+4. `css/file-explorer.css`
+5. `data/projects/behavior-1k.html`
+6. `data/projects/bardsong.html`
+7. `data/projects/herbalism-tool.html`

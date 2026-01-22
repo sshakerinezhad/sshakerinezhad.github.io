@@ -126,8 +126,7 @@
 
 /* Back button - Windows 95 style */
 .explorer-back-btn {
-  align-self: flex-start;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   padding: 4px 8px;
   background: #c0c0c0;
   border: 2px outset #dfdfdf;
@@ -139,8 +138,53 @@
   border-style: inset;
 }
 
-/* Detail content area */
+/* Detail header - title, date, links */
+.explorer-detail-header {
+  background: #c0c0c0;
+  padding: 8px 12px;
+  border-bottom: 2px groove #ffffff;
+  flex-shrink: 0;
+}
+
+.explorer-detail-title {
+  margin: 4px 0;
+  font-size: 32px;
+}
+
+.explorer-detail-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 11px;
+  flex-wrap: wrap;
+}
+
+.explorer-detail-date {
+  color: #404040;
+}
+
+.explorer-detail-links {
+  display: contents;
+}
+
+.explorer-detail-links a {
+  font-family: monospace;
+  color: #000080;
+  text-decoration: none;
+}
+
+.explorer-detail-links a:hover {
+  text-decoration: underline;
+}
+
+/* Detail content area - matches blog styling */
 .explorer-detail-content {
+  background: #e8e0d0;
+  padding: 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-y: auto;
   flex: 1;
 }
 

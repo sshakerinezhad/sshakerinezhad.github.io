@@ -1,34 +1,43 @@
 # Session Scratchpad
 
-## Status: Books Window Phase 2 Complete
+## Last Session: Aligning Blog and Project Detail Views
 
-Phase 2 (detail view polish) fully implemented. Masterplan updated.
+### What was worked on
+User wanted the blog detail view and project detail view to have matching structures. They were inconsistent in:
+- Title tag (`<h2>` vs `<h1>`)
+- State toggle mechanism (inline `style.display` vs CSS class `.detail-active`)
 
----
+### Changes Made
+All code changes were applied successfully:
 
-## What Was Done
+1. **index.html:127-130** - Changed blog title from `<h2>` to `<h1>`, removed inline `style="display: none;"`
 
-- Fixed site-wide heading bug: added `--window-heading-1/2/3/4` CSS vars and `.window-content h1-h4` rules
-- Book covers now display at proper aspect ratio (not squished 48x48)
-- New book detail structure: title + author inline, rating, summary, quote section, thoughts
-- All 7 book HTML files updated with new structure
+2. **css/main.css:217-231** - Added CSS class toggle pattern:
+   ```css
+   .blog-article-view { display: none; }
+   .blog-container.detail-active .blog-list-view { display: none; }
+   .blog-container.detail-active .blog-article-view { display: flex; }
+   ```
 
-See `.claude/masterplan.md` and `.claude/workplan.md` for full details.
+3. **js/blog.js:68-74** - Changed from `style.display` to `classList.add/remove('detail-active')`
 
----
+### Current State
+- Code changes are in place and verified by reading the files
+- User reported "it is not fucking changing" - likely a browser caching issue
+- Advised hard refresh (Ctrl+Shift+R) or disabling cache in DevTools
 
-## User Action Needed
+### Blocker
+User couldn't see changes taking effect. Need to verify:
+1. Browser cache is cleared
+2. If still not working, check if there are additional visual styling differences beyond the structural changes made
 
-- Add cover images to `images/books/covers/` (use `.png` - see `false-gods.png` as reference)
-- Fill in ratings, quotes, and thoughts in the 7 book HTML files
-- Optionally add `images/icons/books.png`
+### Decision Made
+- Books detail view intentionally left simpler (no header) - user confirmed this
 
-## Verification
+### Plan File
+`C:\Users\User\.claude\plans\concurrent-gathering-toast.md` contains the full implementation plan.
 
-Test the site to confirm:
-- Books grid shows covers at correct aspect ratio
-- Book detail: title > "My Thoughts" heading size
-- Blog/About/Projects windows unchanged
-
-## Branch
-`temp`
+### Next Steps
+1. User needs to hard refresh browser to see changes
+2. If visual differences persist beyond structure, may need to investigate additional CSS differences (padding, fonts, etc.)
+3. Compare the two views side-by-side after cache clear to identify any remaining discrepancies

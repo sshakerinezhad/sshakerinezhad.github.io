@@ -5,9 +5,15 @@
       "title": "BEHAVIOR-1K",
       "summary": "8th place in Stanford BEHAVIOR challenge. Embodied AI benchmark for household robotics.",
       "tags": ["Robotics", "AI"],
+      "date": "2025-11-30",
       "icon": null,
       "contentFile": "data/projects/behavior-1k.html",
-      "status": "published"
+      "status": "published",
+      "links": [
+        { "label": "Read the Report", "url": "https://merlyn-labs.com/behavior-report", "external": true },
+        { "label": "Simulator Repo", "url": "https://github.com/Merlyn-Labs/BEHAVIOR-1K", "external": true },
+        { "label": "Training Repo", "url": "https://github.com/Merlyn-Labs/openpi", "external": true }
+      ]
     },
     {
       "id": "bardsong",
@@ -16,7 +22,10 @@
       "tags": ["D&D", "AI"],
       "icon": null,
       "contentFile": "data/projects/bardsong.html",
-      "status": "published"
+      "status": "published",
+      "links": [
+        { "label": "Try it", "url": "https://mythos-ten.vercel.app", "external": true }
+      ]
     },
     {
       "id": "herbalism-tool",
@@ -25,7 +34,10 @@
       "tags": ["D&D"],
       "icon": null,
       "contentFile": "data/projects/herbalism-tool.html",
-      "status": "published"
+      "status": "published",
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/sshakerinezhad/herbalism-tool", "external": true }
+      ]
     },
     {
       "id": "prosthetic",
@@ -34,16 +46,18 @@
       "tags": ["Robotics", "ML"],
       "icon": null,
       "contentFile": "data/projects/prosthetic.html",
-      "status": "published"
+      "status": "published",
+      "links": []
     },
     {
       "id": "prompt-injection",
-      "title": "Prompt Injection Monitor",
-      "summary": "Security tool for LLM applications.",
-      "tags": ["Security", "AI"],
+      "title": "Coming Soon",
+      "summary": "...",
+      "tags": ["AI"],
       "icon": null,
       "contentFile": "data/projects/prompt-injection.html",
-      "status": "coming-soon"
+      "status": "coming-soon",
+      "links": []
     }
   ]
 }

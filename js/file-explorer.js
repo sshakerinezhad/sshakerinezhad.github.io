@@ -109,6 +109,32 @@ const FileExplorer = {
   },
 
   async openDetail(item) {
+    // Populate header from config
+    const titleEl = this.container.querySelector('.explorer-detail-title');
+    if (titleEl) {
+      titleEl.textContent = item.title;
+    }
+
+    // Date is optional - hide if not provided
+    const dateEl = this.container.querySelector('.explorer-detail-date');
+    if (dateEl) {
+      if (item.date) {
+        dateEl.textContent = this.formatDate(item.date);
+        dateEl.style.display = '';
+      } else {
+        dateEl.style.display = 'none';
+      }
+    }
+
+    // Render links (may be empty)
+    const linksEl = this.container.querySelector('.explorer-detail-links');
+    if (linksEl) {
+      linksEl.innerHTML = (item.links || []).map(link =>
+        `<a href="${link.url}"${link.external ? ' target="_blank"' : ''}>${link.label}${link.external ? ' ↗' : ' →'}</a>`
+      ).join('');
+    }
+
+    // Load body content
     const detailContent = this.container.querySelector('.explorer-detail-content');
 
     try {
@@ -121,6 +147,15 @@ const FileExplorer = {
     }
 
     this.container.classList.add('detail-active');
+  },
+
+  formatDate(dateStr) {
+    const date = new Date(dateStr + 'T00:00:00');
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
   },
 
   closeDetail() {

@@ -66,13 +66,11 @@ const Blog = {
   },
 
   showListView(container) {
-    container.querySelector('.blog-list-view').style.display = 'block';
-    container.querySelector('.blog-article-view').style.display = 'none';
+    container.querySelector('.blog-container').classList.remove('detail-active');
   },
 
   showArticleView(container) {
-    container.querySelector('.blog-list-view').style.display = 'none';
-    container.querySelector('.blog-article-view').style.display = 'block';
+    container.querySelector('.blog-container').classList.add('detail-active');
   },
 
   formatDate(dateStr) {

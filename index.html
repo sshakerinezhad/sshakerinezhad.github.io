@@ -85,9 +85,16 @@
         </div>
       </div>
 
-      <!-- Detail View (hidden, for Step 4) -->
+      <!-- Detail View -->
       <div class="explorer-detail-view">
-        <button class="explorer-back-btn">← Back</button>
+        <div class="explorer-detail-header">
+          <button class="explorer-back-btn">← Back</button>
+          <h1 class="explorer-detail-title"></h1>
+          <div class="explorer-detail-meta">
+            <span class="explorer-detail-date"></span>
+            <div class="explorer-detail-links"></div>
+          </div>
+        </div>
         <div class="explorer-detail-content"></div>
       </div>
     </div>
@@ -116,11 +123,11 @@
         <div class="blog-list"></div>
       </div>
 
-      <!-- Article View (hidden by default) -->
-      <div class="blog-article-view" style="display: none;">
+      <!-- Article View (hidden by default, shown via .detail-active class) -->
+      <div class="blog-article-view">
         <div class="blog-article-header">
           <button class="blog-back-btn">← Back</button>
-          <h2 class="blog-article-title"></h2>
+          <h1 class="blog-article-title"></h1>
           <div class="blog-article-meta">
             <span class="blog-article-date"></span>
             <a class="blog-article-source" target="_blank">View original →</a>

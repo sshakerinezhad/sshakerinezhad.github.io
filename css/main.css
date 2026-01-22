@@ -216,9 +216,18 @@ html, body {
 
 /* Blog Article View */
 .blog-article-view {
-  display: flex;
+  display: none;
   flex-direction: column;
   height: 100%;
+}
+
+/* When detail is active: show article, hide list (matches explorer pattern) */
+.blog-container.detail-active .blog-list-view {
+  display: none;
+}
+
+.blog-container.detail-active .blog-article-view {
+  display: flex;
 }
 
 .blog-article-header {
@@ -244,6 +253,7 @@ html, body {
 .blog-article-header .blog-article-title {
   margin: 4px 0;
   font-size: 32px;
+  font-weight: bold;
 }
 
 .blog-article-meta {

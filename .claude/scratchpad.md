@@ -1,43 +1,37 @@
 # Session Scratchpad
 
-## Last Session: Aligning Blog and Project Detail Views
+## Last Session: Unified Detail View Component (Steps 1-2)
 
 ### What was worked on
-User wanted the blog detail view and project detail view to have matching structures. They were inconsistent in:
-- Title tag (`<h2>` vs `<h1>`)
-- State toggle mechanism (inline `style.display` vs CSS class `.detail-active`)
+Implementing the masterplan to unify blog and explorer detail views into one reusable CSS component. Completed Steps 1-2 of 6.
 
 ### Changes Made
-All code changes were applied successfully:
 
-1. **index.html:127-130** - Changed blog title from `<h2>` to `<h1>`, removed inline `style="display: none;"`
+1. **Created `css/detail-view.css`** (~120 lines)
+   - Unified `.detail-*` classes replacing both `.blog-article-*` and `.explorer-detail-*`
+   - Includes: view container, header, back button, title, meta, date, links, content
+   - Mobile responsive rules included
+   - Key decision: `align-self: flex-start` on back button handles books case (no header)
 
-2. **css/main.css:217-231** - Added CSS class toggle pattern:
-   ```css
-   .blog-article-view { display: none; }
-   .blog-container.detail-active .blog-list-view { display: none; }
-   .blog-container.detail-active .blog-article-view { display: flex; }
-   ```
-
-3. **js/blog.js:68-74** - Changed from `style.display` to `classList.add/remove('detail-active')`
+2. **Updated `index.html`**
+   - Added `<link rel="stylesheet" href="css/detail-view.css">` (line 21)
+   - Updated 3 templates with new `.detail-*` class names:
+     - `plugs-content` (blog): `.blog-list-view` → `.detail-list-view`, `.blog-article-*` → `.detail-*`
+     - `projects-content`: `.explorer-detail-*` → `.detail-*`, added `.detail-list-view` alongside `.explorer-list-view`
+     - `books-content`: same pattern, no header (just back button + content)
 
 ### Current State
-- Code changes are in place and verified by reading the files
-- User reported "it is not fucking changing" - likely a browser caching issue
-- Advised hard refresh (Ctrl+Shift+R) or disabling cache in DevTools
+- CSS file created and linked
+- HTML templates updated
+- **Detail views are broken** - JS still uses old selectors
+- List views should still work (CSS classes preserved)
 
-### Blocker
-User couldn't see changes taking effect. Need to verify:
-1. Browser cache is cleared
-2. If still not working, check if there are additional visual styling differences beyond the structural changes made
+### Next Steps (from masterplan)
+3. Update `js/blog.js` selectors (`.blog-article-*` → `.detail-*`)
+4. Update `js/file-explorer.js` selectors (`.explorer-detail-*` → `.detail-*`)
+5. Remove duplicate CSS from `main.css`, `file-explorer.css`, `mobile.css`
+6. Verify all 3 detail views work
 
-### Decision Made
-- Books detail view intentionally left simpler (no header) - user confirmed this
-
-### Plan File
-`C:\Users\User\.claude\plans\concurrent-gathering-toast.md` contains the full implementation plan.
-
-### Next Steps
-1. User needs to hard refresh browser to see changes
-2. If visual differences persist beyond structure, may need to investigate additional CSS differences (padding, fonts, etc.)
-3. Compare the two views side-by-side after cache clear to identify any remaining discrepancies
+### Key Files
+- Masterplan: `.claude/masterplan.md` (Steps 1-2 marked ✅)
+- Plan file: `C:\Users\User\.claude\plans\indexed-shimmying-diffie.md`

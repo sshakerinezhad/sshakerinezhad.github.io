@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/taskbar.css">
   <link rel="stylesheet" href="css/desktop-icons.css">
   <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/file-explorer.css">
   <link rel="stylesheet" href="css/books.css">
 </head>
@@ -73,67 +74,57 @@
 
   <template id="projects-content">
     <div class="window-content explorer-container">
-      <!-- List View (sidebar + grid) -->
-      <div class="explorer-list-view">
-        <div class="explorer-sidebar">
-          <!-- Populated by JS -->
-        </div>
+      <div class="detail-list-view explorer-list-view">
+        <div class="explorer-sidebar"></div>
         <div class="explorer-main">
-          <div class="explorer-grid">
-            <!-- Populated by JS -->
-          </div>
+          <div class="explorer-grid"></div>
         </div>
       </div>
-
-      <!-- Detail View -->
-      <div class="explorer-detail-view">
-        <div class="explorer-detail-header">
-          <button class="explorer-back-btn">← Back</button>
-          <h1 class="explorer-detail-title"></h1>
-          <div class="explorer-detail-meta">
-            <span class="explorer-detail-date"></span>
-            <div class="explorer-detail-links"></div>
+      <div class="detail-view">
+        <div class="detail-header">
+          <button class="detail-back-btn">← Back</button>
+          <h1 class="detail-title"></h1>
+          <div class="detail-meta">
+            <span class="detail-date"></span>
+            <div class="detail-links"></div>
           </div>
         </div>
-        <div class="explorer-detail-content"></div>
+        <div class="detail-content"></div>
       </div>
     </div>
   </template>
 
   <template id="books-content">
     <div class="window-content explorer-container books-explorer">
-      <div class="explorer-list-view">
+      <div class="detail-list-view explorer-list-view">
         <div class="explorer-sidebar"></div>
         <div class="explorer-main">
           <div class="explorer-grid"></div>
         </div>
       </div>
-      <div class="explorer-detail-view">
-        <button class="explorer-back-btn">← Back</button>
-        <div class="explorer-detail-content"></div>
+      <div class="detail-view">
+        <button class="detail-back-btn">← Back</button>
+        <div class="detail-content"></div>
       </div>
     </div>
   </template>
 
   <template id="plugs-content">
     <div class="window-content blog-container">
-      <!-- List View -->
-      <div class="blog-list-view">
+      <div class="detail-list-view">
         <p>Things I've written:</p>
         <div class="blog-list"></div>
       </div>
-
-      <!-- Article View (hidden by default, shown via .detail-active class) -->
-      <div class="blog-article-view">
-        <div class="blog-article-header">
-          <button class="blog-back-btn">← Back</button>
-          <h1 class="blog-article-title"></h1>
-          <div class="blog-article-meta">
-            <span class="blog-article-date"></span>
-            <a class="blog-article-source" target="_blank">View original →</a>
+      <div class="detail-view">
+        <div class="detail-header">
+          <button class="detail-back-btn">← Back</button>
+          <h1 class="detail-title"></h1>
+          <div class="detail-meta">
+            <span class="detail-date"></span>
+            <a class="detail-source" target="_blank">View original →</a>
           </div>
         </div>
-        <div class="blog-article-content"></div>
+        <div class="detail-content"></div>
       </div>
     </div>
   </template>

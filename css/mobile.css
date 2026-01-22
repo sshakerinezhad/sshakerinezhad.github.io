@@ -105,11 +105,13 @@
 }
 
 #mobile-nav button {
+  flex: 1 1 0;         /* Equal width - start at 0, grow/shrink equally */
+  min-width: 50px;     /* Reduced from 60px to fit 320px screens */
+  max-width: 80px;     /* Cap width to prevent overly wide tabs */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  min-width: 60px;
   min-height: 48px;
   background: var(--surface);
   border: 2px outset #dfdfdf;

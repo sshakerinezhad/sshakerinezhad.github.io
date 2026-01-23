@@ -18,7 +18,7 @@
     {
       "id": "bardsong",
       "title": "BardSong",
-      "summary": "D&D AI companion tool for DMs and players.",
+      "summary": "A D&D Storytelling Tool.",
       "tags": ["D&D", "AI"],
       "icon": null,
       "contentFile": "data/projects/bardsong.html",
@@ -29,14 +29,15 @@
     },
     {
       "id": "herbalism-tool",
-      "title": "Herbalism Tool",
+      "title": "Knights of Belyar Character Companion",
       "summary": "D&D 5e character tracker for the Elros Player's Guide homebrew.",
       "tags": ["D&D"],
       "icon": null,
       "contentFile": "data/projects/herbalism-tool.html",
       "status": "published",
       "links": [
-        { "label": "GitHub", "url": "https://github.com/sshakerinezhad/herbalism-tool", "external": true }
+        { "label": "GitHub", "url": "https://github.com/sshakerinezhad/herbalism-tool", "external": true },
+        { "label": "Try it out", "url": "https://knightsofbelyar.com", "external": true }
       ]
     },
     {

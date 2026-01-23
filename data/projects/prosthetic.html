@@ -1,3 +1,42 @@
 <div class="project-detail">
-  <p>ML pipeline for transhumeral arm prosthetics. Uses LLM for natural language commands, computer vision for object detection, and inverse kinematics for control. MEng research at UofT.</p>
+  <p>Traditional myoelectric prosthetics require users to learn complex muscle signal patterns for each movement. What if instead, you could just <em>tell</em> your arm what to do? In this project we tried to reimagine the prosthetic limb as an intelligent assistant that understands natural language commands.</p>
+
+  <div style="background: #d8d0c0; border: 2px groove #ffffff; padding: 8px; margin: 12px auto; max-width: 85%; text-align: center;">
+    <img
+      src="images/projects/prosthetic/pipeline.png"
+      alt="ML pipeline architecture showing LLM, computer vision, and control system components"
+      style="max-width: 100%; height: auto; display: block; margin: 0 auto; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+    <div style="margin-top: 8px;">
+      <em style="font-size: 1em; color: #222;">
+        Three-component pipeline: language understanding, visual perception, and motor control
+      </em>
+    </div>
+  </div>
+
+  <p>
+    The interesting part is how these pieces connect. The LLM component receives full visual context from the CV system (what objects are present, where they are, depth information) alongside the users command in natural language. Based on that it reasons about how to accomplish the task.
+  </p>
+
+  <p>
+    From there, it's been prompted to output structured action commands for the control system in the form of target positions and orientations for each joint (kinematic path planning).
+  </p>
+
+  <p>In testing, the system successfully performed tasks like picking up objects, opening doors, and pouring water.</p>
+
+  <p>The exciting thing about this project is that we thought it up without even realizing that we were actually building a very crude version of what VLAs are supposed to be. This approach even enabled more abstract gestures like a "display dissatisfaction" command, the hand figuring out a way to express frustration through gesture.</p>
+
+  <div style="background: #d8d0c0; border: 2px groove #ffffff; padding: 8px; margin: 12px auto; max-width: 70%; text-align: center;">
+    <img 
+      src="images/projects/prosthetic/gesture.png" 
+      alt="display dissatisfaction gesture" 
+      style="max-width: 100%; height: auto; display: block; margin: 0 auto; box-shadow: 0 2px 12px rgba(0,0,0,0.08);">
+    <div style="margin-top: 8px;">
+      <em style="font-size: 1em; color: #222;">
+        Result of the "display dissatisfaction" command in simulation of the hand.
+      </em>
+    </div>
+  </div
+
+
+  <p><em>MEng research project at the University of Toronto (MIE1075).</em></p>
 </div>

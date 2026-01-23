@@ -67,9 +67,10 @@ All window/icon configuration lives in `js/config.js`:
 
 ## Skills
 
-When working on specialized tasks, check `.claude/skills/` for relevant domain expertise based on each skill's triggers:
-- for ui: `.claude/skills/ui-design.md`
-- for new window creation, management, or creation of new window types: `.claude/skills/window-system.md`
+Domain-specific guidance lives in `.claude/skills/`. Each skill file has a `triggers` frontmatter listing when to consult it:
+
+- **ui-design.md** - UI, CSS, styling, layout, responsive design
+- **window-system.md** - Window creation, management, new window types
 
 ## Local Testing
 

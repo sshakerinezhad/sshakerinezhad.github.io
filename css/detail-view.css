@@ -47,13 +47,14 @@
 
 .detail-date { color: #404040; }
 
-.detail-links { display: contents; }
-.detail-links a {
-  font-family: monospace;
-  color: #000080;
-  text-decoration: none;
+.detail-links {
+  display: contents;
 }
-.detail-links a:hover { text-decoration: underline; }
+
+.detail-links a {
+  font-weight: bold;
+  font-size: 14px;
+}
 
 /* Content area */
 .detail-content {

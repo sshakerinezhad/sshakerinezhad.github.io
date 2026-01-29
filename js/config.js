@@ -115,7 +115,7 @@ const CONFIG = {
     github: { url: 'https://github.com/sshakerinezhad', icon: 'fa-brands fa-github', title: 'GitHub' },
     twitter: { url: 'https://twitter.com/TheSigilliteX', icon: 'fa-brands fa-x-twitter', title: 'Twitter' },
     linkedin: { url: 'https://linkedin.com/in/shayan-shakeri-nezhad', icon: 'fa-brands fa-linkedin', title: 'LinkedIn' },
-    email: { url: 'mailto:sshakerinezhad11@gmail.com', icon: 'fa-solid fa-envelope', title: 'Email' }
+    email: { url: 'mailto:shayansnezhad@gmail.com', icon: 'fa-solid fa-envelope', title: 'Email' }
   },
 
   isMobile: () => window.innerWidth <= CONFIG.mobile.breakpoint

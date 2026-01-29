@@ -4,10 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Everything should always be done cleanly, simply, and scalably. no spaghetti code!
 
-Always ask yourself, is this the simplest solution? Will this cause problems down the line? Is this scalable?
+Always ask yourself:
+- is this the simplest solution? If no re-evaluate
+- Will this cause problems down the line? If yes, re-evaluate
+- Is this scalable? If not, re-evalute
 
 Golden Rules
-- THe best solution is the simplest solution.
+- The best solution is the simplest solution.
 - NOTHING should be a bandaid or spaghetti.
 - all code should be industry standard and scalable ALWAYS
 - The WHY is as important as the WHAT. When making decisions and creating/modifying documentation, always include the reasoning behind things.

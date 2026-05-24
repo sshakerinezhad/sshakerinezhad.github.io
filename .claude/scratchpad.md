@@ -1,24 +1,26 @@
 # Session Scratchpad
 
-## Last Session (2026-01-23)
+## Last Session (2026-05-23)
 
-### Completed
-- **Restyled detail view links** in `css/detail-view.css`
-  - Removed overrides (monospace, navy, no-underline) that fought the cascade
-  - Links now inherit from `.window-content a` (blue, underlined, red hover)
-  - Added only `font-weight: bold` and `font-size: 14px` for prominence
-  - Why: Links (navigation) should look distinct from back button (action)
+### What Was Done
+- Removed Contact Me window (config + template deleted)
+- Added Resume window with Experience, Education, Skills sections
+- Created `css/resume.css` with Win95-styled resume layout
+- Added mobile responsive styles (role/date stacking, font scaling)
+- Generated pixel art document icon for desktop
+- PDF download linked to `resume/Tarek_Referal_Resume-1.pdf`
 
-- **Updated CLAUDE.md** - Cleaner skills reference with triggers listed inline
+### Archived
+Previous plan archived to `changelog/2026-05-23-resume-window.md`
 
-### Pending
-- **ui-design.md has corrupted permissions** (WSL filesystem issue)
-  - File shows `???????` permissions in ls
-  - Content with new "Respect the cascade" principle was provided for manual recreation
-  - User needs to delete and recreate the file
+### Key Decisions
+- Single scroll layout (not tabs or explorer view) — resume scans fastest
+- No contact bar under name — redundant with header socials
+- No Research/Projects in resume — covered by their own windows
+- Summary block at top for professional context
+- Navy blue (#000080) section headers matching Win95 title bar
 
-### Key Decision
-Added "Respect the cascade" principle to ui-design.md philosophy:
-> Remove overrides, let elements inherit established styles, only add what makes them distinct
-
-This follows the "simplest solution" philosophy - less CSS that works with the cascade beats more CSS that fights it.
+### Open Items
+- Resume PDF filename is `Tarek_Referal_Resume-1.pdf` — may want to rename
+- Resume content will need periodic updates (user plans to drop new resume + have content updated)
+- Generated icon is functional but user may want custom pixel art

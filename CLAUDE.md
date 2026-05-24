@@ -1,56 +1,52 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# CLAUDE.md
 
-Everything should always be done cleanly, simply, and scalably. no spaghetti code!
+EVERY SINGLE CHANGE MADE SHOULD ASK THE QUESTION: "Is this the simplest solution executed in the most efficient manner, and is this the industry standard for clean scalable code?"
 
-Always ask yourself:
-- is this the simplest solution? If no re-evaluate
-- Will this cause problems down the line? If yes, re-evaluate
-- Is this scalable? If not, re-evalute
+If the answer is no, the change is wrong. No spaghetti code EVER.
 
-Golden Rules
-- The best solution is the simplest solution.
-- NOTHING should be a bandaid or spaghetti.
-- all code should be industry standard and scalable ALWAYS
-- The WHY is as important as the WHAT. When making decisions and creating/modifying documentation, always include the reasoning behind things.
-- when implementing an existing plan, do a second pass and critique it. Does it make sense? is it the best/simplest solution? and what could go wrong?
-- before adding new features or changing existing ones, consider how these changes will interact with the existing system. If it will introduce inefficiencies, scalability issues, or bloat, reassess.
+## Golden Rules
+- Never assume. Read the code, don't guess.
+- Simplest solution wins. If it's a bandaid, re-evaluate.
+- The first solution is rarely the best, be critical and compare every option shrewdly
+- Challenge your own biases, think several layers of abstraction deep
+- The WHY matters as much as the WHAT. Include reasoning in decisions and documentation.
+- Before implementing a plan, critique it. Does it make sense? What could go wrong? What does it interact with?
+- My words are NOT gospel. They are a starting point. Push back.
+- Every change must be verified with irrefutable proof before it is considered done.
+
+## Verification
+Verification with `/verify` is **optional** — only run it when I explicitly ask for it.
+
+When I do request it:
+- Run `/verify` against the workplan to generate tests in `__verify__/`
+- After each change, run its corresponding test. If it fails, fix the implementation, not the test.
+- At each breakpoint, run the checkpoint script. Fix before proceeding.
+
+## Git & Attribution
+- NEVER add "Co-Authored-By" lines, AI attribution, or any indication that code was AI-generated to commits, PRs, comments, or any other git artifacts. Write commits and PRs as a normal human developer would.
+
+## Context Management
+**40%+ context saturation is high — start conserving.** Prefer referencing earlier reads over re-reading files. `offset`/`limit` is only allowed on files already read in full (partial reads without full context lead to bad edits).
+
+## Testing
+- Run tests: `cd functions && python -m pytest tests/ -v --tb=short`
+- `conftest.py` auto-mocks Firestore (`services.db`), Gemini, OpenAI, Groq clients and provides Flask context
+- `firebase-functions` 0.5.0 CORS decorator requires Flask app+request context — the autouse `flask_app_context` fixture handles this
+
+## File Conventions
+- `masterplan.md` — long-range architecture and goals
+- `workplan.md` — current implementation steps
+- `scratchpad.md` — context for session handoffs
+- `notes.md` — raw backlog (bugs, issues, features)
+- `__verify__/` — generated test scripts (do not modify)
+- `changelog/` — archived masterplans
 
 ## Project Overview
 
 Personal portfolio website for Shayan Shakeri. GitHub Pages site with a Windows 95 aesthetic.
 
-## Tech Stack
-
-This is a static GitHub Pages site using plain HTML/CSS/JS with CDN-hosted libraries (98.css, WinBox.js, Font Awesome). No build step — just push and deploy.
-
-## Session Management
-
-- `.claude/masterplan.md` - Long-term multi-step plans spanning multiple sessions
-- `.claude/workplan.md` - Current work section to execute over 1-2 sessions
-- `.claude/scratchpad.md` - Session context to carry forward
-
-Use `/handoff` at the end of a session to capture context for the next session.
-
-## Documenting Changes
-
-When working through OR writing plans, capture context alongside progress:
-- **Why** decisions were made (not just what was done)
-- **Gotchas** encountered and how they were resolved
-- **Bugs** that arose during implementation
-- **Mistakes** made and corrections applied
-
-Update the active workplan.md and scratchpad.md with this context as you work. This ensures reasoning is preserved with the plan, not lost in commit messages.
-
-## Learning from History
-
-Before starting significant work:
-- Check `.claude/changelog/` for relevant past project decisions
-- Use `git log --oneline -20` to see recent changes
-- Use `git log -p <file>` to understand why a specific file evolved
-
-When something seems oddly implemented, assume there was a reason - check history before "fixing" it.
 
 ## Architecture: Single Source of Truth
 
@@ -68,9 +64,11 @@ All window/icon configuration lives in `js/config.js`:
 - `js/config.js` - Add/remove/reorder windows, change icons, sizes
 - `index.html` - Change window content (via `<template>` tags)
 
+**Window-specific CSS:** Windows with unique styling get their own CSS file (e.g., `css/books.css`, `css/resume.css`). Link in `index.html` `<head>`.
+
 ## Skills
 
-Domain-specific guidance lives in `.claude/skills/`. Each skill file has a `triggers` frontmatter listing when to consult it:
+Domain-specific guidance for styling lives in:
 
 - **ui-design.md** - UI, CSS, styling, layout, responsive design
 - **window-system.md** - Window creation, management, new window types

@@ -33,6 +33,28 @@
     display: none !important;
   }
 
+  /* Resume responsive */
+  .resume-name {
+    font-size: 17px;
+  }
+
+  .resume-summary {
+    font-size: 12px;
+  }
+
+  .resume-entry-header {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .resume-entry-date {
+    margin-left: 0;
+  }
+
+  .resume-tag {
+    font-size: 10px;
+  }
+
   /* === TABS MODE === */
   body.mobile-tabs #desktop {
     top: 56px;

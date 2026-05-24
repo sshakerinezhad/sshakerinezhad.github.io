@@ -9,7 +9,7 @@ Read project context and masterplan, identify the next step, critically evaluate
 ### Phase 1: Gather Context
 
 1. Read `.claude/scratchpad.md` for current session context
-2. Read `.claude/workplan.md` for active work items (if exists)
+2. Read `.claude/work-plan.md` for active work items (if exists)
 3. Read `.claude/masterplan.md` to understand:
    - Overall goal and architecture
    - What has been completed

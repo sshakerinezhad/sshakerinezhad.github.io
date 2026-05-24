@@ -16,9 +16,9 @@ Archive the completed masterplan and prepare for a new project.
    - Mistakes made and how to avoid them
    - Architecture decisions and their rationale
 
-5. Draft proposed additions to CLAUDE.md and present them to the user for review. Wait for approval before making any changes.
+5. Draft proposed additions to CLAUDE.md or AGENTS.md and present them to the user for review. Wait for approval before making any changes.
 
-6. After user approval, apply the approved changes to CLAUDE.md
+6. After user approval, apply the approved changes to CLAUDE.md or AGENTS.md
 
 7. Reset masterplan.md to:
    ```

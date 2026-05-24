@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="css/detail-view.css">
   <link rel="stylesheet" href="css/file-explorer.css">
   <link rel="stylesheet" href="css/books.css">
+  <link rel="stylesheet" href="css/resume.css">
 </head>
 <body>
   <!-- Header with name and social links -->
@@ -129,16 +130,110 @@
     </div>
   </template>
 
-  <template id="mail-content">
+  <template id="resume-content">
     <div class="window-content">
-
-      <div class="link-item">
-        <a href="https://twitter.com/TheSigilliteX" target="_blank">Message me on X</a>
+      <div class="resume-header">
+        <div class="resume-name">Shayan Shakeri</div>
+        <a class="resume-download" href="resume/Tarek_Referal_Resume-1.pdf" download>
+          Download Full Resume (PDF)
+        </a>
       </div>
 
-      <div class="link-item">
-        <a href='mailto:shayansnezhad@gmail.com' target="_blank">Send me an email</a>
-        <div class="link-desc">shayansnezhad@gmail.com</div>
+      <div class="resume-summary">
+        M.Eng candidate at University of Toronto, AI Research Engineer at BMO, and co-founder of Merlyn Labs. Researching VLAs, building robots, and designing financial agents.
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Experience</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">AI Research Engineer</span>
+            <span class="resume-entry-date">Sep 2025 – Present</span>
+          </div>
+          <div class="resume-entry-company">Bank of Montreal (BMO) — Toronto</div>
+          <ul>
+            <li>Developed a GenAI tool hosted on AWS Bedrock converting investment reports into wealth management dashboards</li>
+            <li>Designed LLM alignment evaluation for financial outputs; uncovered systematic bias to downplay investment risk</li>
+            <li>Prototyping agent pipelines over Amazon Neptune graph DB for multi-hop relational queries across financial data</li>
+            <li>Conducting R&D on agent architectures across AWS and Copilot Studio for financial advisory and data retrieval</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">Biomedical & Electrical Engineering Co-op</span>
+            <span class="resume-entry-date">May 2021 – Aug 2022</span>
+          </div>
+          <div class="resume-entry-company">Epineuron Technologies — Mississauga</div>
+          <ul>
+            <li>Helped develop PeriPulse, an FDA Breakthrough-designated device now in multi-national clinical trials</li>
+            <li>Designed and assembled PCBs and authored validation protocols (IEC 60601-1, ISO 13485) for clinical test runs</li>
+            <li>Optimized power draw via oscilloscope/power analyzer testing, achieving 900% battery life improvement</li>
+            <li>Modeled electromagnetic field penetration into peripheral nerves in COMSOL; data used to optimize electrode diameter</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Education</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">M.Eng, MIE — AI & Robotics</span>
+            <span class="resume-entry-date">Sep 2024 – Apr 2027</span>
+          </div>
+          <div class="resume-entry-company">University of Toronto</div>
+          <div class="resume-entry-coursework">Deep Learning, Reinforcement Learning, AI Applications in Robotics, Healthcare Robotics</div>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">B.Eng, Engineering Physics Co-op</span>
+            <span class="resume-entry-date">Sep 2018 – Jun 2023</span>
+          </div>
+          <div class="resume-entry-company">McMaster University — Dean's Honour List</div>
+          <div class="resume-entry-coursework">Computational Multiphysics, Quantum Computing, Numerical Methods, Signals & Systems</div>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Skills & Interests</div>
+
+        <div class="resume-skills-row">
+          <span class="resume-skills-label">SFWR & ML:</span>
+          <span class="resume-tag">Python</span>
+          <span class="resume-tag">C/C++</span>
+          <span class="resume-tag">PyTorch</span>
+          <span class="resume-tag">JAX</span>
+          <span class="resume-tag">RL</span>
+          <span class="resume-tag">Deep Learning</span>
+          <span class="resume-tag">LLM Fine-tuning</span>
+        </div>
+
+        <div class="resume-skills-row">
+          <span class="resume-skills-label">Robotics:</span>
+          <span class="resume-tag">VLA Models</span>
+          <span class="resume-tag">OmniGibson</span>
+          <span class="resume-tag">MuJoCo</span>
+          <span class="resume-tag">Flow Matching RL</span>
+          <span class="resume-tag">Sim-to-Real</span>
+          <span class="resume-tag">ROS2</span>
+        </div>
+
+        <div class="resume-skills-row">
+          <span class="resume-skills-label">Hardware:</span>
+          <span class="resume-tag">PCB Design</span>
+          <span class="resume-tag">COMSOL</span>
+          <span class="resume-tag">SolidWorks</span>
+          <span class="resume-tag">Oscilloscopes</span>
+          <span class="resume-tag">3D Printing</span>
+          <span class="resume-tag">Soldering</span>
+        </div>
+
+        <div class="resume-interests">
+          <strong>Interests:</strong> Literature, Dungeons & Dragons, Volleyball, Twilight Imperium, Piano
+        </div>
       </div>
     </div>
   </template>

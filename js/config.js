@@ -79,16 +79,16 @@ const CONFIG = {
       type: 'explorer',
       dataUrl: 'data/books.json'
     },
-    contact: {
-      id: 'contact',
-      title: 'Contact Me',
-      label: 'Contact Me',
-      icon: 'images/icons/mail.png',
-      width: 400,
-      height: 320,
-      x: 200,
-      y: 140,
-      contentId: 'mail-content',
+    resume: {
+      id: 'resume',
+      title: 'Resume',
+      label: 'Resume',
+      icon: 'images/icons/resume.png',
+      width: 600,
+      height: 500,
+      x: 'center',
+      y: 'center',
+      contentId: 'resume-content',
       openOnLoad: false,
       showInUI: true
     },

@@ -1,0 +1,93 @@
+<h2>Resume Window Layout</h2>
+<p class="subtitle">How should the sections be arranged inside the Win95 window?</p>
+
+<div class="cards">
+  <div class="card" data-choice="scrollable" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#c0c0c0;padding:12px;font-family:monospace;font-size:11px;border:2px inset #808080;">
+        <div style="background:#000080;color:white;padding:2px 6px;font-weight:bold;margin-bottom:8px;">Resume.exe</div>
+        <div style="background:white;border:1px solid #808080;padding:8px;">
+          <div style="text-align:center;margin-bottom:8px;">
+            <strong style="font-size:14px;">SHAYAN SHAKERI</strong><br>
+            <span style="font-size:10px;color:#666;">Professional Summary here...</span>
+          </div>
+          <div style="border-bottom:1px solid #c0c0c0;margin:6px 0;"></div>
+          <div style="margin-bottom:6px;">
+            <strong style="font-size:11px;">EXPERIENCE</strong><br>
+            <span style="font-size:10px;">Role @ Company...</span><br>
+            <span style="font-size:10px;">Role @ Company...</span>
+          </div>
+          <div style="border-bottom:1px solid #c0c0c0;margin:6px 0;"></div>
+          <div style="margin-bottom:6px;">
+            <strong style="font-size:11px;">SKILLS</strong><br>
+            <span style="font-size:10px;background:#e0e0e0;padding:1px 4px;margin:1px;">Python</span>
+            <span style="font-size:10px;background:#e0e0e0;padding:1px 4px;margin:1px;">ML</span>
+            <span style="font-size:10px;background:#e0e0e0;padding:1px 4px;margin:1px;">React</span>
+          </div>
+          <div style="border-bottom:1px solid #c0c0c0;margin:6px 0;"></div>
+          <div>
+            <strong style="font-size:11px;">EDUCATION</strong><br>
+            <span style="font-size:10px;">Degree @ University</span>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:8px;">
+          <span style="background:#c0c0c0;border:2px outset #dfdfdf;padding:2px 12px;font-size:10px;">Download PDF</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Single Scroll</h3>
+      <p>All sections stacked vertically in one scrollable view. Summary at top, PDF download at bottom. Clean and simple &mdash; reads like a real resume.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="tabbed" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#c0c0c0;padding:12px;font-family:monospace;font-size:11px;border:2px inset #808080;">
+        <div style="background:#000080;color:white;padding:2px 6px;font-weight:bold;margin-bottom:8px;">Resume.exe</div>
+        <div style="display:flex;gap:0;margin-bottom:0;">
+          <div style="background:#c0c0c0;border:2px outset #dfdfdf;border-bottom:none;padding:2px 8px;font-size:10px;font-weight:bold;">Summary</div>
+          <div style="background:#a0a0a0;border:1px solid #808080;border-bottom:none;padding:2px 8px;font-size:10px;">Experience</div>
+          <div style="background:#a0a0a0;border:1px solid #808080;border-bottom:none;padding:2px 8px;font-size:10px;">Skills</div>
+          <div style="background:#a0a0a0;border:1px solid #808080;border-bottom:none;padding:2px 8px;font-size:10px;">Education</div>
+        </div>
+        <div style="background:white;border:2px inset #808080;padding:8px;min-height:80px;">
+          <strong style="font-size:12px;">Shayan Shakeri</strong><br>
+          <span style="font-size:10px;color:#666;">Professional summary text goes here with key highlights and current focus areas...</span>
+          <div style="margin-top:12px;text-align:center;">
+            <span style="background:#c0c0c0;border:2px outset #dfdfdf;padding:2px 12px;font-size:10px;">Download Full Resume (PDF)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Win95 Tabs</h3>
+      <p>Each section is a tab (like Win95 System Properties). Very authentic Win95 feel. PDF download button on every tab. More interactive but hides content behind clicks.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="explorer" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#c0c0c0;padding:12px;font-family:monospace;font-size:11px;border:2px inset #808080;">
+        <div style="background:#000080;color:white;padding:2px 6px;font-weight:bold;margin-bottom:8px;">Resume.exe</div>
+        <div style="display:flex;gap:0;">
+          <div style="width:35%;background:white;border:2px inset #808080;padding:6px;min-height:100px;">
+            <div style="font-size:10px;padding:2px;background:#000080;color:white;">Summary</div>
+            <div style="font-size:10px;padding:2px;">Experience</div>
+            <div style="font-size:10px;padding:2px;">Skills</div>
+            <div style="font-size:10px;padding:2px;">Education</div>
+            <div style="font-size:10px;padding:2px;margin-top:8px;border-top:1px solid #c0c0c0;padding-top:4px;">Download PDF</div>
+          </div>
+          <div style="width:65%;background:white;border:2px inset #808080;padding:6px;margin-left:4px;">
+            <strong style="font-size:12px;">Shayan Shakeri</strong><br>
+            <span style="font-size:10px;color:#666;">Professional summary with highlights...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Explorer View</h3>
+      <p>Sidebar navigation + detail pane &mdash; matches Projects and Library windows. Consistent UX across the site. Each section is a "folder" in the sidebar.</p>
+    </div>
+  </div>
+</div>

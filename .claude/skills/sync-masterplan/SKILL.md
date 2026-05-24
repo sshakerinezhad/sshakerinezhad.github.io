@@ -4,7 +4,7 @@ Update the masterplan with accomplishments from this session, run the handoff co
 
 ## Instructions
 
-1. Read `.claude/masterplan.md`, `.claude/workplan.md`, and `.claude/scratchpad.md`
+1. Read `.claude/masterplan.md`, `.claude/work-plan.md`, and `.claude/scratchpad.md`
 
 2. Identify what was accomplished this session:
    - Completed items from workplan
@@ -46,5 +46,3 @@ Update the masterplan with accomplishments from this session, run the handoff co
 8. Run the /handoff command.
 
 9. Determine and present the user with a breif commit message if they decide to commit and push these changes. it should fit in one line and be natural sounding.
-
-

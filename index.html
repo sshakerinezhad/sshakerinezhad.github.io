@@ -133,13 +133,13 @@
     <div class="window-content">
       <div class="resume-header">
         <div class="resume-name">Shayan Shakeri</div>
-        <a class="resume-download" href="resume/Tarek_Referal_Resume-1.pdf" download>
+        <a class="resume-download" href="resume/shayan_shakeri_resume.pdf" download>
           Download Full Resume (PDF)
         </a>
       </div>
 
       <div class="resume-summary">
-        M.Eng candidate at University of Toronto, AI Research Engineer at BMO, and co-founder of Merlyn Labs. Researching VLAs, building robots, and designing financial agents.
+        Co-founder of Merlyn Labs, AI Research Engineer at BMO, and M.Eng candidate at University of Toronto. Researching VLAs, building robots, and designing financial agents.
       </div>
 
       <div class="resume-section">
@@ -147,15 +147,30 @@
 
         <div class="resume-entry">
           <div class="resume-entry-header">
-            <span class="resume-entry-title">AI Research Engineer</span>
-            <span class="resume-entry-date">Sep 2025 – Present</span>
+            <span class="resume-entry-title">AI Researcher & Co-Founder</span>
+            <span class="resume-entry-date">Aug 2025 – Present</span>
           </div>
-          <div class="resume-entry-company">Bank of Montreal (BMO) — Toronto</div>
+          <div class="resume-entry-company">Merlyn Labs — Toronto</div>
           <ul>
-            <li>Developed a GenAI tool hosted on AWS Bedrock converting investment reports into wealth management dashboards</li>
-            <li>Designed LLM alignment evaluation for financial outputs; uncovered systematic bias to downplay investment risk</li>
-            <li>Prototyping agent pipelines over Amazon Neptune graph DB for multi-hop relational queries across financial data</li>
-            <li>Conducting R&D on agent architectures across AWS and Copilot Studio for financial advisory and data retrieval</li>
+            <li>Showed π0.5 generalization failures on LIBERO-PRO are recipe-induced and solvable; paper under review at CoRL 2026</li>
+            <li>Conservative finetuning doubled position-swap success (21% → 42%), showing spatial generalization over memorization</li>
+            <li>Developing VLM judges that score rollouts into dense, context-dependent RL rewards that are difficult to game</li>
+            <li>Open-sourced flow-matching VLA integration for RLinf, enabling RL training on the BEHAVIOR-1K suite in OmniGibson</li>
+            <li>Running sim-to-real transfer of household tasks on hand-built AlohaMini embodiment</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">AI Research Engineer</span>
+            <span class="resume-entry-date">Sep 2024 – Present</span>
+          </div>
+          <div class="resume-entry-company">BMO AI Centre of Excellence — Toronto</div>
+          <ul>
+            <li>Uncovered systematic bias to downplay investment risk in a GenAI tool serving $200B+ AUM wealth management</li>
+            <li>Built a deterministic agent eval pipeline using hundreds of synthesized inputs to detect misaligned outputs at scale</li>
+            <li>Building a graph-based agentic system answering complex multi-hop relational queries across bank client data</li>
+            <li>Leading repair and programming of BMO's physical robot platform</li>
           </ul>
         </div>
 
@@ -170,6 +185,56 @@
             <li>Designed and assembled PCBs and authored validation protocols (IEC 60601-1, ISO 13485) for clinical test runs</li>
             <li>Optimized power draw via oscilloscope/power analyzer testing, achieving 900% battery life improvement</li>
             <li>Modeled electromagnetic field penetration into peripheral nerves in COMSOL; data used to optimize electrode diameter</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Research & Projects</div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">Stanford BEHAVIOR-1K Challenge — 8th Place, Standard Track</span>
+            <span class="resume-entry-date">Sep 2025 – Nov 2025</span>
+          </div>
+          <ul>
+            <li>Identified proprioceptive collapse as critical VLA failure mode; 60% masking improved task success by up to 48%</li>
+            <li>Found chunked execution outperformed temporal ensembling by 3x, revealing VLA architectures lack temporal awareness</li>
+            <li>Doubled manipulation success on long-tail subtasks by oversampling skill transitions via boundary resampling</li>
+            <li>Trained on 10,000+ demonstrations across 22 tasks; published a technical report and further analysis on LessWrong</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">BardSong, AI-Powered D&D Storytelling Tool</span>
+            <span class="resume-entry-date">Jun 2025 – Present</span>
+          </div>
+          <ul>
+            <li>Built end-to-end pipeline: Groq speech-to-text → Gemini scene extraction → image generation → narrated video</li>
+            <li>Fine-tuned LLM on D&D sourcebooks for improved narrative coherence; currently in closed alpha with 23 DMs</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">Voice-Controlled Robotic Prosthetic</span>
+            <span class="resume-entry-date">Sep 2024 – Mar 2025</span>
+          </div>
+          <div class="resume-entry-company">University of Toronto</div>
+          <ul>
+            <li>Developed LLM-based control pipeline converting natural language to manipulation sequences for 7-DOF simulated arm</li>
+            <li>Integrated YOLO object detection with LiDAR depth mapping for 3D localization and grasp planning</li>
+          </ul>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <span class="resume-entry-title">VP Technical, McMaster Medical Design Team</span>
+            <span class="resume-entry-date">Apr 2018 – Apr 2023</span>
+          </div>
+          <ul>
+            <li>Led development of open-source motorized prosthetic for lower-arm amputees that anyone could assemble for &lt;$300</li>
           </ul>
         </div>
       </div>
@@ -200,34 +265,28 @@
         <div class="resume-section-title">Skills & Interests</div>
 
         <div class="resume-skills-row">
-          <span class="resume-skills-label">SFWR & ML:</span>
+          <span class="resume-skills-label">ML & AI:</span>
           <span class="resume-tag">Python</span>
           <span class="resume-tag">C/C++</span>
           <span class="resume-tag">PyTorch</span>
           <span class="resume-tag">JAX</span>
           <span class="resume-tag">RL</span>
-          <span class="resume-tag">Deep Learning</span>
+          <span class="resume-tag">Imitation Learning</span>
           <span class="resume-tag">LLM Fine-tuning</span>
+          <span class="resume-tag">Alignment Evaluation</span>
+          <span class="resume-tag">Agents</span>
         </div>
 
         <div class="resume-skills-row">
-          <span class="resume-skills-label">Robotics:</span>
+          <span class="resume-skills-label">Robotics & Hardware:</span>
           <span class="resume-tag">VLA Models</span>
           <span class="resume-tag">OmniGibson</span>
           <span class="resume-tag">MuJoCo</span>
-          <span class="resume-tag">Flow Matching RL</span>
-          <span class="resume-tag">Sim-to-Real</span>
+          <span class="resume-tag">Flow Matching</span>
+          <span class="resume-tag">Sim2Real</span>
           <span class="resume-tag">ROS2</span>
-        </div>
-
-        <div class="resume-skills-row">
-          <span class="resume-skills-label">Hardware:</span>
           <span class="resume-tag">PCB Design</span>
-          <span class="resume-tag">COMSOL</span>
-          <span class="resume-tag">SolidWorks</span>
-          <span class="resume-tag">Oscilloscopes</span>
           <span class="resume-tag">3D Printing</span>
-          <span class="resume-tag">Soldering</span>
         </div>
 
         <div class="resume-interests">

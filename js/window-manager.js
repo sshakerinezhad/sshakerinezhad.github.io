@@ -193,12 +193,13 @@ class WindowManager {
 
     const modules = {
       blog: typeof Blog !== 'undefined' ? Blog : null,
-      explorer: typeof FileExplorer !== 'undefined' ? FileExplorer : null
+      explorer: typeof FileExplorer !== 'undefined' ? FileExplorer : null,
+      doom: typeof Doom !== 'undefined' ? Doom : null
     };
 
     const module = modules[type];
     if (module && typeof module.init === 'function') {
-      module.init(container, config);
+      module.init(container, config, this);
     }
   }
 }

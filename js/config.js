@@ -92,6 +92,20 @@ const CONFIG = {
       openOnLoad: false,
       showInUI: true
     },
+    doom: {
+      id: 'doom',
+      title: 'DOOM.exe',
+      label: 'DOOM.exe',
+      icon: 'images/icons/doom.png',
+      width: 680,
+      height: 520,
+      x: 'center',
+      y: 'center',
+      contentId: 'doom-content',
+      openOnLoad: false,
+      showInUI: true,
+      type: 'doom'
+    },
     dnd: {
       id: 'Secret Room',
       title: 'Secret Room',

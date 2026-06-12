@@ -23,8 +23,32 @@
   <link rel="stylesheet" href="css/books.css">
   <link rel="stylesheet" href="css/resume.css">
   <link rel="stylesheet" href="css/doom.css">
+  <link rel="stylesheet" href="css/boot.css">
+  <!-- Skip boot screen on repeat loads within the same session (prevents black flash) -->
+  <script>
+    try { if (sessionStorage.getItem('booted') === '1') document.documentElement.classList.add('no-boot'); } catch (e) {}
+  </script>
 </head>
 <body>
+  <!-- Boot sequence overlay (removed by js/boot.js when done) -->
+  <div id="boot-screen" aria-hidden="true">
+    <div class="boot-bios">
+      <div class="boot-line">Shayan BIOS v4.0, An Energy Star Ally</div>
+      <div class="boot-line">Copyright (C) 1995 Merlyn Labs</div>
+      <div class="boot-line">&nbsp;</div>
+      <div class="boot-line">Memory Test :  65536K OK</div>
+      <div class="boot-line">&nbsp;</div>
+      <div class="boot-line">Detecting IDE drives ... OK</div>
+      <div class="boot-line">Detecting robots ....... OK</div>
+      <div class="boot-line">Loading SHAYAN95 ...</div>
+    </div>
+    <div class="boot-splash">
+      <div class="splash-logo">Shayan<span>95</span></div>
+      <div class="splash-tagline">Engineer &middot; AI Researcher &middot; Robot Wrangler</div>
+      <div class="splash-bar"></div>
+    </div>
+  </div>
+
   <!-- Header with name and social links -->
   <header id="header">
     <div class="header-name">Shayan Shakeri</div>
@@ -290,6 +314,7 @@
   <script src="https://unpkg.com/winbox/dist/winbox.bundle.min.js"></script>
 
   <!-- Our scripts (order matters) -->
+  <script src="js/boot.js"></script>
   <script src="js/config.js"></script>
   <script src="js/window-manager.js"></script>
   <script src="js/taskbar.js"></script>

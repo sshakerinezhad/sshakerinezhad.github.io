@@ -32,7 +32,7 @@ class MobileNav {
     nav.innerHTML = '';
 
     Object.entries(CONFIG.windows).forEach(([id, config]) => {
-      if (!config.showInUI) return;
+      if (!config.showInUI || config.hideOnMobile) return;
 
       const btn = document.createElement('button');
       btn.dataset.window = id;
@@ -101,7 +101,7 @@ class MobileNav {
 
     // Render all visible windows as cards
     const windowIds = Object.keys(CONFIG.windows).filter(id =>
-      CONFIG.windows[id].showInUI
+      CONFIG.windows[id].showInUI && !CONFIG.windows[id].hideOnMobile
     );
 
     windowIds.forEach(id => {

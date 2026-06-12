@@ -104,6 +104,7 @@ const CONFIG = {
       contentId: 'doom-content',
       openOnLoad: false,
       showInUI: true,
+      hideOnMobile: true,  // emulator too heavy / unplayable on phones
       type: 'doom'
     },
     dnd: {

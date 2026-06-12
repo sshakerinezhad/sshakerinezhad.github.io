@@ -1,26 +1,28 @@
 # Session Scratchpad
 
-## Last Session (2026-05-23)
+## Last Session (2026-06-12)
 
 ### What Was Done
-- Removed Contact Me window (config + template deleted)
-- Added Resume window with Experience, Education, Skills sections
-- Created `css/resume.css` with Win95-styled resume layout
-- Added mobile responsive styles (role/date stacking, font scaling)
-- Generated pixel art document icon for desktop
-- PDF download linked to `resume/Tarek_Referal_Resume-1.pdf`
+- Built Win95 boot sequence: BIOS POST screen (~2s) → splash with cycling gradient bar (~2.5s) → desktop
+- New files: `js/boot.js` (self-contained IIFE), `css/boot.css`; static `#boot-screen` overlay in `index.html`
+- Plays once per session (sessionStorage), skippable (click/key/touch), skipped under prefers-reduced-motion
+- Inline `<head>` script adds `no-boot` class on repeat loads — prevents black flash
+- Verified with headless Chrome screenshots (recipe added to CLAUDE.md)
+- Rebased onto remote main (6 commits arrived mid-session: resume PDF/window updates, about-section PRs #3–#6), pushed, Pages deploy confirmed success, live site verified
+
+- Hid DOOM on mobile: new `hideOnMobile` window flag (config.js) + filters in mobile-nav.js (tabs + scroll modes)
 
 ### Archived
-Previous plan archived to `changelog/2026-05-23-resume-window.md`
+Archived previous plan to `changelog/2026-06-12-boot-sequence.md` (includes DOOM-mobile addendum)
 
 ### Key Decisions
-- Single scroll layout (not tabs or explorer view) — resume scans fastest
-- No contact bar under name — redundant with header socials
-- No Research/Projects in resume — covered by their own windows
-- Summary block at top for professional context
-- Navy blue (#000080) section headers matching Win95 title bar
+- Boot is fully orthogonal to window system — no edits to config.js/app.js/managers
+- CSS nth-child animation-delays for BIOS line stagger, not JS typing loop
+- Once per session (not every load, not once ever) — delight vs annoyance balance
 
 ### Open Items
-- Resume PDF filename is `Tarek_Referal_Resume-1.pdf` — may want to rename
-- Resume content will need periodic updates (user plans to drop new resume + have content updated)
-- Generated icon is functional but user may want custom pixel art
+- `images/icons/n64.png` untracked — N64 emulator window planned? Needs config entry + emulator core + homebrew ROM
+- README.md test-server note uncommitted
+- Sound system still stubbed: toggle UI works, `sounds/startup.mp3` / `sounds/reveal.mp3` missing
+- Remote branches `claude/resume-button-profile-window-t8ufde`, `claude/update-peripulse-link-aZ47P` — no open PRs, possibly stale
+- Future Win95 flavor candidates: screensaver (idle), BSOD easter egg

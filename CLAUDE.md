@@ -76,3 +76,15 @@ Domain-specific guidance for styling lives in:
 ## Local Testing
 
 Use Live Server extension or `python -m http.server` — `fetch()` doesn't work with `file://`. Disable cache in DevTools if changes don't appear.
+
+**Visual verification via headless Chrome screenshots:**
+
+```
+"C:/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --disable-gpu \
+  --window-size=1280,800 --screenshot=<ABSOLUTE-WINDOWS-PATH>.png \
+  --virtual-time-budget=<ms> http://localhost:<port>/
+```
+
+- Screenshot path MUST be absolute Windows path — relative paths fail with "Access is denied"
+- `--virtual-time-budget` fast-forwards timers/animations to capture a moment mid-animation, but overshoots slightly — pick budgets well inside the target window (e.g. 600ms to catch a phase that ends at 2000ms)
+- Each invocation gets a fresh profile — sessionStorage/localStorage state does not persist between runs

@@ -62,22 +62,44 @@ class WindowManager {
     const template = document.getElementById(config.contentId);
     const content = template ? template.content.cloneNode(true) : null;
 
-    // Mobile sizing
-    const mobileWidth = Math.min(400, window.innerWidth - 16);
-    const mobileHeight = Math.min(500, window.innerHeight - 130);
+    // Desktop area bounds: header above, taskbar/nav below
+    const topBound = isMobile ? 64 : 40;
+    const bottomBound = isMobile ? 68 : 36;
+    const margin = 8;
+    const availW = window.innerWidth;
+    const availH = window.innerHeight - topBound - bottomBound;
+
+    // Clamp size to the desktop area so no window can ever extend past it
+    const width = Math.min(isMobile ? 400 : config.width, availW - margin * 2);
+    const height = Math.min(isMobile ? 500 : config.height, availH - margin * 2);
+
+    // Resolve position ourselves: WinBox's 'center' ignores the top/bottom
+    // reserves (windows land under the header on short screens), and numeric
+    // coords are never bounds-checked.
+    const clamp = (v, min, max) => Math.max(min, Math.min(v, max));
+    const wantsCenterX = isMobile || config.x === 'center';
+    const wantsCenterY = isMobile || config.y === 'center';
+    const x = clamp(
+      wantsCenterX ? (availW - width) / 2 : config.x,
+      margin, Math.max(margin, availW - width - margin)
+    );
+    const y = clamp(
+      wantsCenterY ? topBound + (availH - height) / 2 : config.y,
+      topBound, Math.max(topBound, topBound + availH - height)
+    );
 
     const winbox = new WinBox(config.title, {
-      width: isMobile ? mobileWidth : config.width,
-      height: isMobile ? mobileHeight : config.height,
-      x: isMobile ? 'center' : config.x,
-      y: isMobile ? 'center' : config.y,
+      width,
+      height,
+      x,
+      y,
       class: isMobile
         ? ['win95-window', 'no-full', 'no-move', 'no-resize']
         : ['win95-window', 'no-full'],
 
-      // Constrain windows to desktop area
-      top: isMobile ? 64 : 40,      // Below header (56px on mobile, 40px on desktop)
-      bottom: isMobile ? 68 : 36,   // Above taskbar/nav (60px on mobile, 36px on desktop)
+      // Constrain dragging/resizing to desktop area
+      top: topBound,
+      bottom: bottomBound,
 
       onclose: () => {
         this.windows.delete(id);

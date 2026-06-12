@@ -3,8 +3,11 @@
   position: absolute;
   top: 8px;
   left: 8px;
+  bottom: 8px; /* bound to desktop area so the column can't run off screen */
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap; /* Win95 behavior: overflow flows into a new column */
+  align-content: flex-start;
   gap: 20px;
   z-index: 1;
 }

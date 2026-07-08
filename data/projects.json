@@ -16,6 +16,18 @@
       ]
     },
     {
+      "id": "pi05-behavior-rlinf",
+      "title": "RL on π0.5 in BEHAVIOR-1K",
+      "summary": "We took the π0.5 policy from our BEHAVIOR-1K challenge run and wired it into RLinf to fine-tune it with RL in simulation. Most of the work: getting a flow-matching model to produce PPO-usable log probs, four sneaky integration bugs, and a reward function that knows where a radio's toggle button is.",
+      "tags": ["Robotics", "AI & ML"],
+      "icon": null,
+      "contentFile": "data/projects/pi05-behavior-rlinf.html",
+      "status": "published",
+      "links": [
+        { "label": "RLinf", "url": "https://github.com/RLinf/RLinf", "external": true }
+      ]
+    },
+    {
       "id": "bardsong",
       "title": "BardSong",
       "summary": "A D&D Storytelling Tool.",

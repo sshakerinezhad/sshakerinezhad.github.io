@@ -1,0 +1,45 @@
+<div class="project-detail">
+  <p>
+    Some context: our lab (Merlyn Labs, six of us at U of T) placed 8th in Stanford's BEHAVIOR-1K challenge, up against established groups with real funding. That run left us with a π0.5 policy (a flow-matching vision-language-action model) that could do household tasks in simulation from imitation alone. Imitation has a ceiling though: the policy copies demos, and when it drifts somewhere the demos never went, it's lost. We wanted it to learn from its own attempts. That's RL, and it meant getting π0.5 running inside an RL training framework.
+  </p>
+
+  <h2>Getting it running</h2>
+  <p>
+    We built on RLinf, an open-source framework for post-training foundation models with RL. It supports π0-style models and has BEHAVIOR-1K support; the combination with our checkpoint did not work out of the box. At all.
+  </p>
+  <p>
+    First problem was the environment itself. Isaac Sim, OmniGibson, openpi, and RLinf each have opinions about Python versions and CUDA, and none of them agree; there's a commit in our fork named "dependency hell lmao," which I stand by. Then the checkpoint had to be converted from JAX to safetensors so RLinf's training stack could load it.
+  </p>
+  <p>
+    Then the interesting problem. Same weights, same preprocessing (in theory), and the robot that behaved fine in standalone openpi turned into an idiot inside RLinf: wrong place, wrong movements. So we wrote a script that fed identical observations through both pipelines and compared the sampled actions, then went hunting for where they diverged. The answer was four separate bugs: the camera aperture was wrong, the image dimensions were off, a clipping op was silently cutting off action dimensions, and denoising was hardcoded to 5 steps instead of 10. Each one alone was survivable; together they made the model look broken when the model was fine.
+  </p>
+
+  <div class="video-single">
+    <video autoplay loop muted playsinline>
+      <source src="videos/pi05-rlinf/rollout-radio.mp4" type="video/mp4">
+    </video>
+  </div>
+  <p><em>A semi-competent grab, seen from the robot's own cameras (head plus both wrists). No HUD on this one: it's inference; the HUD below is a training visualization.</em></p>
+
+  <h2>The RL part</h2>
+  <p>
+    RL on a flow-matching policy has a wrinkle worth explaining. PPO needs the log probability of each action, and a normal Gaussian policy gives you that directly. π0.5 doesn't: it starts from noise and denoises its way to an action over several steps, so there's no clean "probability of this action." The workaround: keep the whole denoising chain, treat each denoising step as a Gaussian transition, and sum the per-step log probs into a path probability. Same idea diffusion-RL methods use. RLinf had the machinery for this; our job was making sure it produced the same actions as the reference implementation before trusting any gradient that came out of it.
+  </p>
+  <img src="images/projects/pi05-rlinf/pipeline.svg" alt="Pipeline: OmniGibson sends images and proprioception to the pi0.5 policy, which denoises to an action; rewards and per-step log probs fill a rollout buffer that feeds PPO updates back into the policy.">
+
+  <h2>Reward shaping</h2>
+  <p>
+    A sparse success reward gets you nowhere on a 500-step household task: the robot never succeeds by accident, so there's nothing to learn from. We went dense. The task is turning on a radio, and the reward has three tanh-shaped terms: gripper distance to the radio's toggle button, base distance to the radio on the ground plane (it's a mobile robot; it has to drive there before it can reach anything), and a small per-step time penalty so idling costs something.
+  </p>
+  <img src="images/projects/pi05-rlinf/reward-terms.png" alt="Reward terms over distance: gripper term 0.5(1 - tanh 2d), base term 0.2(1 - tanh d), and their sum, each decaying smoothly to zero by about 3 meters.">
+  <p>
+    The toggle button part mattered more than expected. The first version aimed the gripper at the radio's origin, which is the bottom of the mesh, so the reward was pulling the hand toward the floor. We checked the asset metadata: the button sits about 12cm up, and that's where the reward points now. We also built a HUD into the rollout videos (live reward, cumulative return, distances, per-body-part actions) because staring at reward numbers in a terminal is a bad way to debug a robot.
+  </p>
+  <img src="images/projects/pi05-rlinf/hud-frame.png" alt="A training rollout frame with the HUD overlay: reward, cumulative return, gripper and base distances, and per-body-part action values, with the robot standing near the radio.">
+  <p style="text-align: center;"><em>A training rollout with the HUD: reward, return, distances to the radio, and what every body part is doing.</em></p>
+
+  <h2>Where it stands</h2>
+  <p>
+    Ongoing. The pipeline works: rollouts stream from OmniGibson, log probs come off the denoising chain, PPO updates run. The iteration now is all reward design, which is what anyone who's done robot RL would predict: the reward function is the real research problem. I'll update this when there are training curves worth showing.
+  </p>
+</div>

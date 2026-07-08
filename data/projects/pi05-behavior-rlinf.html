@@ -8,7 +8,7 @@
   </p>
 
   <p>
-    First problem was the environment itself. Isaac Sim, OmniGibson, openpi, and RLinf each have opinions about Python versions and CUDA, and none of them agree; there's a commit in our fork named "dependency hell lmao," which I stand by. Then the checkpoint had to be converted from JAX to safetensors so RLinf's training stack could load it.
+    First problem was the environment itself. Isaac Sim, OmniGibson, openpi, and RLinf all want different Python and CUDA versions; at some point a commit named "dependency hell lmao" made it into our fork. Then the checkpoint had to be converted from JAX to safetensors so RLinf's training stack could load it.
   </p>
 
   <p>
@@ -76,6 +76,6 @@
   </div>
 
   <p>
-    Ongoing. The pipeline works: rollouts stream from OmniGibson, log probs come off the denoising chain, PPO updates run. The iteration now is all reward design, which is what anyone who's done robot RL would predict: the reward function is the real research problem. I'll update this when there are training curves worth showing.
+    Ongoing. The pipeline works: rollouts stream from OmniGibson, log probs come off the denoising chain, PPO updates run. The iteration now is all reward design, which is what anyone who's done robot RL would predict: the reward function is the real research problem.
   </p>
 </div>

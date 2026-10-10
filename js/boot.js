@@ -6,8 +6,7 @@
 (function() {
   'use strict';
 
-  const BIOS_MS = 2000;
-  const SPLASH_MS = 2500;
+  const BIOS_MS = 2500;
   const FADE_MS = 300;
 
   const screen = document.getElementById('boot-screen');
@@ -44,6 +43,5 @@
     window.addEventListener(evt, finish, { once: true, passive: true });
   });
 
-  timers.push(setTimeout(() => screen.classList.add('splash-active'), BIOS_MS));
-  timers.push(setTimeout(finish, BIOS_MS + SPLASH_MS));
+  timers.push(setTimeout(finish, BIOS_MS));
 })();

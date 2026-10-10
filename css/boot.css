@@ -1,4 +1,4 @@
-/* Boot sequence overlay - BIOS POST screen then Win95-style splash */
+/* Boot sequence overlay - BIOS POST screen */
 
 #boot-screen {
   position: fixed;
@@ -23,8 +23,6 @@
   opacity: 0;
   pointer-events: none;
 }
-
-/* --- Phase 1: BIOS --- */
 
 .boot-bios {
   padding: clamp(12px, 4vw, 32px);
@@ -51,66 +49,4 @@
 
 @keyframes boot-line-in {
   to { opacity: 1; }
-}
-
-/* --- Phase 2: Splash --- */
-
-.boot-splash {
-  display: none;
-  position: absolute;
-  inset: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-#boot-screen.splash-active .boot-bios {
-  display: none;
-}
-
-#boot-screen.splash-active .boot-splash {
-  display: flex;
-}
-
-.splash-logo {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(2.5rem, 9vw, 5rem);
-  font-weight: bold;
-  color: #fff;
-  letter-spacing: -0.02em;
-}
-
-.splash-logo span {
-  color: #008080;
-  font-style: italic;
-  margin-left: 0.1em;
-}
-
-.splash-tagline {
-  margin-top: 12px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(0.8rem, 2.5vw, 1.1rem);
-  color: #c0c0c0;
-}
-
-/* Classic cycling gradient bar */
-.splash-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 16px;
-  border-top: 2px solid #222;
-  background-color: #000;
-  background-image: linear-gradient(90deg,
-    transparent 0%, #0000a8 35%, #4aa8ff 50%, #0000a8 65%, transparent 100%);
-  background-size: 50% 100%;
-  background-repeat: no-repeat;
-  animation: boot-bar 1.6s linear infinite;
-}
-
-@keyframes boot-bar {
-  from { background-position-x: -100%; }
-  to { background-position-x: 200%; }
 }

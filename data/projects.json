@@ -28,6 +28,18 @@
       ]
     },
     {
+      "id": "catan-agents",
+      "title": "Catan Agent Environment",
+      "summary": "An environment for training and evaluating LLM agents playing Settlers of Catan, built at Merlyn Labs.",
+      "tags": ["AI & ML"],
+      "icon": null,
+      "contentFile": "data/projects/catan-agents.html",
+      "status": "published",
+      "links": [
+        { "label": "Merlyn Labs", "url": "https://merlyn-labs.com", "external": true }
+      ]
+    },
+    {
       "id": "bardsong",
       "title": "BardSong",
       "summary": "A D&D Storytelling Tool.",

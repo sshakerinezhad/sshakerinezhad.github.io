@@ -1,0 +1,21 @@
+<div class="project-detail">
+  <p>
+    At Merlyn Labs we've been building an environment to train and evaluate LLM agents playing Settlers of Catan, with an expanded negotiation space. The interesting bit is taking a large action space and introducing multi-agent negotiation. Then seeing whether an agent can hold a long term strategy across a whole game, and when it reaches for deception, blackmail, or betrayal to get there.
+  </p>
+
+  <p>
+    We started out with Catanatron, an open source Catan engine that comes with its own bots, figuring we could use them as opponents and as a baseline. The problem was that the bots score their future moves using hidden state, so every one of them was cheating. That's not ideal for a baseline, so we ended up writing a new engine from scratch.
+  </p>
+
+  <p>
+    The way it works now is pretty simple. Each agent sees the full transcript of the game so far, and on its turn it either picks one of the legal actions or negotiates with another bot. Every action gets saved along with the model's reasoning, so you can go back through a game afterwards and see what each bot was thinking.
+  </p>
+
+  <p>
+    As of now the games run, but we don't have any real numbers yet. A full game of LLMs talking to each other burns through a lot of tokens, so compute is the bottleneck. The plan from here is a leaderboard across models, and then post-training on the best performing bots.
+  </p>
+
+  <p>
+    Twilight Imperium is the next one. The tooling for it is coming along in parallel, but it's a much harder game to build for (the rulebook alone is 50 pages).
+  </p>
+</div>
